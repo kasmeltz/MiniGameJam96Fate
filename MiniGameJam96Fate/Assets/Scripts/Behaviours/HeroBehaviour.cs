@@ -35,6 +35,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected int WallBreaksAvailable { get; set; }
 
+        protected bool IsDead { get; set; }
+
         #endregion
 
         #region Protected Methods
@@ -156,17 +158,21 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (reaper != null)
             {
-                // TODO - DIE!
+                IsDead = true;
+
                 DiePanel
                     .gameObject
                     .SetActive(true);
-
-                MegaDestroy(this.gameObject);
             }
         }
 
         protected void Update()
         {
+            if (IsDead)
+            {
+                return;
+            }
+
             if (WallSmashPower < 1)
             {
                 WallSmashPower += Time.deltaTime * WallSmashRecovery;
@@ -231,6 +237,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             base
                 .Awake();
 
+            IsDead = false;
             WallBreaksAvailable = StartingWalkBreaks;
             UpdateWallBreakText();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();

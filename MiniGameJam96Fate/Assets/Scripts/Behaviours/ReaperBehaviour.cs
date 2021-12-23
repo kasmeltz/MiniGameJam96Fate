@@ -37,25 +37,30 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             int x = 0;
             int y = 0;
 
-            if (Hero.transform.position.x > transform.position.x)
+            float dx = Hero.transform.position.x - transform.position.x;
+            float dy = Hero.transform.position.y - transform.position.y;
+
+
+            if (dx > 0.08f)
             {
                 x = 1;
             }
-            else if (Hero.transform.position.x < transform.position.x)
+            else if (dx < -0.08f)
             {
                 x = -1;
             }
-
-            if (Hero.transform.position.y > transform.position.y)
+            
+            if (dy > 0.08f)
             {
                 y = 1;
             }
-            else if (Hero.transform.position.y < transform.position.y)
+            else if (dy < -0.08f)
             {
                 y = -1;
             }
 
             SetDirection(x, y);
+
             var newPos = transform.position + new Vector3(x * MovementStep, y * MovementStep, 0);
             transform.position = newPos;
         }
