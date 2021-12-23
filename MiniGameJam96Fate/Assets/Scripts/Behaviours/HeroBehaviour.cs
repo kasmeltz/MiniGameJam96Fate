@@ -66,21 +66,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             Vector3Int cellPosition = Vector3Int.zero;
             TileBase tile = null;
 
-            /*
-            var cellPosition = DungeonBehaviour
-                .Walls
-                .WorldToCell(transform.position);
-
-            var tile = DungeonBehaviour
-                .Walls
-                .GetTile(cellPosition);
-
-            if (tile != null)
-            {
-                canMove = true;
-            }
-            */
-
             var newPos = transform.position + new Vector3(x * MovementStep, y * MovementStep, 0);
 
             cellPosition = DungeonBehaviour
