@@ -144,6 +144,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 // TODO- FREEZE THE REAPER!
                 MegaDestroy(orb.gameObject);
             }
+
+            var reaper = collision
+                .GetComponent<ReaperBehaviour>();
+
+            if (reaper != null)
+            {
+                // TODO - DIE!
+                MegaDestroy(this.gameObject);
+            }
         }
 
         protected void Update()
