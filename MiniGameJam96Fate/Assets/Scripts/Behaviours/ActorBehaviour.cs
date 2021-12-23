@@ -31,8 +31,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         #region Unity
 
-        protected void Awake()
+        protected override void Awake()
         {
+            base
+                .Awake();
+
             Animator = GetComponent<Animator>();
                 
             SetDirection(0, -1);
