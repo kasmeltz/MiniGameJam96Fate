@@ -32,6 +32,27 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         #region Protected Methods
 
+        protected void Reset()
+        {
+            System.Random rnd = new System.Random();
+            int x = rnd.Next(10, 20);
+            int y = rnd.Next(10, 20);
+
+            int dx = rnd.Next(0, 2);
+            if (dx == 1)
+            {
+                x *= -1;
+            }
+
+            int dy = rnd.Next(0, 2);
+            if (dy == 1)
+            {
+                y *= -1;
+            }
+
+            transform.position = new Vector3(x * MovementStep, y * MovementStep, 0);
+        }
+
         protected void Move()
         {
             int x = 0;
@@ -104,6 +125,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Awake();
 
             Hero = FindObjectOfType<HeroBehaviour>();
+
+            Reset();
         }
 
         #endregion

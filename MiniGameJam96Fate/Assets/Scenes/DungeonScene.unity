@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementStep: 0.16
-  MovementCooldownRate: 2.5
+  MovementCooldownRate: 3
   FrozenSeconds: 3
 --- !u!1 &1395633008
 GameObject:
