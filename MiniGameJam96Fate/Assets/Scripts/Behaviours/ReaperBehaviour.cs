@@ -11,9 +11,22 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public float MovementCooldownRate = 1;
 
+        public float FrozenSeconds = 1;
+
         protected float MovementTimer { get; set; }
 
+        protected float FrozenTimer { get; set; }
+
         protected HeroBehaviour Hero { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        public void Freeze()
+        {
+            FrozenTimer = FrozenSeconds;
+        }
 
         #endregion
 
@@ -53,6 +66,20 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Update()
         {
+            if (FrozenTimer > 0)
+            {
+                FrozenTimer -= Time.deltaTime;
+                if (FrozenTimer < 0)
+                {
+                    FrozenTimer = 0;
+                }
+            }
+
+            if (FrozenTimer > 0)
+            {
+                return;
+            }
+
             if (MovementTimer < 1)
             {
                 MovementTimer += Time.deltaTime * MovementCooldownRate;

@@ -9,6 +9,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
     {
         #region Members
 
+        public RectTransform DiePanel;
+
         public float WallSmashRecovery = 0.75f;
 
         public float WallSmashCountRecovery = 0.33f;
@@ -28,6 +30,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected float WallSmashCountTimer { get; set; }
         
         protected DungeonBehaviour DungeonBehaviour { get; set; }
+
+        protected ReaperBehaviour Reaper { get; set; }
 
         protected int WallBreaksAvailable { get; set; }
 
@@ -141,7 +145,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (orb != null)
             {
-                // TODO- FREEZE THE REAPER!
+                Reaper
+                    .Freeze();
+
                 MegaDestroy(orb.gameObject);
             }
 
@@ -151,6 +157,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             if (reaper != null)
             {
                 // TODO - DIE!
+                DiePanel
+                    .gameObject
+                    .SetActive(true);
+
                 MegaDestroy(this.gameObject);
             }
         }
@@ -224,6 +234,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             WallBreaksAvailable = StartingWalkBreaks;
             UpdateWallBreakText();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
+            Reaper = FindObjectOfType<ReaperBehaviour>();
         }
 
         #endregion
