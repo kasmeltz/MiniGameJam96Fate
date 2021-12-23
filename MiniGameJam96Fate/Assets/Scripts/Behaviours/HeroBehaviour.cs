@@ -9,7 +9,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
     {
         #region Members
 
-        public float WallSmashRecovery = 0.5f;
+        public float WallSmashRecovery = 0.75f;
 
         public float WallSmashCountRecovery = 0.33f;
 
