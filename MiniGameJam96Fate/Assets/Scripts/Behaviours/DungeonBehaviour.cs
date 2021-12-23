@@ -25,7 +25,7 @@
             {
                 Width = 200,
                 Height = 100,
-                RoomThreshold = 0.9,
+                RoomThreshold = 0.95,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 2,
                 MaxRoomWidth = 10,

@@ -1,6 +1,7 @@
 namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
     using UnityEngine;
+    using UnityEngine.Tilemaps;
 
     [AddComponentMenu("HairyNerd/MGJ96/Hero")]
     public class HeroBehaviour : ActorBehaviour
@@ -15,10 +16,58 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         #region Protected Methods
 
+        protected void TryBreakWall()
+        {
+            Vector3Int cellPosition = Vector3Int.zero;
+            TileBase tile = null;
+
+            int dx = 0;
+            int dy = 0;
+
+            if (Direction.x < 0)
+            {
+                dx = -1;
+            }
+            else if (Direction.x > 0)
+            {
+                dx = 1;
+            }
+
+            if (Direction.y < 0)
+            {
+                dy = -1;
+            }
+            else if (Direction.y > 0)
+            {
+                dy = 1;
+            }
+
+            var newPos = transform.position + new Vector3(dx * MovementStep, dy * MovementStep, 0);
+
+            cellPosition = DungeonBehaviour
+                .Walls
+                .WorldToCell(newPos);
+
+            tile = DungeonBehaviour
+                .Walls
+                .GetTile(cellPosition);
+
+            if (tile != null)
+            {
+
+                DungeonBehaviour
+                    .Walls
+                    .SetTile(cellPosition, null);
+            }
+        }
+
         protected void TryMove(int x, int y)
         {
             bool canMove = false;
+            Vector3Int cellPosition = Vector3Int.zero;
+            TileBase tile = null;
 
+            /*
             var cellPosition = DungeonBehaviour
                 .Walls
                 .WorldToCell(transform.position);
@@ -31,8 +80,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 canMove = true;
             }
+            */
 
-            cellPosition += new Vector3Int(x, y, 0);
+            var newPos = transform.position + new Vector3(x * MovementStep, y * MovementStep, 0);
+
+            cellPosition = DungeonBehaviour
+                .Walls
+                .WorldToCell(newPos);
 
             tile = DungeonBehaviour
                 .Walls
@@ -45,8 +99,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (canMove)
             {
-                transform
-                    .Translate(new Vector3(x * MovementStep, y * MovementStep, 0));
+                transform.position = newPos;
             }
 
             var cameraPos = Camera.main.transform.position;
@@ -82,6 +135,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 SetDirection(1, 0);
                 TryMove(1, 0);
+            }
+            
+            if(Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                TryBreakWall();
             }
         }
 
