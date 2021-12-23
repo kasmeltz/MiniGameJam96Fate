@@ -54,7 +54,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (tile != null)
             {
-
                 DungeonBehaviour
                     .Walls
                     .SetTile(cellPosition, null);
