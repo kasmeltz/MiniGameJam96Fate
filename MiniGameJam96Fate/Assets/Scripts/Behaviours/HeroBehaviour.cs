@@ -8,8 +8,14 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
     {
         #region Members
 
+        public float WallSmashRecovery = 0.5f;
+
         public float MovementStep = 0.32f;
 
+        public ProgressBarBehaviour WallSmashBar;
+
+        protected float WallSmashPower { get; set; }
+        
         protected DungeonBehaviour DungeonBehaviour { get; set; }
 
         #endregion
@@ -18,6 +24,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void TryBreakWall()
         {
+            if (WallSmashPower < 1)
+            {
+                return;
+            }
+
+            WallSmashPower = 0;
+
             Vector3Int cellPosition = Vector3Int.zero;
             TileBase tile = null;
 
@@ -97,6 +110,19 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Update()
         {
+            if (WallSmashPower < 1)
+            {
+                WallSmashPower += Time.deltaTime * WallSmashRecovery;
+
+                if (WallSmashPower >= 1)
+                {
+                    WallSmashPower = 1;
+                }
+            }
+
+            WallSmashBar
+                .SetValues(WallSmashPower, 1);
+
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 SetDirection(0, -1);

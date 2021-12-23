@@ -25,12 +25,12 @@
             {
                 Width = 200,
                 Height = 100,
-                RoomThreshold = 0.95,
-                RoomOverlapAmount = -1,
+                RoomThreshold = 0.5,
+                RoomOverlapAmount = -2,
                 MinRoomWidth = 2,
-                MaxRoomWidth = 10,
+                MaxRoomWidth = 5,
                 MinRoomHeight = 2,
-                MaxRoomHeight = 10
+                MaxRoomHeight = 5
             };
 
             Dungeon
