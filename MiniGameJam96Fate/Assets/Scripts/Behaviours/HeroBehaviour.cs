@@ -134,6 +134,18 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         #region Unity
 
+        protected void OnTriggerEnter2D(Collider2D collision)
+        {
+            var orb = collision
+                .GetComponent<OrbBehaviour>();
+
+            if (orb != null)
+            {
+                // TODO- FREEZE THE REAPER!
+                MegaDestroy(orb.gameObject);
+            }
+        }
+
         protected void Update()
         {
             if (WallSmashPower < 1)

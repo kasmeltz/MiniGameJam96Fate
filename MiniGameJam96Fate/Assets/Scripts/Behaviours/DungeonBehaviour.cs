@@ -9,32 +9,61 @@
     {
         #region Members
 
+        public int Width = 200;
+        public int Height = 100;
+        public float RoomThreshold = 0.5f;
+        public int RoomOverlapAmount = -2;
+        public int MinRoomWidth = 2;
+        public int MaxRoomWidth = 5;
+        public int MinRoomHeight = 2;
+        public int MaxRoomHeight = 5;
+        public int OrbCount = 10;
+
         public Tilemap Walls;
 
         public TileBase[] WallTiles;
+
+        public OrbBehaviour OrbPrefab;
 
         public Dungeon Dungeon { get; set; }
 
         #endregion
 
-        #region Unity
+        #region Protected Methods
 
-        protected override void Awake()
+        protected void MakeOrbs()
+        {
+            System.Random rnd = new System.Random();
+
+            int hw = Width / 2;
+            int hh = Height / 2;
+            for (int i = 0; i < OrbCount; i++)
+            {
+                int x = rnd.Next(-hw + 3, hw - 3);
+                int y = rnd.Next(-hh + 3, hh - 3);
+                var orb = Instantiate(OrbPrefab);
+                orb.transform.position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+            }
+        }
+
+        protected void BuildDungeon()
         {
             Dungeon = new Dungeon
             {
-                Width = 200,
-                Height = 100,
-                RoomThreshold = 0.5,
-                RoomOverlapAmount = -2,
-                MinRoomWidth = 2,
-                MaxRoomWidth = 5,
-                MinRoomHeight = 2,
-                MaxRoomHeight = 5
+                Width = Width,
+                Height = Height,
+                RoomThreshold = RoomThreshold,
+                RoomOverlapAmount = RoomOverlapAmount,
+                MinRoomWidth = MinRoomWidth,
+                MaxRoomWidth = MaxRoomWidth,
+                MinRoomHeight = MinRoomHeight,
+                MaxRoomHeight = MaxRoomHeight
             };
 
             Dungeon
                 .Build();
+
+            MakeOrbs();
 
             for (int y = 0; y < Dungeon.Height; y++)
             {
@@ -49,6 +78,16 @@
                     }
                 }
             }
+        }
+
+        #endregion
+
+
+        #region Unity
+
+        protected override void Awake()
+        {
+            BuildDungeon();
         }
 
         #endregion

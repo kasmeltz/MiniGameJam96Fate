@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: New Rule Tile
+  m_Name: dungeon_wall
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 6737362560658327345, guid: 562f71005269aef49b3de75977d7355a, type: 3}
   m_DefaultGameObject: {fileID: 0}
