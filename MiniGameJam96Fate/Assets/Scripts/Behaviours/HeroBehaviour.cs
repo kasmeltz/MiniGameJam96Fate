@@ -59,19 +59,21 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 SetDirection(0, -1);
-                TryMove(0, -1);
-                
+                TryMove(0, -1);                
             }
+            
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 SetDirection(0, 1);
                 TryMove(0, 1);
             }
+            
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 SetDirection(-1 ,0);
                 TryMove(-1, 0);
             }
+            
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 SetDirection(1, 0);
