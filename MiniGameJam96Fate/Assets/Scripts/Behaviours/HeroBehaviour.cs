@@ -2,6 +2,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
     using UnityEngine;
     using UnityEngine.Tilemaps;
+    using UnityEngine.UI;
 
     [AddComponentMenu("HairyNerd/MGJ96/Hero")]
     public class HeroBehaviour : ActorBehaviour
@@ -10,17 +11,34 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public float WallSmashRecovery = 0.5f;
 
+        public float WallSmashCountRecovery = 0.33f;
+
         public float MovementStep = 0.32f;
+
+        public int StartingWalkBreaks = 5;
+
+        public int MaximumWallBreaks = 10;
 
         public ProgressBarBehaviour WallSmashBar;
 
+        public Text WallBreaksAvailableText;
+
         protected float WallSmashPower { get; set; }
+
+        protected float WallSmashCountTimer { get; set; }
         
         protected DungeonBehaviour DungeonBehaviour { get; set; }
+
+        protected int WallBreaksAvailable { get; set; }
 
         #endregion
 
         #region Protected Methods
+
+        protected void UpdateWallBreakText()
+        {
+            WallBreaksAvailableText.text = $"{WallBreaksAvailable}";
+        }
 
         protected void TryBreakWall()
         {
@@ -28,6 +46,14 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 return;
             }
+
+            if (WallBreaksAvailable <= 0)
+            {
+                return;
+            }
+
+            WallBreaksAvailable--;
+            UpdateWallBreakText();
 
             WallSmashPower = 0;
 
@@ -120,6 +146,22 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 }
             }
 
+            if (WallBreaksAvailable < MaximumWallBreaks)
+            {
+                if (WallSmashCountTimer < 1)
+                {
+                    WallSmashCountTimer += Time.deltaTime * WallSmashCountRecovery;
+
+                    if (WallSmashCountTimer >= 1)
+                    {
+                        WallSmashCountTimer = 0;
+                        WallBreaksAvailable++;
+
+                        UpdateWallBreakText();
+                    }
+                }
+            }
+
             WallSmashBar
                 .SetValues(WallSmashPower, 1);
 
@@ -158,6 +200,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             base
                 .Awake();
 
+            WallBreaksAvailable = StartingWalkBreaks;
+            UpdateWallBreakText();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
         }
 
