@@ -19,14 +19,14 @@
 
         #region Unity
 
-        public void Awake()
+        protected override void Awake()
         {
             Dungeon = new Dungeon
             {
-                Width = 41,
-                Height = 23,
-                RoomThreshold = 0.6,
-                RoomOverlapAmount =0,
+                Width = 200,
+                Height = 100,
+                RoomThreshold = 0.9,
+                RoomOverlapAmount = -1,
                 MinRoomWidth = 2,
                 MaxRoomWidth = 10,
                 MinRoomHeight = 2,

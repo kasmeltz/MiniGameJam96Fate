@@ -48,6 +48,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 transform
                     .Translate(new Vector3(x * MovementStep, y * MovementStep, 0));
             }
+
+            var cameraPos = Camera.main.transform.position;
+            cameraPos = new Vector3(transform.position.x, transform.position.y, cameraPos.z);
+            Camera.main.transform.position = cameraPos;
         }
 
         #endregion
