@@ -46,6 +46,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected bool HasKey { get; set; }
 
+        protected Vector3 CameraVelocity { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -162,15 +164,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             if (canMove)
             {
                 transform.position = newPos;
-            }
-
-            var cameraPos = Camera.main.transform.position;
-            cameraPos = new Vector3(transform.position.x, transform.position.y, cameraPos.z);
-            Camera.main.transform.position = cameraPos;
+            }            
         }
 
         protected void Reset()
         {
+            CameraVelocity = Vector3.zero;
             transform.position = new Vector3(0, 0, 0);
             SetDirection(0, -1);
             ObtainKey(false);
@@ -242,6 +241,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Update()
         {
+            var cameraPos = Camera.main.transform.position;
+            cameraPos = new Vector3(transform.position.x, transform.position.y, cameraPos.z);
+            var currentVelocity = CameraVelocity;
+            Camera.main.transform.position = Vector3.SmoothDamp(Camera.main.transform.position, cameraPos, ref currentVelocity, 0.1f);
+            CameraVelocity = currentVelocity;
+
             if (HasWon)
             {
                 return;

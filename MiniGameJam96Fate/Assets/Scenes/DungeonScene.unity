@@ -432,7 +432,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.050980397, g: 0.16862746, b: 0.27058825, a: 0}
+  m_BackGroundColor: {r: 0.1254902, g: 0.23529413, b: 0.3372549, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1321,7 +1321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1528755193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1430,7 +1430,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.12, y: 0.12}
+  m_Size: {x: 0.08, y: 0.08}
   m_EdgeRadius: 0
 --- !u!114 &1620218425
 MonoBehaviour:

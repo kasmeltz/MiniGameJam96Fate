@@ -109,9 +109,6 @@
             Dungeon
                 .Build();
 
-            MakeOrbs();
-            MakeKey();
-
             for (int y = 0; y < Dungeon.Height; y++)
             {
                 for (int x = 0; x < Dungeon.Width; x++)
@@ -132,6 +129,9 @@
 
             Walls
                 .SetTile(cellCoords, null);
+
+            MakeOrbs();
+            MakeKey();
         }
 
         #endregion
