@@ -200,7 +200,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 if (orb.IsFlareOrb)
                 {
                     ReaperMode.Reset();
-
+                    
                     MegaDestroy(orb.gameObject);
                 }
                 else if(Reaper.gameObject.active)

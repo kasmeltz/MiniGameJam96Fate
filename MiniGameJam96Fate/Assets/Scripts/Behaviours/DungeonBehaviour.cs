@@ -84,7 +84,7 @@
                 int y = rnd.Next(-hh + 3, hh - 3);
                 var orb = Instantiate(FlareOrbPrefab);
 
-                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y - 0.09f, 0);
                 orb.transform.position = pos;
                 var cellCoords = Walls
                     .WorldToCell(pos);
@@ -99,7 +99,7 @@
                 int y = rnd.Next(-hh + 3, hh - 3);
                 var orb = Instantiate(FreezeOrbPrefab);
 
-                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y , 0);
                 orb.transform.position = pos;
                 var cellCoords = Walls
                     .WorldToCell(pos);

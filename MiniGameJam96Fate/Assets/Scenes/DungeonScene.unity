@@ -494,8 +494,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 100
-  m_RefResolutionX: 320
-  m_RefResolutionY: 180
+  m_RefResolutionX: 480
+  m_RefResolutionY: 270
   m_UpscaleRT: 0
   m_PixelSnapping: 1
   m_CropFrameX: 1
@@ -804,7 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: d01e7e1e40bda2846ae4b0cc33807b93, type: 2}
+  sharedProfile: {fileID: 11400000, guid: d30463f2c2a328941a14b3b39781b2c3, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -1283,6 +1283,7 @@ MonoBehaviour:
   StartingWalkBreaks: 5
   MaximumWallBreaks: 10
   WallSmashBar: {fileID: 1309826754}
+  ReaperMode: {fileID: 2084363149415104570}
   WallBreaksAvailableText: {fileID: 21622770}
 --- !u!61 &1395633013
 BoxCollider2D:
@@ -1987,11 +1988,13 @@ MonoBehaviour:
   MaxRoomWidth: 5
   MinRoomHeight: 2
   MaxRoomHeight: 5
-  OrbCount: 20
+  FlareOrbCount: 10
+  FreezeOrbCount: 10
   Walls: {fileID: 1513445318}
   WallTiles:
   - {fileID: 11400000, guid: 25924bf32f7c2ac49909c035ae1ecb46, type: 2}
-  OrbPrefab: {fileID: 4525764802454082589, guid: 81dd50bf33fd4d34aac6a83ba409ea60, type: 3}
+  FlareOrbPrefab: {fileID: 2379952492634607675, guid: e68e937b57c84194fa27b2cf79d75b74, type: 3}
+  FreezeOrbPrefab: {fileID: 4525764802454082589, guid: 81dd50bf33fd4d34aac6a83ba409ea60, type: 3}
   KeyPrefab: {fileID: 6721119524511917518, guid: b892a23bca5501b4f877f8d478271e3e, type: 3}
 --- !u!1839735485 &2078972830
 Tilemap:
@@ -2204,7 +2207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d20eba529f9534399c2cb4e35d4be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReaperTimer: 10
+  ReaperTimer: 5
   Background: {fileID: 2084363149415104583}
   Foreground: {fileID: 2084363149790586849}
   Reaper: {fileID: 1323221503}
