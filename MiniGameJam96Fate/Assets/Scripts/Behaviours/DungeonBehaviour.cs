@@ -1,6 +1,7 @@
 ﻿namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
     using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Tilemaps;
 
@@ -19,6 +20,7 @@
         public int MaxRoomHeight = 5;
         public int FlareOrbCount = 10;
         public int FreezeOrbCount = 10;
+        public int CoinCount = 50;
 
         public Tilemap Floor;
         public Tilemap Walls;
@@ -28,10 +30,12 @@
 
         public OrbBehaviour FlareOrbPrefab;
         public OrbBehaviour FreezeOrbPrefab;
-
+        public CoinBehaviour CoinPrefab;
         public KeyBehaviour KeyPrefab;
 
         public Dungeon Dungeon { get; set; }
+
+        protected HashSet<Vector3> UsedPositions { get; set; }
 
         #endregion
 
@@ -39,76 +43,109 @@
 
         public void Reset()
         {
+            UsedPositions = new HashSet<Vector3>();
+            BuildDungeon();
         }
 
         #endregion
 
         #region Protected Methods
 
-        protected void MakeKey()
+        protected bool TrySpawnItem<T>(int x, int y, T prefab) 
+            where T: Component
         {
-            System.Random rnd = new System.Random();
-            int x = rnd.Next(Width / 4, Width / 2);
-            int y = rnd.Next(Height / 4, Height / 2);
+            var position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
 
-            int dx = rnd.Next(0, 2);
-            if (dx == 1)
+            if (UsedPositions.Contains(position))
             {
-                x *= -1;
+                return false;
             }
 
-            int dy = rnd.Next(0, 2);
-            if (dy == 1)
-            {
-                y *= -1;
-            }
+            UsedPositions
+                .Add(position);
 
-            var key = Instantiate(KeyPrefab);            
-            var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
-            key.transform.position = pos;
+            T item = Instantiate(prefab);
+            item.transform.position = position;
 
             var cellCoords = Walls
-                .WorldToCell(pos);
+                .WorldToCell(position);
 
             Walls
                 .SetTile(cellCoords, null);
+
+            return true;
+        }
+
+        protected void MakeKey()
+        {            
+            bool keySpawned;
+            do
+            {
+                int x = Random.Range(Width / 4, Width / 2);
+                int y = Random.Range(Height / 4, Height / 2);
+
+                int dx = Random.Range(0, 2);
+                if (dx == 1)
+                {
+                    x *= -1;
+                }
+
+                int dy = Random.Range(0, 2);
+                if (dy == 1)
+                {
+                    y *= -1;
+                }
+
+                keySpawned = TrySpawnItem(x, y, KeyPrefab);
+            } while (!keySpawned);
         }
 
         protected void MakeOrbs()
-        {
-            System.Random rnd = new System.Random();
-
+        {            
             int hw = Width / 2;
             int hh = Height / 2;
-            for (int i = 0; i < FlareOrbCount; i++)
+
+            int orbsSpawned = 0;
+            do
             {
-                int x = rnd.Next(-hw + 3, hw - 3);
-                int y = rnd.Next(-hh + 3, hh - 3);
-                var orb = Instantiate(FlareOrbPrefab);
+                int x = Random.Range(-hw + 3, hw - 2);
+                int y = Random.Range(-hh + 3, hh - 2);
+                bool spawned = TrySpawnItem(x, y, FlareOrbPrefab);
+                if (spawned)
+                {
+                    orbsSpawned++;
+                }
+            } while (orbsSpawned < FlareOrbCount);
 
-                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
-                orb.transform.position = pos;
-                var cellCoords = Walls
-                    .WorldToCell(pos);
-
-                Walls
-                    .SetTile(cellCoords, null);                
-            }
-
-            for (int i = 0; i < FreezeOrbCount; i++)
+            orbsSpawned = 0;
+            do
             {
-                int x = rnd.Next(-hw + 3, hw - 3);
-                int y = rnd.Next(-hh + 3, hh - 3);
-                var orb = Instantiate(FreezeOrbPrefab);
+                int x = Random.Range(-hw + 3, hw - 2);
+                int y = Random.Range(-hh + 3, hh - 2);
+                bool spawned = TrySpawnItem(x, y, FreezeOrbPrefab);
+                if (spawned)
+                {
+                    orbsSpawned++;
+                }
+            } while (orbsSpawned < FreezeOrbCount);
+        }
 
-                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
-                orb.transform.position = pos;
-                var cellCoords = Walls
-                    .WorldToCell(pos);
+        protected void MakeCoins()
+        {
+            int hw = Width / 2;
+            int hh = Height / 2;
 
-                Walls
-                    .SetTile(cellCoords, null);
-            }
+            int coinsSpawned = 0;
+            do
+            {
+                int x = Random.Range(-hw + 3, hw - 2);
+                int y = Random.Range(-hh + 3, hh - 2);
+                bool spawned = TrySpawnItem(x, y, CoinPrefab);
+                if (spawned)
+                {
+                    coinsSpawned++;
+                }
+            } while (coinsSpawned < CoinCount);
         }
 
         protected void BuildDungeon()
@@ -154,8 +191,9 @@
             Walls
                 .SetTile(cellCoords, null);
 
-            MakeOrbs();
             MakeKey();
+            MakeOrbs();
+            MakeCoins();                        
         }
 
         #endregion
@@ -164,7 +202,7 @@
 
         protected override void Awake()
         {
-            BuildDungeon();
+            Reset();
         }
 
         #endregion

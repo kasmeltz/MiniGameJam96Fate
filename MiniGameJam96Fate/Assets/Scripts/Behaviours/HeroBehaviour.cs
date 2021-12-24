@@ -1,5 +1,6 @@
 namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
+    using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
     using HairyNerdStudios.GameJams.MiniGameJam96.Unity.MathExtensions;
     using UnityEngine;
     using UnityEngine.Tilemaps;
@@ -34,6 +35,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public Text WallBreaksAvailableText;
 
+        public Text CoinText;
+
         public bool HasWon { get; set; }
 
         protected float WallSmashPower { get; set; }
@@ -56,10 +59,22 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected AudioSource AudioSource { get; set; }
 
+        protected Hero Hero { get; set; }
 
         #endregion
 
         #region Public Methods
+
+        public void ObtainCoin(CoinBehaviour coin)
+        {
+            Hero.Coins += coin.Value;
+            UpdateCoinText();
+        }
+
+        public void UpdateCoinText()
+        {
+            CoinText.text = $"{Hero.Coins}";
+        }
 
         public void ObtainKey(bool obtainKey)
         {
@@ -296,6 +311,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Reset()
         {
+            MovementStep = Hero
+                .GetStatValue(HeroUpgradeType.MovementSpeed);
+
             CameraVelocity = Vector3.zero;
             transform.position = new Vector3(0, 0, 0);
             SetDirection(0, -1);
@@ -303,6 +321,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             IsDead = false;
             WallBreaksAvailable = StartingWalkBreaks;
             UpdateWallBreakText();
+            UpdateCoinText();
             WallSmashPower = 0;
             WallSmashCountTimer = 0;
         }
@@ -373,6 +392,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         .gameObject
                         .SetActive(true);
                 }
+            }
+
+            var coin = collision
+                .GetComponent<CoinBehaviour>();
+
+            if (coin != null)
+            {
+                ObtainCoin(coin);
+
+                MegaDestroy(coin.gameObject);
             }
         }
 
@@ -457,6 +486,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         {
             base
                 .Awake();
+
+            Hero = GameState.Hero;
+            if (Hero == null)
+            {
+                Hero = new Hero();
+                GameState.Hero = Hero;
+            }
 
             Rigidbody2D = FindObjectOfType<Rigidbody2D>();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
