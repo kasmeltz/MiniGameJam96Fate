@@ -1440,8 +1440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7da2649b22dc1f4d98fb1a08a543164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 200
-  Height: 200
+  Width: 60
+  Height: 40
   RoomThreshold: 0.5
   RoomOverlapAmount: -1
   MinRoomWidth: 2

@@ -157,6 +157,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Reset()
         {
+            transform.position = new Vector3(0, 0, 0);
+
             ObtainKey(false);
             IsDead = false;
             WallBreaksAvailable = StartingWalkBreaks;

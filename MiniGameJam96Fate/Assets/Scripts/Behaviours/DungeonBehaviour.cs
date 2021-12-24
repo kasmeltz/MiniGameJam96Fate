@@ -31,6 +31,14 @@
 
         #endregion
 
+        #region Public Methods
+
+        public void Reset()
+        {
+        }
+
+        #endregion
+
         #region Protected Methods
 
         protected void MakeKey()

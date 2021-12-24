@@ -36,6 +36,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Reset()
         {
+            MovementTimer = 0;
+            FrozenTimer = 0;
+
             System.Random rnd = new System.Random();
             int x = rnd.Next(DungeonBehaviour.Width / 4, DungeonBehaviour.Width / 3);
             int y = rnd.Next(DungeonBehaviour.Height / 4, DungeonBehaviour.Height / 3);
