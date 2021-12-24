@@ -12,6 +12,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         public Image KeyImage;
 
         public RectTransform DiePanel;
+        
+        public RectTransform WinPanel;
+
 
         public float WallSmashRecovery = 0.75f;
 
@@ -38,6 +41,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected int WallBreaksAvailable { get; set; }
 
         protected bool IsDead { get; set; }
+
+        protected bool HasWon { get; set; }
 
         protected bool HasKey { get; set; }
 
@@ -182,6 +187,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void OnTriggerEnter2D(Collider2D collision)
         {
+            if (HasWon)
+            {
+                return;
+            }
+
             var orb = collision
                 .GetComponent<OrbBehaviour>();
 
@@ -214,10 +224,29 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                 MegaDestroy(key.gameObject);
             }
+
+            var door = collision
+                .GetComponent<DoorBehaviour>();
+
+            if (door != null)
+            {
+                if (HasKey)
+                {
+                    HasWon = true;
+                    WinPanel
+                        .gameObject
+                        .SetActive(true);
+                }
+            }
         }
 
         protected void Update()
         {
+            if (HasWon)
+            {
+                return;
+            }
+
             if (IsDead)
             {
                 return;
