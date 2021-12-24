@@ -75,11 +75,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 return;
             }
 
-            WallBreaksAvailable--;
-            UpdateWallBreakText();
-
-            WallSmashPower = 0;
-
             Vector3Int cellPosition = Vector3Int.zero;
             TileBase tile = null;
 
@@ -110,7 +105,21 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Walls
                 .WorldToCell(newPos);
 
-            var cellBounds = DungeonBehaviour.Walls.cellBounds;
+            var cellBounds = DungeonBehaviour.Walls.cellBounds;     
+            
+            if (cellPosition.x == cellBounds.min.x || 
+                cellPosition.x == cellBounds.max.x || 
+                cellPosition.y == cellBounds.min.y || 
+                cellPosition.y == cellBounds.max.y)
+            {
+                // CAN'T BREAK OUTER MOST WALL!
+                return;
+            }
+
+            WallBreaksAvailable--;
+            UpdateWallBreakText();
+
+            WallSmashPower = 0;
 
             tile = DungeonBehaviour
                 .Walls
