@@ -1,11 +1,16 @@
 namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
     using UnityEngine;
+    using UnityEngine.UI;
 
     [AddComponentMenu("HairyNerd/MGJ96/Reaper")]
     public class ReaperBehaviour : ActorBehaviour
     {
         #region Members
+
+        public Image ProximityOverlay;
+
+        public float HeroProximityRedDistance = 2;
 
         public float MovementStep = 0.16f;
 
@@ -36,6 +41,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Reset()
         {
+            var proximityColor = ProximityOverlay.color;
+            proximityColor.a = 0;
+            ProximityOverlay.color = proximityColor;
+
             MovementTimer = 0;
             FrozenTimer = 0;
 
@@ -89,6 +98,20 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             var newPos = transform.position + new Vector3(x * MovementStep, y * MovementStep, 0);
             transform.position = newPos;
+
+            var distanceToHero = (transform.position - Hero.transform.position).magnitude;
+            if (distanceToHero <= HeroProximityRedDistance)
+            {
+                ProximityOverlay
+                    .gameObject
+                    .SetActive(true);
+            }
+            else
+            {
+                ProximityOverlay
+                    .gameObject
+                    .SetActive(false);
+            }
         }
 
         #endregion
@@ -97,6 +120,19 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Update()
         {
+            var proximityColor = ProximityOverlay.color;
+            if (proximityColor.a <= 0.25f)
+            {
+                proximityColor.a += Time.deltaTime * 1f;
+
+                if (proximityColor.a > 0.25f)
+                {
+                    proximityColor.a = 0;
+                }
+            }
+            ProximityOverlay.color = proximityColor;
+            Debug.Log(ProximityOverlay.color);
+
             if (FrozenTimer > 0)
             {
                 FrozenTimer -= Time.deltaTime;
