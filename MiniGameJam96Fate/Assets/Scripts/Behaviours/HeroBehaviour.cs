@@ -9,6 +9,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
     {
         #region Members
 
+        public Image KeyImage;
+
         public RectTransform DiePanel;
 
         public float WallSmashRecovery = 0.75f;
@@ -36,6 +38,21 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected int WallBreaksAvailable { get; set; }
 
         protected bool IsDead { get; set; }
+
+        protected bool HasKey { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        public void ObtainKey(bool obtainKey)
+        {
+            HasKey = obtainKey;
+
+            KeyImage
+                .gameObject
+                .SetActive(obtainKey);
+        }
 
         #endregion
 
@@ -93,6 +110,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Walls
                 .WorldToCell(newPos);
 
+            var cellBounds = DungeonBehaviour.Walls.cellBounds;
+
             tile = DungeonBehaviour
                 .Walls
                 .GetTile(cellPosition);
@@ -136,6 +155,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             Camera.main.transform.position = cameraPos;
         }
 
+        protected void Reset()
+        {
+            ObtainKey(false);
+            IsDead = false;
+            WallBreaksAvailable = StartingWalkBreaks;
+            UpdateWallBreakText();
+            WallSmashPower = 0;
+            WallSmashCountTimer = 0;
+        }
+
         #endregion
 
         #region Unity
@@ -163,6 +192,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 DiePanel
                     .gameObject
                     .SetActive(true);
+            }
+
+            var key = collision
+                .GetComponent<KeyBehaviour>();
+
+            if (key != null)
+            {
+                ObtainKey(true);
+
+                MegaDestroy(key.gameObject);
             }
         }
 
@@ -237,11 +276,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             base
                 .Awake();
 
-            IsDead = false;
-            WallBreaksAvailable = StartingWalkBreaks;
-            UpdateWallBreakText();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
             Reaper = FindObjectOfType<ReaperBehaviour>();
+
+            Reset();
         }
 
         #endregion

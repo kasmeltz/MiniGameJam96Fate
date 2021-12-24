@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6572410306395477932
+--- !u!1 &2833533297470500776
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6572410306395477923}
-  - component: {fileID: 6572410306395477922}
-  - component: {fileID: 6572410306395477933}
-  - component: {fileID: 4525764802454082589}
-  - component: {fileID: 8324768713958644718}
+  - component: {fileID: 2833533297470500774}
+  - component: {fileID: 2833533297470500775}
+  - component: {fileID: 2833533297470500773}
+  - component: {fileID: 6721119524511917518}
+  - component: {fileID: 7527614925770498544}
   m_Layer: 0
-  m_Name: Orb
+  m_Name: key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6572410306395477923
+--- !u!4 &2833533297470500774
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6572410306395477932}
+  m_GameObject: {fileID: 2833533297470500776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6572410306395477922
+--- !u!212 &2833533297470500775
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6572410306395477932}
+  m_GameObject: {fileID: 2833533297470500776}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,28 +74,28 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 2214683806062304926, guid: 6fdb884e47fe7db49ba590cb1ee3722d, type: 3}
+  m_Sprite: {fileID: 1095141833252711340, guid: 366c0ccf73870c248a97c4b79cb08498, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6572410306395477933
+--- !u!95 &2833533297470500773
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6572410306395477932}
+  m_GameObject: {fileID: 2833533297470500776}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1c092af1e8521664fbd2ae28e1a687dc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1170b8338fe725e40a62db23bf430d7b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -104,25 +104,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4525764802454082589
+--- !u!114 &6721119524511917518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6572410306395477932}
+  m_GameObject: {fileID: 2833533297470500776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f0334c9419c4aa439cb0c124033144f, type: 3}
+  m_Script: {fileID: 11500000, guid: 664de41497ecf8448a69064639a81276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &8324768713958644718
-CircleCollider2D:
+--- !u!61 &7527614925770498544
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6572410306395477932}
+  m_GameObject: {fileID: 2833533297470500776}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -130,5 +130,15 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.06
+  m_Size: {x: 0.12, y: 0.12}
+  m_EdgeRadius: 0

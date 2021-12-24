@@ -25,11 +25,35 @@
 
         public OrbBehaviour OrbPrefab;
 
+        public KeyBehaviour KeyPrefab;
+
         public Dungeon Dungeon { get; set; }
 
         #endregion
 
         #region Protected Methods
+
+        protected void MakeKey()
+        {
+            System.Random rnd = new System.Random();
+            int x = rnd.Next(Width / 4, Width / 2);
+            int y = rnd.Next(Height / 4, Height / 2);
+
+            int dx = rnd.Next(0, 2);
+            if (dx == 1)
+            {
+                x *= -1;
+            }
+
+            int dy = rnd.Next(0, 2);
+            if (dy == 1)
+            {
+                y *= -1;
+            }
+
+            var key = Instantiate(KeyPrefab);
+            key.transform.position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+        }
 
         protected void MakeOrbs()
         {
@@ -64,6 +88,7 @@
                 .Build();
 
             MakeOrbs();
+            MakeKey();
 
             for (int y = 0; y < Dungeon.Height; y++)
             {

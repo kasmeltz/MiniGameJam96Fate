@@ -19,6 +19,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected HeroBehaviour Hero { get; set; }
 
+        protected DungeonBehaviour DungeonBehaviour { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -35,8 +37,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected void Reset()
         {
             System.Random rnd = new System.Random();
-            int x = rnd.Next(10, 20);
-            int y = rnd.Next(10, 20);
+            int x = rnd.Next(DungeonBehaviour.Width / 4, DungeonBehaviour.Width / 3);
+            int y = rnd.Next(DungeonBehaviour.Height / 4, DungeonBehaviour.Height / 3);
 
             int dx = rnd.Next(0, 2);
             if (dx == 1)
@@ -125,6 +127,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Awake();
 
             Hero = FindObjectOfType<HeroBehaviour>();
+            DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
 
             Reset();
         }
