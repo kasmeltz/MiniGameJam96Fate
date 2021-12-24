@@ -131,8 +131,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 }
             }
             ProximityOverlay.color = proximityColor;
-            Debug.Log(ProximityOverlay.color);
-
+            
             if (FrozenTimer > 0)
             {
                 FrozenTimer -= Time.deltaTime;
