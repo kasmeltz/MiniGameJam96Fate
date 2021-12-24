@@ -106,7 +106,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Update()
         {
-            if (!gameObject.active)
+            if (!gameObject.activeInHierarchy)
             {
                 Reset();
             }

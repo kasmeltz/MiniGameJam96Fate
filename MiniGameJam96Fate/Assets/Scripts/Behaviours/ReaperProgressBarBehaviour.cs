@@ -1,51 +1,50 @@
-using UnityEngine;
-using UnityEngine.UI;
+namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
+{
+    using UnityEngine;
 
-namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours{
-    public class ReaperProgressBarBehaviour : BehaviourBase
+    public class ReaperProgressBarBehaviour : ProgressBarBehaviour
     {
         #region Members
+        
         public float ReaperTimer = 0;
 
         private float CurrentReaperTime = 0;
 
-        public Image Background;
-        public Image Foreground;
-
         [SerializeField] private GameObject Reaper = null;
+
         #endregion
-       
 
-      
+        #region Unity
 
-        // Update is called once per frame
-        void Update()
+        protected void Update()
         {
-            if (ReaperTimer > CurrentReaperTime)
+            if (CurrentReaperTime < ReaperTimer)
             {
                 CurrentReaperTime += Time.deltaTime;
-                Foreground.fillAmount = CurrentReaperTime / ReaperTimer;
-                if (CurrentReaperTime > ReaperTimer)
+                if (CurrentReaperTime >= ReaperTimer)
                 {
                     CurrentReaperTime = ReaperTimer;
-                    Reaper.SetActive(true);
+                    Reaper
+                        .SetActive(true);
                 }
                 else
                 {
-                    Reaper.SetActive(false);
+                    Reaper
+                        .SetActive(false);
                 }
 
-
+                SetValues(CurrentReaperTime, ReaperTimer);
             }
         }
 
         public void Reset()
         {
-            Reaper.SetActive(false);
+            Reaper
+                .SetActive(false);
+
             CurrentReaperTime = 0;
         }
+
+        #endregion
     }
-
 }
-
-

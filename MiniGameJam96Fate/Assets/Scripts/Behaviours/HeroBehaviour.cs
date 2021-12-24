@@ -1,5 +1,6 @@
 namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
+    using HairyNerdStudios.GameJams.MiniGameJam96.Unity.MathExtensions;
     using UnityEngine;
     using UnityEngine.Tilemaps;
     using UnityEngine.UI;
@@ -9,10 +10,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
     {
         #region Members
 
+        public AudioClip[] FootStepAudioClips;
+
         public Image KeyImage;
 
         public RectTransform DiePanel;
-        
+
         public RectTransform WinPanel;
 
 
@@ -36,18 +39,23 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected float WallSmashPower { get; set; }
 
         protected float WallSmashCountTimer { get; set; }
-        
+
         protected DungeonBehaviour DungeonBehaviour { get; set; }
 
         protected ReaperBehaviour Reaper { get; set; }
 
         protected int WallBreaksAvailable { get; set; }
 
-        protected bool IsDead { get; set; }        
+        protected bool IsDead { get; set; }
 
         protected bool HasKey { get; set; }
 
         protected Vector3 CameraVelocity { get; set; }
+
+        protected Rigidbody2D Rigidbody2D { get; set; }
+
+        protected AudioSource AudioSource { get; set; }
+
 
         #endregion
 
@@ -107,17 +115,20 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 dy = 1;
             }
 
-            var newPos = transform.position + new Vector3(dx * MovementStep, dy * MovementStep, 0);
+            Vector3 cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
+
+            var newPos = transform.position +
+                new Vector3(dx * cellSize.x, dy * cellSize.y, 0);
 
             cellPosition = DungeonBehaviour
                 .Walls
                 .WorldToCell(newPos);
 
-            var cellBounds = DungeonBehaviour.Walls.cellBounds;     
-            
-            if (cellPosition.x == cellBounds.min.x || 
-                cellPosition.x == cellBounds.max.x || 
-                cellPosition.y == cellBounds.min.y || 
+            var cellBounds = DungeonBehaviour.Walls.cellBounds;
+
+            if (cellPosition.x == cellBounds.min.x ||
+                cellPosition.x == cellBounds.max.x ||
+                cellPosition.y == cellBounds.min.y ||
                 cellPosition.y == cellBounds.max.y)
             {
                 // CAN'T BREAK OUTER MOST WALL!
@@ -141,31 +152,146 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             }
         }
 
-        protected void TryMove(int x, int y)
+        protected bool CheckIfCanMove(int x, int y, Vector3 position, Vector3 quantizedPosition)
         {
-            bool canMove = false;
-            Vector3Int cellPosition = Vector3Int.zero;
-            TileBase tile = null;
+            var isAtXBorder = quantizedPosition
+                .x
+                .CloseTo(position.x, 0.01f);
 
-            var newPos = transform.position + new Vector3(x * MovementStep, y * MovementStep, 0);
-
-            cellPosition = DungeonBehaviour
-                .Walls
-                .WorldToCell(newPos);
-
-            tile = DungeonBehaviour
-                .Walls
-                .GetTile(cellPosition);
-
-            if (tile == null)
+            if (x != 0 && !isAtXBorder)
             {
-                canMove = true;
+                return true;
             }
 
-            if (canMove)
+            var isAtYBorder = quantizedPosition
+                .y
+                .CloseTo(position.y, 0.01f);
+
+            if (y != 0 && !isAtYBorder)
             {
-                transform.position = newPos;
-            }            
+                return true;
+            }
+
+            var cellPosition = DungeonBehaviour
+                .Walls
+                .WorldToCell(quantizedPosition);
+
+            if (x > 0)
+            {
+                cellPosition.x++;
+            }
+            else if (x < 0)
+            {
+                cellPosition.x--;
+            }
+
+            if (y > 0)
+            {
+                cellPosition.y++;
+            }
+            else if (y < 0)
+            {
+                cellPosition.y--;
+            }
+
+            if (quantizedPosition.x.CloseTo(position.x, 0.01f) &&
+                quantizedPosition.y.CloseTo(position.y, 0.01f))
+            {
+                var tile = DungeonBehaviour
+                    .Walls
+                    .GetTile(cellPosition);
+
+                return tile == null;
+            }
+
+            if (x != 0)
+            {
+                var sy = cellPosition.y;
+                var ey = cellPosition.y;
+
+                if (position.y > quantizedPosition.y)
+                {
+                    ey++;
+                }
+                else if (position.y < quantizedPosition.y)
+                {
+                    sy--;
+                }
+
+                for(int cy = sy;cy <= ey;cy++)
+                {
+                    cellPosition = new Vector3Int(cellPosition.x, cy, 0);
+
+                    var tile = DungeonBehaviour
+                        .Walls
+                        .GetTile(cellPosition);
+
+                    if (tile != null)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (y != 0)
+            {
+                var sx = cellPosition.x;
+                var ex = cellPosition.x;
+
+                if (position.x > quantizedPosition.x)
+                {
+                    ex++;
+                }
+                else if (position.x < quantizedPosition.x)
+                {
+                    sx--;
+                }
+
+                for (int cx = sx; cx <= ex; cx++)
+                {
+                    cellPosition = new Vector3Int(cx, cellPosition.y, 0);
+
+                    var tile = DungeonBehaviour
+                        .Walls
+                        .GetTile(cellPosition);
+
+                    if (tile != null)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+
+        }
+
+        protected void TryMove(int x, int y)
+        {
+            var position = transform.position;
+            Vector3 cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
+
+            var roundedPosX = position.x.Quantize(cellSize.x);
+            var roundedPosY = position.y.Quantize(cellSize.y);
+            var quantizedPosition = new Vector3(roundedPosX, roundedPosY, 0);
+
+            if(CheckIfCanMove(x, y, position, quantizedPosition))
+            {
+                if (Random.value >= 0.5f)
+                {
+                    int index = Random
+                        .Range(0, FootStepAudioClips.Length);
+
+                    AudioSource
+                        .PlayOneShot(FootStepAudioClips[index], 0.5f);
+                }
+
+                var movementVector = new Vector3(x * MovementStep, y * MovementStep, 0);
+                position = transform.position + movementVector;
+                position.x = position.x.Quantize(MovementStep);
+                position.y = position.y.Quantize(MovementStep);
+                transform.position = position;
+            }
         }
 
         protected void Reset()
@@ -200,17 +326,17 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 if (orb.IsFlareOrb)
                 {
                     ReaperMode.Reset();
-                    
+
                     MegaDestroy(orb.gameObject);
                 }
-                else if(Reaper.gameObject.active)
+                else if (Reaper.gameObject.activeInHierarchy)
                 {
                     Reaper
                     .Freeze();
 
                     MegaDestroy(orb.gameObject);
                 }
-                
+
             }
 
             var reaper = collision
@@ -300,28 +426,28 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 SetDirection(0, -1);
-                TryMove(0, -1);                
+                TryMove(0, -1);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 SetDirection(0, 1);
                 TryMove(0, 1);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                SetDirection(-1 ,0);
+                SetDirection(-1, 0);
                 TryMove(-1, 0);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 SetDirection(1, 0);
                 TryMove(1, 0);
             }
-            
-            if(Input.GetKeyDown(KeyCode.LeftControl))
+
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 TryBreakWall();
             }
@@ -332,8 +458,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             base
                 .Awake();
 
+            Rigidbody2D = FindObjectOfType<Rigidbody2D>();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
             Reaper = FindObjectOfType<ReaperBehaviour>();
+            AudioSource = GetComponent<AudioSource>();
 
             Reset();
         }

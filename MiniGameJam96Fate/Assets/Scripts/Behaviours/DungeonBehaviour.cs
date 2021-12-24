@@ -20,8 +20,10 @@
         public int FlareOrbCount = 10;
         public int FreezeOrbCount = 10;
 
+        public Tilemap Floor;
         public Tilemap Walls;
-
+        
+        public TileBase[] FloorTiles;
         public TileBase[] WallTiles;
 
         public OrbBehaviour FlareOrbPrefab;
@@ -66,7 +68,7 @@
             key.transform.position = pos;
 
             var cellCoords = Walls
-                    .WorldToCell(pos);
+                .WorldToCell(pos);
 
             Walls
                 .SetTile(cellCoords, null);
@@ -132,11 +134,16 @@
                 {
                     int wall = Dungeon.Walls[y, x];
 
+                    var cellPosition = new Vector3Int(x - Dungeon.Width / 2, y - Dungeon.Height / 2, 0);
+
+                    Floor
+                        .SetTile(cellPosition, FloorTiles[0]);
+
                     if (wall == 1)
                     {
                         Walls
-                            .SetTile(new Vector3Int(x - Dungeon.Width / 2, y - Dungeon.Height / 2, 0), WallTiles[0]);
-                    }
+                            .SetTile(cellPosition, WallTiles[0]);
+                    } 
                 }
             }
 
