@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.6666667, b: 0.36862746, a: 1}
+  m_Color: {r: 0.5529412, g: 0.41176474, b: 0.4784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1321,7 +1321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1528755193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1962,15 +1962,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2084363148727157241, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
       propertyPath: m_Color.b
-      value: 0.6392157
+      value: 0.4784314
       objectReference: {fileID: 0}
     - target: {fileID: 2084363148727157241, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
       propertyPath: m_Color.g
-      value: 0.8313726
+      value: 0.41176474
       objectReference: {fileID: 0}
     - target: {fileID: 2084363148727157241, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.5529412
       objectReference: {fileID: 0}
     - target: {fileID: 2084363150478534236, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1978,15 +1978,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2084363150478534239, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
       propertyPath: m_Color.b
-      value: 0.34901962
+      value: 0.40784317
       objectReference: {fileID: 0}
     - target: {fileID: 2084363150478534239, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
       propertyPath: m_Color.g
-      value: 0.5058824
+      value: 0.30588236
       objectReference: {fileID: 0}
     - target: {fileID: 2084363150478534239, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
       propertyPath: m_Color.r
-      value: 0.81568635
+      value: 0.32941177
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f02558f3b700a5d46af940ae4601d166, type: 3}
