@@ -98,20 +98,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             var newPos = transform.position + new Vector3(x * MovementStep, y * MovementStep, 0);
             transform.position = newPos;
-
-            var distanceToHero = (transform.position - Hero.transform.position).magnitude;
-            if (distanceToHero <= HeroProximityRedDistance)
-            {
-                ProximityOverlay
-                    .gameObject
-                    .SetActive(true);
-            }
-            else
-            {
-                ProximityOverlay
-                    .gameObject
-                    .SetActive(false);
-            }
         }
 
         #endregion
@@ -140,7 +126,21 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 }
             }
             ProximityOverlay.color = proximityColor;
-            
+
+            var distanceToHero = (transform.position - Hero.transform.position).magnitude;
+            if (distanceToHero <= HeroProximityRedDistance)
+            {
+                ProximityOverlay
+                    .gameObject
+                    .SetActive(true);
+            }
+            else
+            {
+                ProximityOverlay
+                    .gameObject
+                    .SetActive(false);
+            }
+
             if (FrozenTimer > 0)
             {
                 FrozenTimer -= Time.deltaTime;

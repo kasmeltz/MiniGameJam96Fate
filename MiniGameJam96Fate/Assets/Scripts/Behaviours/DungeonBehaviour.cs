@@ -59,8 +59,15 @@
                 y *= -1;
             }
 
-            var key = Instantiate(KeyPrefab);
-            key.transform.position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+            var key = Instantiate(KeyPrefab);            
+            var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+            key.transform.position = pos;
+
+            var cellCoords = Walls
+                    .WorldToCell(pos);
+
+            Walls
+                .SetTile(cellCoords, null);
         }
 
         protected void MakeOrbs()
@@ -74,7 +81,14 @@
                 int x = rnd.Next(-hw + 3, hw - 3);
                 int y = rnd.Next(-hh + 3, hh - 3);
                 var orb = Instantiate(OrbPrefab);
-                orb.transform.position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+
+                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+                orb.transform.position = pos;
+                var cellCoords = Walls
+                    .WorldToCell(pos);
+
+                Walls
+                    .SetTile(cellCoords, null);                
             }
         }
 
@@ -111,6 +125,13 @@
                     }
                 }
             }
+
+            var pos = new Vector3(0, 0, 0);
+            var cellCoords = Walls
+                .WorldToCell(pos);
+
+            Walls
+                .SetTile(cellCoords, null);
         }
 
         #endregion
