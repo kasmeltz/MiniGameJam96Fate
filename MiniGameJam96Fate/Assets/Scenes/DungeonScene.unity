@@ -1025,7 +1025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KeyImage: {fileID: 431770019}
   DiePanel: {fileID: 1286046237}
-  WinPanel: {fileID: 0}
+  WinPanel: {fileID: 2130966550}
   WallSmashRecovery: 1
   WallSmashCountRecovery: 0.5
   MovementStep: 0.16
@@ -1318,7 +1318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1528755193
 SpriteRenderer:
   m_ObjectHideFlags: 0
