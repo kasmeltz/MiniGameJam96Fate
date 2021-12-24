@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4525764802454082589}
   - component: {fileID: 8324768713958644718}
   m_Layer: 0
-  m_Name: Orb
+  m_Name: FreezeOrb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

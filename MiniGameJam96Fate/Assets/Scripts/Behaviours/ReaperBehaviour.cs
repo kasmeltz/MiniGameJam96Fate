@@ -106,6 +106,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Update()
         {
+            if (!gameObject.active)
+            {
+                Reset();
+            }
+
             if (Hero.HasWon)
             {
                 ProximityOverlay

@@ -27,6 +27,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         public int MaximumWallBreaks = 10;
 
         public ProgressBarBehaviour WallSmashBar;
+        public ReaperProgressBarBehaviour ReaperMode;
 
         public Text WallBreaksAvailableText;
 
@@ -196,10 +197,20 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (orb != null)
             {
-                Reaper
+                if (orb.IsFlareOrb)
+                {
+                    ReaperMode.Reset();
+
+                    MegaDestroy(orb.gameObject);
+                }
+                else if(Reaper.gameObject.active)
+                {
+                    Reaper
                     .Freeze();
 
-                MegaDestroy(orb.gameObject);
+                    MegaDestroy(orb.gameObject);
+                }
+                
             }
 
             var reaper = collision

@@ -4,6 +4,7 @@
 
     [AddComponentMenu("HairyNerd/MGJ96/Orb")]
     public class OrbBehaviour : BehaviourBase
-    {       
+    {
+        public bool IsFlareOrb = default;
     }
 }

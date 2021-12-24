@@ -17,13 +17,15 @@
         public int MaxRoomWidth = 5;
         public int MinRoomHeight = 2;
         public int MaxRoomHeight = 5;
-        public int OrbCount = 10;
+        public int FlareOrbCount = 10;
+        public int FreezeOrbCount = 10;
 
         public Tilemap Walls;
 
         public TileBase[] WallTiles;
 
-        public OrbBehaviour OrbPrefab;
+        public OrbBehaviour FlareOrbPrefab;
+        public OrbBehaviour FreezeOrbPrefab;
 
         public KeyBehaviour KeyPrefab;
 
@@ -76,11 +78,11 @@
 
             int hw = Width / 2;
             int hh = Height / 2;
-            for (int i = 0; i < OrbCount; i++)
+            for (int i = 0; i < FlareOrbCount; i++)
             {
                 int x = rnd.Next(-hw + 3, hw - 3);
                 int y = rnd.Next(-hh + 3, hh - 3);
-                var orb = Instantiate(OrbPrefab);
+                var orb = Instantiate(FlareOrbPrefab);
 
                 var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
                 orb.transform.position = pos;
@@ -89,6 +91,21 @@
 
                 Walls
                     .SetTile(cellCoords, null);                
+            }
+
+            for (int i = 0; i < FreezeOrbCount; i++)
+            {
+                int x = rnd.Next(-hw + 3, hw - 3);
+                int y = rnd.Next(-hh + 3, hh - 3);
+                var orb = Instantiate(FreezeOrbPrefab);
+
+                var pos = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+                orb.transform.position = pos;
+                var cellCoords = Walls
+                    .WorldToCell(pos);
+
+                Walls
+                    .SetTile(cellCoords, null);
             }
         }
 
