@@ -120,6 +120,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Update()
         {
+            if (Hero.HasWon)
+            {
+                ProximityOverlay
+                    .gameObject
+                    .SetActive(false);
+
+                return;
+            }
+
             var proximityColor = ProximityOverlay.color;
             if (proximityColor.a <= 0.25f)
             {

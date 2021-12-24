@@ -30,6 +30,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public Text WallBreaksAvailableText;
 
+        public bool HasWon { get; set; }
+
         protected float WallSmashPower { get; set; }
 
         protected float WallSmashCountTimer { get; set; }
@@ -40,9 +42,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected int WallBreaksAvailable { get; set; }
 
-        protected bool IsDead { get; set; }
-
-        protected bool HasWon { get; set; }
+        protected bool IsDead { get; set; }        
 
         protected bool HasKey { get; set; }
 
