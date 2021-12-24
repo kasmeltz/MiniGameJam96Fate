@@ -904,7 +904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementStep: 0.08
-  MovementCooldownRate: 5
+  MovementCooldownRate: 4
   FrozenSeconds: 3
 --- !u!1 &1395633008
 GameObject:
@@ -1025,6 +1025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KeyImage: {fileID: 431770019}
   DiePanel: {fileID: 1286046237}
+  WinPanel: {fileID: 0}
   WallSmashRecovery: 1
   WallSmashCountRecovery: 0.5
   MovementStep: 0.16
