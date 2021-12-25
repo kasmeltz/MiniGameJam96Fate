@@ -3,6 +3,7 @@
     public enum HeroUpgradeType
     {
         MovementSpeed,
+        MovementDistance,
         WallSmashRecovery,
         WallSmashCount,
         WallSmashPower

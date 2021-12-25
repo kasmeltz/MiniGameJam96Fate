@@ -48,6 +48,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected float MovementStep { get; set; }
 
+        protected float MovementSpeed { get; set; }
+
         protected float WallSmashRecovery { get; set; }
 
         protected int WallBreaksAvailable { get; set; }
@@ -264,7 +266,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected bool CheckIfCanMove(int x, int y, Vector3 position, ref Vector3 moveToPosition)
         {
-            float stepSize = 0.02f;
+            float stepSize = 0.01f;
             Vector3 cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
             moveToPosition.x = position.x;
             moveToPosition.y = position.y;
@@ -434,17 +436,20 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             }
 
             Vector3 moveToPosition = Vector3.zero;
-            if(CheckIfCanMove(x, y, transform.position, ref moveToPosition))
+            if (CheckIfCanMove(x, y, transform.position, ref moveToPosition))
             {
-                MoveTimer = 0.2f;
+                MoveTimer = MovementSpeed;
 
-                if (Random.value >= 0.5f)
+                if (!AudioSource.isPlaying)
                 {
                     int index = Random
                         .Range(0, FootStepAudioClips.Length);
 
                     AudioSource
-                        .PlayOneShot(FootStepAudioClips[index], 0.5f);
+                        .clip = FootStepAudioClips[index];
+
+                    AudioSource
+                        .Play();
                 }
 
                 Rigidbody2D
@@ -454,8 +459,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void Reset()
         {
-            MovementStep = Hero
+            MovementSpeed = Hero
                 .GetStatValue(HeroUpgradeType.MovementSpeed);
+
+            MovementStep = Hero
+                .GetStatValue(HeroUpgradeType.MovementDistance);
 
             WallBreaksAvailable = (int)Hero
                .GetStatValue(HeroUpgradeType.WallSmashCount);

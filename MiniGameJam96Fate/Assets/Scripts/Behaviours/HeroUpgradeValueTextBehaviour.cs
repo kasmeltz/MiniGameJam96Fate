@@ -1,0 +1,55 @@
+namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
+{
+    using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
+    using UnityEngine;
+    using UnityEngine.UI;
+
+    [AddComponentMenu("HairyNerd/MGJ96/HeroUpgradeValueText")]
+    public class HeroUpgradeValueTextBehaviour : BehaviourBase
+    {
+        #region Members
+
+        public HeroUpgradeType UpgradeType;
+
+        protected Text Text { get; set; }
+
+        #endregion
+
+        #region Protected Methods
+
+        protected void SetLevelText()
+        {
+            float value = GameState.Hero.GetStatValue(UpgradeType);
+            Text.text = $"{value:F2}";
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void Hero_LevelUpgraded(object sender, System.EventArgs e)
+        {
+            SetLevelText();
+        }
+
+        #endregion
+
+        #region Unity
+
+        protected void OnDestroy()
+        {
+            GameState.Hero.LevelUpgraded -= Hero_LevelUpgraded;
+        }
+
+        protected override void Awake()
+        {
+            Text = GetComponent<Text>();
+
+            GameState.Hero.LevelUpgraded += Hero_LevelUpgraded;
+
+            SetLevelText();
+        }        
+
+        #endregion
+    }
+}
