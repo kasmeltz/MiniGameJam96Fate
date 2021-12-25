@@ -600,7 +600,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430746292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -681,8 +681,8 @@ MonoBehaviour:
       colorBlindnessType: 0
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
@@ -1396,8 +1396,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProximityOverlay: {fileID: 2102730804}
   HeroProximityRedDistance: 1
-  MovementStep: 0.1
-  MovementCooldownRate: 4
+  MovementStep: 0.08
+  MovementCooldownRate: 3
   FrozenSeconds: 3
 --- !u!1 &1395633008
 GameObject:
@@ -1573,9 +1573,9 @@ Rigidbody2D:
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 60504bbf24f066d4aa49d3b875f5c66e, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!82 &1395633015
 AudioSource:
@@ -2737,8 +2737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Background: {fileID: 2084363149415104583}
   Foreground: {fileID: 2084363149790586849}
-  ReaperTimer: 10
-  Reaper: {fileID: 1323221503}
+  ReaperTimer: 15
 --- !u!114 &2084363149415104583 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7392334790897709453, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}

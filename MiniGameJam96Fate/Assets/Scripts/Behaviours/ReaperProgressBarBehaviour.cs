@@ -9,12 +9,20 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         public float ReaperTimer = 0;
 
         private float CurrentReaperTime = 0;
-
-        [SerializeField] private GameObject Reaper = null;
+        
+        protected ReaperBehaviour Reaper { get; set; }
 
         #endregion
 
         #region Unity
+
+        protected override void Awake()
+        {
+            base
+                .Awake();
+
+            Reaper = FindObjectOfType<ReaperBehaviour>();
+        }
 
         protected void Update()
         {
@@ -25,11 +33,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 {
                     CurrentReaperTime = ReaperTimer;
                     Reaper
+                        .gameObject
                         .SetActive(true);
                 }
                 else
                 {
                     Reaper
+                        .gameObject
                         .SetActive(false);
                 }
 
@@ -40,6 +50,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         public void Reset()
         {
             Reaper
+                .Reset();
+
+            Reaper
+                .gameObject
                 .SetActive(false);
 
             CurrentReaperTime = 0;
