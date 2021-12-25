@@ -24,7 +24,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 5,
                 ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 3.5f
+                ReaperMovementCooldown = 4f
             },
             new GameStage
             {
@@ -42,7 +42,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 4.5f,
                 ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 5f
+                ReaperMovementCooldown = 6f
             },
             new GameStage
             {

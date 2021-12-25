@@ -55,8 +55,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             int hh = dungeon.Height / 2;
 
             System.Random rnd = new System.Random();
-            int x = rnd.Next(hw - 8, hw - 4);
-            int y = rnd.Next(hh - 8, hh - 4);
+            int x = rnd.Next(hw - 4, hw - 2);
+            int y = rnd.Next(hh - 4, hh - 2);
 
             int dx = rnd.Next(0, 2);
             if (dx == 1)
