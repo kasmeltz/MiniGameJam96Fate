@@ -131,7 +131,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 CoinCount = 40,
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 2f,
-                ReaperMovementStep = 0.06f,
+                ReaperMovementStep = 0.08f,
                 ReaperMovementCooldown = 15f
             }
         };

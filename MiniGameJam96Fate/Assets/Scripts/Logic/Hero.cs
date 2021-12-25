@@ -31,7 +31,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
         {
             [HeroUpgradeType.MovementSpeed] = new float[] { 0.2f, 0.18f, 0.16f, 0.14f, 0.12f, 0.10f, 0.08f, 0.07f, 0.06f, 0.05f },
             [HeroUpgradeType.MovementDistance] = new float[] { 0.02f, 0.04f, 0.08f, 0.16f },
-            [HeroUpgradeType.WallSmashRecovery] = new float[] { 0.2f, 0.25f, 0.4f, 0.6f, 0.8f, 1f, 1.25f, 1.75f, 2f, 2.5f },
+            [HeroUpgradeType.WallSmashRecovery] = new float[] { 0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f },
             [HeroUpgradeType.WallSmashCount] = new float[] { 2, 4, 6, 8, 10, 12, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100, 200, 300, 400, 500 },
             [HeroUpgradeType.WallSmashPower] = new float[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
             [HeroUpgradeType.SpeedBoostRecover] = new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.1f },

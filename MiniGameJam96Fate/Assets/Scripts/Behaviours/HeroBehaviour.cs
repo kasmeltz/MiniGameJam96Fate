@@ -101,6 +101,35 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             SpeedBoostTimer = 4;
         }
 
+        protected bool TryBreakIndividualWall(Vector3Int cellPosition)
+        {
+            var cellBounds = DungeonBehaviour.Walls.cellBounds;
+
+            if (Mathf.Abs(cellPosition.x - cellBounds.min.x) < 1 ||
+                Mathf.Abs(cellPosition.x - cellBounds.max.x) < 2 ||
+                Mathf.Abs(cellPosition.y - cellBounds.min.y) < 1 ||
+                Mathf.Abs(cellPosition.y - cellBounds.max.y) < 2)
+            {
+                // CAN'T BREAK OUTER MOST WALL!
+                return false;
+            }
+
+            var tile = DungeonBehaviour
+                .Walls
+                .GetTile(cellPosition);
+
+            if (tile != null)
+            {
+                DungeonBehaviour
+                    .Walls
+                    .SetTile(cellPosition, null);
+
+                return true;
+            }
+
+            return false;
+        }
+
         protected void TryBreakWall()
         {
             if (WallSmashPower < 1)
@@ -114,7 +143,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             }
 
             Vector3Int cellPosition = Vector3Int.zero;
-            TileBase tile = null;
             bool wasAWallBroken = false;
 
             int dx = 0;
@@ -147,139 +175,98 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Walls
                 .WorldToCell(newPos);
 
-            var cellBounds = DungeonBehaviour.Walls.cellBounds;            
+            int sy = cellPosition.y;
+            int sx = cellPosition.x;
 
-            if (dx != 0)
+            var cellBounds = DungeonBehaviour.Walls.cellBounds;
+
+            int depth = (WallSmashSize / 3);
+            depth = Mathf.Max(depth, 1);
+
+            int width = (WallSmashSize / 2);
+
+            for (int i = 0; i < depth; i++)
             {
-                int sy = cellPosition.y;
-
-                for (int y = sy; y <= sy + (1 * WallSmashSize); y++)
+                if (dx != 0)
                 {
-                    cellPosition.y = y;
-
-                    if (cellPosition.x == cellBounds.min.x ||
-                        cellPosition.x == cellBounds.max.x ||
-                        cellPosition.y == cellBounds.min.y ||
-                        cellPosition.y == cellBounds.max.y)
+                    for (int y = sy; y <= sy + (1 * width); y++)
                     {
-                        // CAN'T BREAK OUTER MOST WALL!
-                        break;
+                        cellPosition.y = y;
+                        if (TryBreakIndividualWall(cellPosition))
+                        {
+                            wasAWallBroken = true;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
 
-                    tile = DungeonBehaviour
-                        .Walls
-                        .GetTile(cellPosition);
-
-                    if (tile != null)
+                    for (int y = sy - 1; y >= sy - (1 * width); y--)
                     {
-                        wasAWallBroken = true;
-
-                        DungeonBehaviour
-                            .Walls
-                            .SetTile(cellPosition, null);
-                    }
-                    else
-                    {
-                        break;
+                        cellPosition.y = y;
+                        if (TryBreakIndividualWall(cellPosition))
+                        {
+                            wasAWallBroken = true;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
 
-                for (int y = sy - 1; y >= sy - (1 * WallSmashSize); y--)
-                {
-                    cellPosition.y = y;
-
-                    if (cellPosition.x == cellBounds.min.x ||
-                        cellPosition.x == cellBounds.max.x ||
-                        cellPosition.y == cellBounds.min.y ||
-                        cellPosition.y == cellBounds.max.y)
+                if (dy != 0)
+                {                    
+                    for (int x = sx; x <= sx + (1 * width); x++)
                     {
-                        // CAN'T BREAK OUTER MOST WALL!
-                        break;
+                        cellPosition.x = x;
+                        if (TryBreakIndividualWall(cellPosition))
+                        {
+                            wasAWallBroken = true;
+                        }
+                        else
+                        {
+                            break;
+                        }                        
                     }
 
-                    tile = DungeonBehaviour
-                        .Walls
-                        .GetTile(cellPosition);
-
-                    if (tile != null)
+                    for (int x = sx - 1; x >= sx - (1 * width); x--)
                     {
-                        wasAWallBroken = true;
+                        cellPosition.x = x;
 
-                        DungeonBehaviour
-                            .Walls
-                            .SetTile(cellPosition, null);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-
-            if (dy != 0)
-            {
-                int sx = cellPosition.x;
-
-                for (int x = sx; x <= sx + (1 * WallSmashSize); x++)
-                {
-                    cellPosition.x = x;
-
-                    if (cellPosition.x == cellBounds.min.x ||
-                        cellPosition.x == cellBounds.max.x ||
-                        cellPosition.y == cellBounds.min.y ||
-                        cellPosition.y == cellBounds.max.y)
-                    {
-                        // CAN'T BREAK OUTER MOST WALL!
-                        break;
-                    }
-
-                    tile = DungeonBehaviour
-                        .Walls
-                        .GetTile(cellPosition);
-
-                    if (tile != null)
-                    {
-                        wasAWallBroken = true;
-
-                        DungeonBehaviour
-                            .Walls
-                            .SetTile(cellPosition, null);
-                    }
-                    else
-                    {
-                        break;
+                        if (TryBreakIndividualWall(cellPosition))
+                        {
+                            wasAWallBroken = true;
+                        }
+                        else
+                        {
+                            break;
+                        }                        
                     }
                 }
 
-                for (int x = sx - 1; x >= sx - (1 * WallSmashSize); x--)
+                if(!wasAWallBroken)
                 {
-                    cellPosition.x = x;
+                    break;
+                }
 
-                    if (cellPosition.x == cellBounds.min.x ||
-                        cellPosition.x == cellBounds.max.x ||
-                        cellPosition.y == cellBounds.min.y ||
-                        cellPosition.y == cellBounds.max.y)
-                    {
-                        // CAN'T BREAK OUTER MOST WALL!
-                        break;
-                    }
+                if (Direction.x < 0)
+                {
+                    cellPosition.x--;
+                }
+                else if (Direction.x > 0)
+                {
+                    cellPosition.x++;
+                }
 
-                    tile = DungeonBehaviour
-                        .Walls
-                        .GetTile(cellPosition);
-
-                    if (tile != null)
-                    {
-                        wasAWallBroken = true;
-
-                        DungeonBehaviour
-                            .Walls
-                            .SetTile(cellPosition, null);
-                    }
-                    else
-                    {
-                        break;
-                    }
+                if (Direction.y < 0)
+                {
+                    cellPosition.y--; 
+                }
+                else if (Direction.y > 0)
+                {
+                    cellPosition.y++;
                 }
             }
 
@@ -468,6 +455,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 if (SpeedBoostTimer > 0)
                 {
                     MoveTimer = MovementSpeed * 0.5f;
+                    MoveTimer = Mathf.Max(MoveTimer, 0.05f);
                 }
                 else
                 {

@@ -144,7 +144,7 @@
                 int y = Random.Range(-hh + 3, hh - 2);
                 bool spawned = TrySpawnItem(x, y, CoinPrefab);
                 if (spawned)
-                {
+                {                    
                     coinsSpawned++;
                 }
             } while (coinsSpawned < CoinCount);
