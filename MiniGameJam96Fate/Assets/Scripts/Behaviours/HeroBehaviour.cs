@@ -448,6 +448,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                     AudioSource
                         .clip = FootStepAudioClips[index];
 
+                    AudioSource.volume = 0.25f;
+
                     AudioSource
                         .Play();
                 }

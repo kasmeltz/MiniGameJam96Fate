@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce540f8440db99408563fc95f3fb2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeType: 2
+  UpgradeType: 3
 --- !u!114 &106669798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce540f8440db99408563fc95f3fb2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeType: 1
+  UpgradeType: 2
 --- !u!114 &378064697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a236bb88db1520047895b42c3587ced5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeType: 1
+  UpgradeType: 2
   CostText: {fileID: 339527064}
 --- !u!114 &1186937861
 MonoBehaviour:
@@ -3739,7 +3739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a236bb88db1520047895b42c3587ced5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeType: 3
+  UpgradeType: 4
   CostText: {fileID: 1434874727}
 --- !u!114 &1773780496
 MonoBehaviour:
@@ -3969,7 +3969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a236bb88db1520047895b42c3587ced5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeType: 2
+  UpgradeType: 3
   CostText: {fileID: 1143215734}
 --- !u!114 &1818763316
 MonoBehaviour:
@@ -4659,7 +4659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce540f8440db99408563fc95f3fb2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpgradeType: 3
+  UpgradeType: 4
 --- !u!114 &2070013799
 MonoBehaviour:
   m_ObjectHideFlags: 0
