@@ -52,6 +52,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected int WallBreaksAvailable { get; set; }
 
+        protected int WallSmashSize { get; set; }
+
+        protected float MoveTimer { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -125,31 +129,136 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Walls
                 .WorldToCell(newPos);
 
-            var cellBounds = DungeonBehaviour.Walls.cellBounds;
-
-            if (cellPosition.x == cellBounds.min.x ||
-                cellPosition.x == cellBounds.max.x ||
-                cellPosition.y == cellBounds.min.y ||
-                cellPosition.y == cellBounds.max.y)
-            {
-                // CAN'T BREAK OUTER MOST WALL!
-                return;
-            }
+            var cellBounds = DungeonBehaviour.Walls.cellBounds;            
 
             WallBreaksAvailable--;
             UpdateWallBreakText();
 
             WallSmashPower = 0;
 
-            tile = DungeonBehaviour
-                .Walls
-                .GetTile(cellPosition);
-
-            if (tile != null)
+            if (dx != 0)
             {
-                DungeonBehaviour
-                    .Walls
-                    .SetTile(cellPosition, null);
+                int sy = cellPosition.y;         
+                
+                for (int y = sy; y <= sy + (1 * WallSmashSize); y++)
+                {
+                    cellPosition.y = y;
+
+                    if (cellPosition.x == cellBounds.min.x ||
+                        cellPosition.x == cellBounds.max.x ||
+                        cellPosition.y == cellBounds.min.y ||
+                        cellPosition.y == cellBounds.max.y)
+                    {
+                        // CAN'T BREAK OUTER MOST WALL!
+                        break;
+                    }
+
+                    tile = DungeonBehaviour
+                        .Walls
+                        .GetTile(cellPosition);
+
+                    if (tile != null)
+                    {
+                        DungeonBehaviour
+                            .Walls
+                            .SetTile(cellPosition, null);
+                    } else
+                    {
+                        break;
+                    }
+                }
+
+                for (int y = sy - 1; y >= sy - (1 * WallSmashSize); y--)
+                {
+                    cellPosition.y = y;
+
+                    if (cellPosition.x == cellBounds.min.x ||
+                        cellPosition.x == cellBounds.max.x ||
+                        cellPosition.y == cellBounds.min.y ||
+                        cellPosition.y == cellBounds.max.y)
+                    {
+                        // CAN'T BREAK OUTER MOST WALL!
+                        break;
+                    }
+
+                    tile = DungeonBehaviour
+                        .Walls
+                        .GetTile(cellPosition);
+
+                    if (tile != null)
+                    {
+                        DungeonBehaviour
+                            .Walls
+                            .SetTile(cellPosition, null);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (dy != 0)
+            {
+                int sx = cellPosition.x;
+
+                for (int x = sx; x <= sx + (1 * WallSmashSize); x++)
+                {
+                    cellPosition.x = x;
+
+                    if (cellPosition.x == cellBounds.min.x ||
+                        cellPosition.x == cellBounds.max.x ||
+                        cellPosition.y == cellBounds.min.y ||
+                        cellPosition.y == cellBounds.max.y)
+                    {
+                        // CAN'T BREAK OUTER MOST WALL!
+                        break;
+                    }
+
+                    tile = DungeonBehaviour
+                        .Walls
+                        .GetTile(cellPosition);
+
+                    if (tile != null)
+                    {
+                        DungeonBehaviour
+                            .Walls
+                            .SetTile(cellPosition, null);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                for (int x = sx - 1; x >= sx - (1 * WallSmashSize); x--)
+                {
+                    cellPosition.x = x;
+
+                    if (cellPosition.x == cellBounds.min.x ||
+                        cellPosition.x == cellBounds.max.x ||
+                        cellPosition.y == cellBounds.min.y ||
+                        cellPosition.y == cellBounds.max.y)
+                    {
+                        // CAN'T BREAK OUTER MOST WALL!
+                        break;
+                    }
+
+                    tile = DungeonBehaviour
+                        .Walls
+                        .GetTile(cellPosition);
+
+                    if (tile != null)
+                    {
+                        DungeonBehaviour
+                            .Walls
+                            .SetTile(cellPosition, null);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
         }
 
@@ -319,9 +428,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void TryMove(int x, int y)
         {
+            if (MoveTimer > 0)
+            {
+                return;
+            }
+
             Vector3 moveToPosition = Vector3.zero;
             if(CheckIfCanMove(x, y, transform.position, ref moveToPosition))
             {
+                MoveTimer = 0.2f;
+
                 if (Random.value >= 0.5f)
                 {
                     int index = Random
@@ -331,7 +447,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         .PlayOneShot(FootStepAudioClips[index], 0.5f);
                 }
 
-                transform.position = moveToPosition;
+                Rigidbody2D
+                    .MovePosition(moveToPosition);
             }
         }
 
@@ -345,6 +462,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             WallSmashRecovery = Hero
                .GetStatValue(HeroUpgradeType.WallSmashRecovery);
+
+            WallSmashSize = Hero
+                .GetStatLevel(HeroUpgradeType.WallSmashPower);
 
             CameraVelocity = Vector3.zero;
             transform.position = new Vector3(0, 0, 0);
@@ -373,14 +493,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 if (orb.IsFlareOrb)
                 {
-                    ReaperMode.Reset();
+                    ReaperMode
+                        .Reset();
 
                     MegaDestroy(orb.gameObject);
                 }
                 else if (Reaper.gameObject.activeInHierarchy)
                 {
                     Reaper
-                    .Freeze();
+                        .Freeze();
 
                     MegaDestroy(orb.gameObject);
                 }
@@ -396,10 +517,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                 SceneManager
                     .LoadSceneAsync("UpgradeScene");
-
-                //DiePanel
-                    //.gameObject
-                    //.SetActive(true);
             }
 
             var key = collision
@@ -423,10 +540,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     SceneManager
                         .LoadSceneAsync("UpgradeScene");
-
-                    //WinPanel
-                        //.gameObject
-                        //.SetActive(true);
                 }
             }
 
@@ -459,6 +572,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 return;
             }
 
+            if (MoveTimer > 0)
+            {
+                MoveTimer -= Time.deltaTime;
+                if (MoveTimer <= 0)
+                {
+                    MoveTimer = 0;
+                }
+            }
+
             if (WallSmashPower < 1)
             {
                 WallSmashPower += Time.deltaTime * WallSmashRecovery;
@@ -472,25 +594,25 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             WallSmashBar
                 .SetValues(WallSmashPower, 1);
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 SetDirection(0, -1);
                 TryMove(0, -1);
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.UpArrow))
             {
                 SetDirection(0, 1);
                 TryMove(0, 1);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 SetDirection(-1, 0);
                 TryMove(-1, 0);
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 SetDirection(1, 0);
                 TryMove(1, 0);

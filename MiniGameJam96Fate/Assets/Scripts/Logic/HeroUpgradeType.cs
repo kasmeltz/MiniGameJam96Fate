@@ -4,6 +4,7 @@
     {
         MovementSpeed,
         WallSmashRecovery,
-        WallSmashCount
+        WallSmashCount,
+        WallSmashPower
     }
 }

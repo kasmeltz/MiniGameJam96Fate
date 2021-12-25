@@ -1451,11 +1451,6 @@ MonoBehaviour:
   KeyImage: {fileID: 431770019}
   DiePanel: {fileID: 1286046237}
   WinPanel: {fileID: 2130966550}
-  WallSmashRecovery: 1
-  WallSmashCountRecovery: 0.5
-  MovementStep: 0.04
-  StartingWalkBreaks: 5
-  MaximumWallBreaks: 10
   WallSmashBar: {fileID: 1309826754}
   ReaperMode: {fileID: 2084363149415104570}
   WallBreaksAvailableText: {fileID: 21622770}
@@ -1502,9 +1497,9 @@ Rigidbody2D:
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 60504bbf24f066d4aa49d3b875f5c66e, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!82 &1395633015
 AudioSource:
@@ -2567,7 +2562,6 @@ MonoBehaviour:
   Background: {fileID: 2084363149415104583}
   Foreground: {fileID: 2084363149790586849}
   ReaperTimer: 10
-  Reaper: {fileID: 1323221503}
 --- !u!114 &2084363149415104583 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7392334790897709453, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}

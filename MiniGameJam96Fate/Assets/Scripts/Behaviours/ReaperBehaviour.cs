@@ -35,11 +35,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             FrozenTimer = FrozenSeconds;
         }
 
-        #endregion
-
-        #region Protected Methods
-
-        protected void Reset()
+        public void Reset()
         {
             var proximityColor = ProximityOverlay.color;
             proximityColor.a = 0;
@@ -66,6 +62,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             transform.position = new Vector3(x * MovementStep, y * MovementStep, 0);
         }
+
+        #endregion
+
+        #region Protected Methods        
 
         protected void Move()
         {
@@ -123,7 +123,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             var proximityColor = ProximityOverlay.color;
             if (proximityColor.a <= 0.25f)
             {
-                proximityColor.a += Time.deltaTime * 1f;
+                proximityColor.a += Time.deltaTime * 0.25f;
 
                 if (proximityColor.a > 0.25f)
                 {
