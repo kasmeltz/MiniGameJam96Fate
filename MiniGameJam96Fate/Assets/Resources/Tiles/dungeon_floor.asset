@@ -12,13 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: dungeon_floor
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+  m_DefaultSprite: {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 0
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 21300000, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: -4373184736405950995, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4158732434352698325, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4341242654334979365, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 1903813881350671106, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 8666153195878230358, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
+    - {fileID: 4633350270274512122, guid: f7b8776f6dbdc8b4c947370a34177410, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
