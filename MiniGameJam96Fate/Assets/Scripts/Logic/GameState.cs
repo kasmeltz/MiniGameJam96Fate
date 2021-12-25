@@ -42,7 +42,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 4.5f,
                 ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 3.5f
+                ReaperMovementCooldown = 4f
             },
             new GameStage
             {
@@ -60,7 +60,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 4f,
                 ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 4.5f
+                ReaperMovementCooldown = 6f
             },
             new GameStage
             {
@@ -77,8 +77,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 CoinCount = 20,
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 3.5f,
-                ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 5.5f
+                ReaperMovementStep = 0.06f,
+                ReaperMovementCooldown = 8f
             },
             new GameStage
             {
@@ -95,8 +95,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 CoinCount = 20,
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 3f,
-                ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 6.5f
+                ReaperMovementStep = 0.06f,
+                ReaperMovementCooldown = 10f
             },
             new GameStage
             {
@@ -113,8 +113,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 CoinCount = 20,
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 2.5f,
-                ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 7.5f
+                ReaperMovementStep = 0.06f,
+                ReaperMovementCooldown = 12.5f
             },
             new GameStage
             {
@@ -131,8 +131,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 CoinCount = 20,
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 2f,
-                ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 10f
+                ReaperMovementStep = 0.06f,
+                ReaperMovementCooldown = 15f
             }
         };
 
@@ -145,8 +145,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                     return null;
                 }
 
-                //return Stages[Level];
-                return Stages[Stages.Count - 1];
+                return Stages[Level];
             }
         }
 
