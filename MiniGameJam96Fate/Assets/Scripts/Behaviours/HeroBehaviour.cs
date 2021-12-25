@@ -16,10 +16,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public Image KeyImage;
 
-        public RectTransform DiePanel;
-
-        public RectTransform WinPanel;       
-
         public ProgressBarBehaviour WallSmashBar;
 
         public ReaperProgressBarBehaviour ReaperMode;
@@ -548,8 +544,23 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 {
                     HasWon = true;
 
-                    SceneManager
-                        .LoadSceneAsync("UpgradeScene");
+                    GameState.Level++;
+
+                    Hero
+                        .ChangeCoins(100);
+
+                    var currentStage = GameState.CurrentStage;
+
+                    if (currentStage == null)
+                    {
+                        SceneManager
+                            .LoadSceneAsync("WinningScene");
+                    }
+                    else
+                    {
+                        SceneManager
+                            .LoadSceneAsync("UpgradeScene");
+                    }
                 }
             }
 

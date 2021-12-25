@@ -1,5 +1,6 @@
 namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
+    using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -12,11 +13,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public float HeroProximityRedDistance = 2;
 
-        public float MovementStep = 0.16f;
+        public float MovementStep { get; set; }
 
-        public float MovementCooldownRate = 1;
+        public float MovementCooldownRate { get; set; }
 
-        public float FrozenSeconds = 1;
+        public float FrozenSeconds { get; set; }
 
         protected float MovementTimer { get; set; }
 
@@ -41,12 +42,21 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             proximityColor.a = 0;
             ProximityOverlay.color = proximityColor;
 
+            MovementStep = GameState.CurrentStage.ReaperMovementStep;
+            MovementCooldownRate = GameState.CurrentStage.ReaperMovementCooldown;
+            FrozenSeconds = GameState.CurrentStage.ReaperFreezeTime;
+
             MovementTimer = 0;
             FrozenTimer = 0;
 
+            var dungeon = DungeonBehaviour.Dungeon;
+
+            int hw = dungeon.Width / 2;
+            int hh = dungeon.Height / 2;
+
             System.Random rnd = new System.Random();
-            int x = rnd.Next(DungeonBehaviour.Width / 4, DungeonBehaviour.Width / 3);
-            int y = rnd.Next(DungeonBehaviour.Height / 4, DungeonBehaviour.Height / 3);
+            int x = rnd.Next(hw - 8, hw - 4);
+            int y = rnd.Next(hh - 8, hh - 4);
 
             int dx = rnd.Next(0, 2);
             if (dx == 1)

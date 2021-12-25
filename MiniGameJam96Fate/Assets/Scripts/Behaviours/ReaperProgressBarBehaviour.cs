@@ -1,16 +1,34 @@
 namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
+    using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
     using UnityEngine;
 
     public class ReaperProgressBarBehaviour : ProgressBarBehaviour
     {
         #region Members
         
-        public float ReaperTimer = 0;
+        public float ReaperTimer { get; set; }
 
         private float CurrentReaperTime = 0;
         
         protected ReaperBehaviour Reaper { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        public void Reset()
+        {
+            CurrentReaperTime = 0;
+            ReaperTimer = GameState.CurrentStage.ReaperAppearTime;
+
+            Reaper
+               .Reset();
+
+            Reaper
+                .gameObject
+                .SetActive(false);
+        }
 
         #endregion
 
@@ -22,6 +40,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Awake();
 
             Reaper = FindObjectOfType<ReaperBehaviour>();
+            
+            Reset();
         }
 
         protected void Update()
@@ -45,18 +65,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                 SetValues(CurrentReaperTime, ReaperTimer);
             }
-        }
-
-        public void Reset()
-        {
-            Reaper
-                .Reset();
-
-            Reaper
-                .gameObject
-                .SetActive(false);
-
-            CurrentReaperTime = 0;
         }
 
         #endregion

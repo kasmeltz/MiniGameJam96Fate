@@ -9,19 +9,7 @@
     public class DungeonBehaviour : BehaviourBase
     {
         #region Members
-
-        public int Width = 200;
-        public int Height = 100;
-        public float RoomThreshold = 0.5f;
-        public int RoomOverlapAmount = -2;
-        public int MinRoomWidth = 2;
-        public int MaxRoomWidth = 5;
-        public int MinRoomHeight = 2;
-        public int MaxRoomHeight = 5;
-        public int FlareOrbCount = 10;
-        public int FreezeOrbCount = 10;
-        public int CoinCount = 50;
-
+       
         public Tilemap Floor;
         public Tilemap Walls;
         
@@ -32,6 +20,12 @@
         public OrbBehaviour FreezeOrbPrefab;
         public CoinBehaviour CoinPrefab;
         public KeyBehaviour KeyPrefab;
+
+        public int FlareOrbCount { get; set; }
+
+        public int FreezeOrbCount { get; set; }
+
+        public int CoinCount { get; set; }
 
         public Dungeon Dungeon { get; set; }
 
@@ -44,6 +38,11 @@
         public void Reset()
         {
             UsedPositions = new HashSet<Vector3>();
+
+            FlareOrbCount = GameState.CurrentStage.FlareOrbCount;
+            FreezeOrbCount = GameState.CurrentStage.FreezeOrbCount;
+            CoinCount = GameState.CurrentStage.CoinCount;
+
             BuildDungeon();
         }
 
@@ -81,8 +80,8 @@
             bool keySpawned;
             do
             {
-                int x = Random.Range(Width / 4, Width / 2);
-                int y = Random.Range(Height / 4, Height / 2);
+                int x = Random.Range(Dungeon.Width / 4, Dungeon.Width / 2);
+                int y = Random.Range(Dungeon.Height / 4, Dungeon.Height / 2);
 
                 int dx = Random.Range(0, 2);
                 if (dx == 1)
@@ -102,8 +101,8 @@
 
         protected void MakeOrbs()
         {            
-            int hw = Width / 2;
-            int hh = Height / 2;
+            int hw = Dungeon.Width / 2;
+            int hh = Dungeon.Height / 2;
 
             int orbsSpawned = 0;
             do
@@ -132,8 +131,8 @@
 
         protected void MakeCoins()
         {
-            int hw = Width / 2;
-            int hh = Height / 2;
+            int hw = Dungeon.Width / 2;
+            int hh = Dungeon.Height / 2;
 
             int coinsSpawned = 0;
             do
@@ -152,14 +151,14 @@
         {
             Dungeon = new Dungeon
             {
-                Width = Width,
-                Height = Height,
-                RoomThreshold = RoomThreshold,
-                RoomOverlapAmount = RoomOverlapAmount,
-                MinRoomWidth = MinRoomWidth,
-                MaxRoomWidth = MaxRoomWidth,
-                MinRoomHeight = MinRoomHeight,
-                MaxRoomHeight = MaxRoomHeight
+                Width = GameState.CurrentStage.Width,
+                Height = GameState.CurrentStage.Height,
+                RoomThreshold = GameState.CurrentStage.RoomThreshold,
+                RoomOverlapAmount = GameState.CurrentStage.RoomOverlapAmount,
+                MinRoomWidth = GameState.CurrentStage.MinRoomWidth,
+                MaxRoomWidth = GameState.CurrentStage.MaxRoomWidth,
+                MinRoomHeight = GameState.CurrentStage.MinRoomHeight,
+                MaxRoomHeight = GameState.CurrentStage.MaxRoomHeight
             };
 
             Dungeon
