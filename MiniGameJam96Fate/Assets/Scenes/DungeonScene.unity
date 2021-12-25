@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 35585294}
   - component: {fileID: 35585296}
   - component: {fileID: 35585295}
+  - component: {fileID: 35585297}
   m_Layer: 5
   m_Name: CoinText
   m_TagString: Untagged
@@ -281,6 +282,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35585293}
   m_CullTransparentMesh: 1
+--- !u!114 &35585297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35585293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c372ff1725420458a840e9afc6ffb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &241718823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1459,6 @@ MonoBehaviour:
   WallSmashBar: {fileID: 1309826754}
   ReaperMode: {fileID: 2084363149415104570}
   WallBreaksAvailableText: {fileID: 21622770}
-  CoinText: {fileID: 35585295}
 --- !u!61 &1395633013
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2554,7 +2566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Background: {fileID: 2084363149415104583}
   Foreground: {fileID: 2084363149790586849}
-  ReaperTimer: 60
+  ReaperTimer: 10
   Reaper: {fileID: 1323221503}
 --- !u!114 &2084363149415104583 stripped
 MonoBehaviour:
@@ -2712,11 +2724,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7392334789180380712, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 230.26
+      value: 236
       objectReference: {fileID: 0}
     - target: {fileID: 7392334789180380712, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.800003
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7392334789180380715, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_FillAmount

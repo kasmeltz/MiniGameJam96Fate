@@ -2,6 +2,18 @@
 {
     public static class GameState
     {
-        public static Hero Hero { get; set; }
+        private static Hero _hero;
+        public static Hero Hero
+        {
+            get
+            {
+                if (_hero == null)
+                {
+                    _hero = new Hero();
+                }
+
+                return _hero;
+            }
+        }
     }
 }

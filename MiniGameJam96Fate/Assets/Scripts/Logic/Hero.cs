@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 {
@@ -27,17 +28,46 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 
         protected Dictionary<HeroUpgradeType, int[]> LevelCosts = new Dictionary<HeroUpgradeType, int[]>
         {
-            [HeroUpgradeType.MovementSpeed] = new int[] { 0, 100, 200, 300, 400, 500, 600, 700 }
+            [HeroUpgradeType.MovementSpeed] = new int[] { 0, 40, 100, 200, 400, 700, 1100, 1600 }
         };
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler CoinsChanged;
+        protected void OnCoinsChanged()
+        {
+            CoinsChanged?
+                .Invoke(this, EventArgs.Empty);
+        }
+
+        public event EventHandler LevelUpgraded;
+        protected void OnLevelUpgraded()
+        {
+            LevelUpgraded?
+                .Invoke(this, EventArgs.Empty);
+        }
 
         #endregion
 
         #region Public Methods
 
-        public bool IsMaximumLevel(HeroUpgradeType upgradeType, int level)
+        public void ChangeCoins(int amount)
         {
+            Coins += amount;
+            OnCoinsChanged();
+        }
+
+        public bool IsMaximumLevel(HeroUpgradeType upgradeType, int? level = null)
+        {
+            if (!level.HasValue)
+            {
+                level = GetStatLevel(upgradeType) + 1;
+            }
+
             var costs = LevelCosts[upgradeType];
-            if (level >= costs.Length - 1)
+            if (level.Value >= costs.Length)
             {
                 return true;
             }
@@ -45,15 +75,21 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             return false;
         }
 
-        public int GetUpgradeCost(HeroUpgradeType upgradeType, int level)
+        public int GetUpgradeCost(HeroUpgradeType upgradeType, int? level = null)
         {
-            if (IsMaximumLevel(upgradeType, level))
+            if (!level.HasValue)
+            {
+                level = GetStatLevel(upgradeType) + 1;
+            }
+
+            var costs = LevelCosts[upgradeType];
+
+            if (level.Value >= costs.Length)
             {
                 return int.MaxValue;
             }
 
-            var costs = LevelCosts[upgradeType];            
-            return costs[level];
+            return costs[level.Value];
         }
 
         public bool CanUpgradeLevel(HeroUpgradeType upgradeType)
@@ -65,7 +101,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 return false;
             }
 
-            var cost = GetUpgradeCost(upgradeType, currentLevel);
+            var cost = GetUpgradeCost(upgradeType, currentLevel + 1);
             if (cost > Coins)
             {
                 return false;
@@ -83,8 +119,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 return false;
             }
 
+            var cost = GetUpgradeCost(upgradeType, currentLevel + 1);
+            ChangeCoins(-cost);
+
             Levels[upgradeType]++;
 
+            OnLevelUpgraded();
             return true;
         }
 

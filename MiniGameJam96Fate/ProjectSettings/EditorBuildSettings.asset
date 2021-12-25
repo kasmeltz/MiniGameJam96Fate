@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DungeonScene.unity
     guid: f54406695884df04581f1c7567ba0f97
+  - enabled: 1
+    path: Assets/Scenes/UpgradeScene.unity
+    guid: 940889be7e43e6249831a81b949cf7fe
   m_configObjects: {}

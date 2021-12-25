@@ -3,6 +3,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
     using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
     using HairyNerdStudios.GameJams.MiniGameJam96.Unity.MathExtensions;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using UnityEngine.Tilemaps;
     using UnityEngine.UI;
 
@@ -34,9 +35,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         public ReaperProgressBarBehaviour ReaperMode;
 
         public Text WallBreaksAvailableText;
-
-        public Text CoinText;
-
+       
         public bool HasWon { get; set; }
 
         protected float WallSmashPower { get; set; }
@@ -67,13 +66,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public void ObtainCoin(CoinBehaviour coin)
         {
-            Hero.Coins += coin.Value;
-            UpdateCoinText();
-        }
-
-        public void UpdateCoinText()
-        {
-            CoinText.text = $"{Hero.Coins}";
+            Hero
+                .ChangeCoins(coin.Value);
         }
 
         public void ObtainKey(bool obtainKey)
@@ -361,7 +355,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             IsDead = false;
             WallBreaksAvailable = StartingWalkBreaks;
             UpdateWallBreakText();
-            UpdateCoinText();
             WallSmashPower = 0;
             WallSmashCountTimer = 0;
         }
@@ -405,9 +398,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 IsDead = true;
 
-                DiePanel
-                    .gameObject
-                    .SetActive(true);
+                SceneManager
+                    .LoadSceneAsync("UpgradeScene");
+
+                //DiePanel
+                    //.gameObject
+                    //.SetActive(true);
             }
 
             var key = collision
@@ -428,9 +424,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 if (HasKey)
                 {
                     HasWon = true;
-                    WinPanel
-                        .gameObject
-                        .SetActive(true);
+
+                    SceneManager
+                        .LoadSceneAsync("UpgradeScene");
+
+                    //WinPanel
+                        //.gameObject
+                        //.SetActive(true);
                 }
             }
 
@@ -528,12 +528,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Awake();
 
             Hero = GameState.Hero;
-            if (Hero == null)
-            {
-                Hero = new Hero();
-                GameState.Hero = Hero;
-            }
-
             Rigidbody2D = FindObjectOfType<Rigidbody2D>();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
             Reaper = FindObjectOfType<ReaperBehaviour>();
