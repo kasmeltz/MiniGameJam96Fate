@@ -546,9 +546,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     GameState.Level++;
 
-                    Hero
-                        .ChangeCoins(100);
-
                     var currentStage = GameState.CurrentStage;
 
                     if (currentStage == null)
@@ -558,6 +555,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                     }
                     else
                     {
+                        Hero
+                            .ChangeCoins(100 * GameState.Level);
+
                         SceneManager
                             .LoadSceneAsync("UpgradeScene");
                     }
