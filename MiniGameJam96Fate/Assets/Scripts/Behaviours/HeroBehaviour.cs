@@ -98,7 +98,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             }
             
             SpeedBoostPower = 0;
-            SpeedBoostTimer = 5;
+            SpeedBoostTimer = 4;
         }
 
         protected void TryBreakWall()
