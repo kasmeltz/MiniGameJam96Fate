@@ -40,8 +40,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected Vector3 CameraVelocity { get; set; }
 
-        protected Rigidbody2D Rigidbody2D { get; set; }
-
         protected AudioSource AudioSource { get; set; }
 
         protected Hero Hero { get; set; }
@@ -61,6 +59,14 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected float SpeedBoostRecover { get; set; }
 
         protected float SpeedBoostTimer { get; set; }
+    
+        protected bool IsSpeedBoostActive
+        {
+            get
+            {
+                return SpeedBoostTimer > 0;
+            }
+        }
 
         #endregion
 
@@ -98,7 +104,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             }
             
             SpeedBoostPower = 0;
-            SpeedBoostTimer = 4;
+            SpeedBoostTimer = 1;
         }
 
         protected bool TryBreakIndividualWall(Vector3Int cellPosition)
@@ -284,19 +290,24 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             Vector3 cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
             moveToPosition.x = position.x;
             moveToPosition.y = position.y;
-
             bool hitAWall = false;
+
+            var movementStep = MovementStep;
+            if (IsSpeedBoostActive)
+            {
+                movementStep *= 2;
+            }
 
             if (x != 0)
             {
                 float endValue;
                 if (x < 0)
                 {
-                    endValue = position.x - MovementStep;
+                    endValue = position.x - movementStep;
                 }
                 else
                 {
-                    endValue = position.x + MovementStep;
+                    endValue = position.x + movementStep;
                 }
 
                 do
@@ -367,11 +378,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 float endValue;
                 if (y < 0)
                 {
-                    endValue = position.y - MovementStep;
+                    endValue = position.y - movementStep;
                 }
                 else
                 {
-                    endValue = position.y + MovementStep;
+                    endValue = position.y + movementStep;
                 }
 
                 do
@@ -452,14 +463,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             Vector3 moveToPosition = Vector3.zero;
             if (CheckIfCanMove(x, y, transform.position, ref moveToPosition))
             {
-                if (SpeedBoostTimer > 0)
+                if (IsSpeedBoostActive)
                 {
-                    MoveTimer = MovementSpeed * 0.5f;
-                    MoveTimer = Mathf.Max(MoveTimer, 0.05f);
+                    MoveTimer += MovementSpeed * 0.25f;
                 }
                 else
                 {
-                    MoveTimer = MovementSpeed;
+                    MoveTimer += MovementSpeed;
                 }
                 
 
@@ -477,8 +487,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         .Play();
                 }
 
-                Rigidbody2D
-                    .MovePosition(moveToPosition);
+                transform.position = moveToPosition;
             }
         }
 
@@ -711,7 +720,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Awake();
 
             Hero = GameState.Hero;
-            Rigidbody2D = FindObjectOfType<Rigidbody2D>();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
             Reaper = FindObjectOfType<ReaperBehaviour>();
             AudioSource = GetComponent<AudioSource>();
