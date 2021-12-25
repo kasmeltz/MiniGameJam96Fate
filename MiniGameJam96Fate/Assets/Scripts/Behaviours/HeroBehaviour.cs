@@ -18,6 +18,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public ProgressBarBehaviour WallSmashBar;
 
+        public ProgressBarBehaviour SpeedBoostBar;
+
         public ReaperProgressBarBehaviour ReaperMode;
 
         public Text WallBreaksAvailableText;
@@ -25,6 +27,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         public bool HasWon { get; set; }
 
         protected float WallSmashPower { get; set; }
+
+        protected float SpeedBoostPower { get; set; }
 
         protected DungeonBehaviour DungeonBehaviour { get; set; }
 
@@ -54,6 +58,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected float MoveTimer { get; set; }
 
+        protected float SpeedBoostRecover { get; set; }
+
+        protected float SpeedBoostTimer { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -80,6 +88,17 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected void UpdateWallBreakText()
         {
             WallBreaksAvailableText.text = $"{WallBreaksAvailable}";
+        }
+
+        protected void TrySpeedBoost()
+        {
+            if (SpeedBoostPower < 1)
+            {
+                return;
+            }
+            
+            SpeedBoostPower = 0;
+            SpeedBoostTimer = 5;
         }
 
         protected void TryBreakWall()
@@ -446,7 +465,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             Vector3 moveToPosition = Vector3.zero;
             if (CheckIfCanMove(x, y, transform.position, ref moveToPosition))
             {
-                MoveTimer = MovementSpeed;
+                if (SpeedBoostTimer > 0)
+                {
+                    MoveTimer = MovementSpeed * 0.5f;
+                }
+                else
+                {
+                    MoveTimer = MovementSpeed;
+                }
+                
 
                 if (!AudioSource.isPlaying)
                 {
@@ -484,6 +511,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             WallSmashSize = Hero
                 .GetStatLevel(HeroUpgradeType.WallSmashPower);
 
+            SpeedBoostRecover = Hero
+                .GetStatLevel(HeroUpgradeType.SpeedBoostRecover);
+
             CameraVelocity = Vector3.zero;
             transform.position = new Vector3(0, 0, 0);
             SetDirection(0, -1);
@@ -491,6 +521,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             UpdateWallBreakText();
             IsDead = false;
             WallSmashPower = 1;
+            SpeedBoostPower = 1;
         }
 
         #endregion
@@ -605,6 +636,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 return;
             }
 
+            if (SpeedBoostTimer > 0)
+            {
+                SpeedBoostTimer -= Time.deltaTime;
+                if (SpeedBoostTimer <= 0)
+                {
+                    SpeedBoostTimer = 0;
+                }
+            }
+
             if (MoveTimer > 0)
             {
                 MoveTimer -= Time.deltaTime;
@@ -626,6 +666,19 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             WallSmashBar
                 .SetValues(WallSmashPower, 1);
+
+            if (SpeedBoostPower < 1)
+            {
+                SpeedBoostPower += Time.deltaTime * SpeedBoostRecover;
+
+                if (SpeedBoostPower >= 1)
+                {
+                    SpeedBoostPower = 1;
+                }
+            }
+
+            SpeedBoostBar
+                .SetValues(SpeedBoostPower, 1);
 
             if (Input.GetKey(KeyCode.DownArrow))
             {
@@ -651,9 +704,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 TryMove(1, 0);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl) ||
+                Input.GetKeyDown(KeyCode.Z))
             {
                 TryBreakWall();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) ||
+                Input.GetKeyDown(KeyCode.X))
+            {
+                TrySpeedBoost();
             }
         }
 

@@ -6,6 +6,7 @@
         MovementDistance,
         WallSmashRecovery,
         WallSmashCount,
-        WallSmashPower
+        WallSmashPower,
+        SpeedBoostRecover
     }
 }
