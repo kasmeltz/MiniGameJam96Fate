@@ -22,12 +22,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 
         protected Dictionary<HeroUpgradeType, float[]> LevelStats = new Dictionary<HeroUpgradeType, float[]>
         {
-            [HeroUpgradeType.MovementSpeed] = new float[] { 0.04f, 0.06f, 0.08f, 0.10f, 0.12f, 0.14f, 0.16f }
+            [HeroUpgradeType.MovementSpeed] = new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.10f, 0.12f, 0.14f, 0.16f }
         };
 
         protected Dictionary<HeroUpgradeType, int[]> LevelCosts = new Dictionary<HeroUpgradeType, int[]>
         {
-            [HeroUpgradeType.MovementSpeed] = new int[] { 0, 100, 200, 300, 400, 500, 600 }
+            [HeroUpgradeType.MovementSpeed] = new int[] { 0, 100, 200, 300, 400, 500, 600, 700 }
         };
 
         #endregion

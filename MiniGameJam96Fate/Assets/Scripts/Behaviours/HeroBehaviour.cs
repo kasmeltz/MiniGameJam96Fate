@@ -167,130 +167,174 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             }
         }
 
-        protected bool CheckIfCanMove(int x, int y, Vector3 position, Vector3 quantizedPosition)
+        protected bool CheckIfCanMove(int x, int y, Vector3 position, ref Vector3 moveToPosition)
         {
-            var isAtXBorder = quantizedPosition
-                .x
-                .CloseTo(position.x, 0.01f);
+            float stepSize = 0.02f;
+            Vector3 cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
+            moveToPosition.x = position.x;
+            moveToPosition.y = position.y;
 
-            if (x != 0 && !isAtXBorder)
-            {
-                return true;
-            }
-
-            var isAtYBorder = quantizedPosition
-                .y
-                .CloseTo(position.y, 0.01f);
-
-            if (y != 0 && !isAtYBorder)
-            {
-                return true;
-            }
-
-            var cellPosition = DungeonBehaviour
-                .Walls
-                .WorldToCell(quantizedPosition);
-
-            if (x > 0)
-            {
-                cellPosition.x++;
-            }
-            else if (x < 0)
-            {
-                cellPosition.x--;
-            }
-
-            if (y > 0)
-            {
-                cellPosition.y++;
-            }
-            else if (y < 0)
-            {
-                cellPosition.y--;
-            }
-
-            if (quantizedPosition.x.CloseTo(position.x, 0.01f) &&
-                quantizedPosition.y.CloseTo(position.y, 0.01f))
-            {
-                var tile = DungeonBehaviour
-                    .Walls
-                    .GetTile(cellPosition);
-
-                return tile == null;
-            }
+            bool hitAWall = false;
 
             if (x != 0)
             {
-                var sy = cellPosition.y;
-                var ey = cellPosition.y;
-
-                if (position.y > quantizedPosition.y)
+                float endValue;
+                if (x < 0)
                 {
-                    ey++;
+                    endValue = position.x - MovementStep;
                 }
-                else if (position.y < quantizedPosition.y)
+                else
                 {
-                    sy--;
+                    endValue = position.x + MovementStep;
                 }
 
-                for(int cy = sy;cy <= ey;cy++)
+                do
                 {
-                    cellPosition = new Vector3Int(cellPosition.x, cy, 0);
+                    var roundedPosX = moveToPosition.x.Quantize(cellSize.x);
+                    var roundedPosY = moveToPosition.y.Quantize(cellSize.y);
+                    var quantizedPosition = new Vector3(roundedPosX, roundedPosY, 0);
 
-                    var tile = DungeonBehaviour
-                        .Walls
-                        .GetTile(cellPosition);
-
-                    if (tile != null)
+                    if (!moveToPosition.x.CloseTo(quantizedPosition.x, 0.001f))
                     {
-                        return false;
+                        moveToPosition.x += stepSize * x;
+                        continue;
                     }
-                }
+
+                    var cellPosition = DungeonBehaviour
+                        .Walls
+                        .WorldToCell(quantizedPosition);
+
+                    cellPosition.x += x;
+
+                    int sy, ey;
+                    if (position.y.CloseTo(quantizedPosition.y, 0.001f))
+                    {
+                        sy = cellPosition.y;
+                        ey = cellPosition.y;
+                    }
+                    else if (position.y > quantizedPosition.y)
+                    {
+                        sy = cellPosition.y;
+                        ey = cellPosition.y + 1;
+                    }
+                    else
+                    {
+                        sy = cellPosition.y - 1;
+                        ey = cellPosition.y;
+                    }
+
+                    for (int cy = sy; cy <= ey; cy++)
+                    {
+                        cellPosition = new Vector3Int(cellPosition.x, cy, 0);
+
+                        var tile = DungeonBehaviour
+                            .Walls
+                            .GetTile(cellPosition);
+
+                        if (tile != null)
+                        {
+                            hitAWall = true;
+                            break;
+                        }
+                    }
+
+                    if (hitAWall)
+                    {
+                        cellPosition.x -= x;
+                        moveToPosition.x = cellPosition.x * DungeonBehaviour.Walls.layoutGrid.cellSize.x;
+                        break;
+                    }
+                    else
+                    {
+                        moveToPosition.x += stepSize * x;
+                    }
+                } while (!moveToPosition.x.CloseTo(endValue, 0.001f));
             }
 
             if (y != 0)
             {
-                var sx = cellPosition.x;
-                var ex = cellPosition.x;
-
-                if (position.x > quantizedPosition.x)
+                float endValue;
+                if (y < 0)
                 {
-                    ex++;
+                    endValue = position.y - MovementStep;
                 }
-                else if (position.x < quantizedPosition.x)
+                else
                 {
-                    sx--;
+                    endValue = position.y + MovementStep;
                 }
 
-                for (int cx = sx; cx <= ex; cx++)
+                do
                 {
-                    cellPosition = new Vector3Int(cx, cellPosition.y, 0);
+                    var roundedPosX = moveToPosition.x.Quantize(cellSize.x);
+                    var roundedPosY = moveToPosition.y.Quantize(cellSize.y);
+                    var quantizedPosition = new Vector3(roundedPosX, roundedPosY, 0);
 
-                    var tile = DungeonBehaviour
-                        .Walls
-                        .GetTile(cellPosition);
-
-                    if (tile != null)
+                    if (!moveToPosition.y.CloseTo(quantizedPosition.y, 0.001f))
                     {
-                        return false;
+                        moveToPosition.y += stepSize * y;
+                        continue;
                     }
-                }
+
+                    var cellPosition = DungeonBehaviour
+                        .Walls
+                        .WorldToCell(quantizedPosition);
+
+                    cellPosition.y += y;
+
+                    int sx, ex;
+                    if (position.x.CloseTo(quantizedPosition.x, 0.001f))
+                    {
+                        sx = cellPosition.x;
+                        ex = cellPosition.x;
+                    }
+                    else if (position.x > quantizedPosition.x)
+                    {
+                        sx = cellPosition.x;
+                        ex = cellPosition.x + 1;
+                    }
+                    else
+                    {
+                        sx = cellPosition.x - 1;
+                        ex = cellPosition.x;
+                    }
+
+                    for (int cx = sx; cx <= ex; cx++)
+                    {
+                        cellPosition = new Vector3Int(cx, cellPosition.y, 0);
+
+                        var tile = DungeonBehaviour
+                            .Walls
+                            .GetTile(cellPosition);
+
+                        if (tile != null)
+                        {
+                            hitAWall = true;
+                            break;
+                        }
+                    }
+
+                    if (hitAWall)
+                    {
+                        cellPosition.y -= y;
+                        moveToPosition.y = cellPosition.y * DungeonBehaviour.Walls.layoutGrid.cellSize.y;
+                        break;
+                    }
+                    else
+                    {
+                        moveToPosition.y += stepSize * y;
+                    }
+                } while (!moveToPosition.y.CloseTo(endValue, 0.001f));
             }
 
-            return true;
-
+            return 
+                moveToPosition.x != position.x || 
+                moveToPosition.y != position.y;           
         }
 
         protected void TryMove(int x, int y)
         {
-            var position = transform.position;
-            Vector3 cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
-
-            var roundedPosX = position.x.Quantize(cellSize.x);
-            var roundedPosY = position.y.Quantize(cellSize.y);
-            var quantizedPosition = new Vector3(roundedPosX, roundedPosY, 0);
-
-            if(CheckIfCanMove(x, y, position, quantizedPosition))
+            Vector3 moveToPosition = Vector3.zero;
+            if(CheckIfCanMove(x, y, transform.position, ref moveToPosition))
             {
                 if (Random.value >= 0.5f)
                 {
@@ -301,11 +345,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         .PlayOneShot(FootStepAudioClips[index], 0.5f);
                 }
 
-                var movementVector = new Vector3(x * MovementStep, y * MovementStep, 0);
-                position = transform.position + movementVector;
-                position.x = position.x.Quantize(MovementStep);
-                position.y = position.y.Quantize(MovementStep);
-                transform.position = position;
+                transform.position = moveToPosition;
             }
         }
 
