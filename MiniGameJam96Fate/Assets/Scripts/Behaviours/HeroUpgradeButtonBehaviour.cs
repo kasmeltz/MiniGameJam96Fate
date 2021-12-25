@@ -31,6 +31,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         #endregion
 
+        #region Event Handlers
+
+        private void Hero_LevelUpgraded(object sender, System.EventArgs e)
+        {
+            SetState();
+        }
+
+
+        #endregion
         #region Protected Methods
 
         protected void SetState()
@@ -69,8 +78,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         #region Unity
 
+        protected void OnDestroy()
+        {
+            GameState.Hero.LevelUpgraded -= Hero_LevelUpgraded;
+        }
+
         protected override void Awake()
         {
+            GameState.Hero.LevelUpgraded += Hero_LevelUpgraded;
+
             SetState();            
         }
 

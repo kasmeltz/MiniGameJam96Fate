@@ -38,7 +38,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected void OnDestroy()
         {
-            GameState.Hero.CoinsChanged -= Hero_LevelUpgraded;
+            GameState.Hero.LevelUpgraded -= Hero_LevelUpgraded;
         }
 
         protected override void Awake()
