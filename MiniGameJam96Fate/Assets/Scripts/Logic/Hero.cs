@@ -32,9 +32,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 
         protected Dictionary<HeroUpgradeType, int[]> LevelCosts = new Dictionary<HeroUpgradeType, int[]>
         {
-            [HeroUpgradeType.MovementSpeed] = new int[] { 0, 30, 70, 120, 180, 250, 330, 420 },
-            [HeroUpgradeType.WallSmashRecovery] = new int[] { 0, 30, 70, 120, 180, 250, 330, 420 },
-            [HeroUpgradeType.WallSmashCount] = new int[] { 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260 }
+            [HeroUpgradeType.MovementSpeed] = new int[] { 0, 20, 50, 90, 180, 250, 330, 420 },
+            [HeroUpgradeType.WallSmashRecovery] = new int[] { 0, 20, 50, 120, 180, 250, 330, 420 },
+            [HeroUpgradeType.WallSmashCount] = new int[] { 0, 20, 20, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260 }
         };
 
         #endregion
