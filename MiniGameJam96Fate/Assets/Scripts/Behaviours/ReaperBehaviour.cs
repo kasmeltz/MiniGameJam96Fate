@@ -51,12 +51,14 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             var dungeon = DungeonBehaviour.Dungeon;
 
+            var cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
+
             int hw = dungeon.Width / 2;
             int hh = dungeon.Height / 2;
 
             System.Random rnd = new System.Random();
-            int x = rnd.Next(hw - 4, hw - 2);
-            int y = rnd.Next(hh - 4, hh - 2);
+            int x = rnd.Next(hw - 8, hw - 2);
+            int y = rnd.Next(hh - 8, hh - 2);
 
             int dx = rnd.Next(0, 2);
             if (dx == 1)
@@ -70,7 +72,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 y *= -1;
             }
 
-            transform.position = new Vector3(x * MovementStep, y * MovementStep, 0);
+            transform.position = new Vector3(x * cellSize.x, y * cellSize.y, 0);
         }
 
         #endregion
