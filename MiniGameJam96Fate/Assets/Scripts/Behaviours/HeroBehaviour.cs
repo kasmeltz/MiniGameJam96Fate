@@ -96,6 +96,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             Vector3Int cellPosition = Vector3Int.zero;
             TileBase tile = null;
+            bool wasAWallBroken = false;
 
             int dx = 0;
             int dy = 0;
@@ -129,15 +130,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             var cellBounds = DungeonBehaviour.Walls.cellBounds;            
 
-            WallBreaksAvailable--;
-            UpdateWallBreakText();
-
-            WallSmashPower = 0;
-
             if (dx != 0)
             {
-                int sy = cellPosition.y;         
-                
+                int sy = cellPosition.y;
+
                 for (int y = sy; y <= sy + (1 * WallSmashSize); y++)
                 {
                     cellPosition.y = y;
@@ -157,10 +153,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     if (tile != null)
                     {
+                        wasAWallBroken = true;
+
                         DungeonBehaviour
                             .Walls
                             .SetTile(cellPosition, null);
-                    } else
+                    }
+                    else
                     {
                         break;
                     }
@@ -185,6 +184,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     if (tile != null)
                     {
+                        wasAWallBroken = true;
+
                         DungeonBehaviour
                             .Walls
                             .SetTile(cellPosition, null);
@@ -219,6 +220,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     if (tile != null)
                     {
+                        wasAWallBroken = true;
+
                         DungeonBehaviour
                             .Walls
                             .SetTile(cellPosition, null);
@@ -248,6 +251,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     if (tile != null)
                     {
+                        wasAWallBroken = true;
+
                         DungeonBehaviour
                             .Walls
                             .SetTile(cellPosition, null);
@@ -257,6 +262,13 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         break;
                     }
                 }
+            }
+
+            if (wasAWallBroken)
+            {
+                WallBreaksAvailable--;
+                UpdateWallBreakText();
+                WallSmashPower = 0;
             }
         }
 
