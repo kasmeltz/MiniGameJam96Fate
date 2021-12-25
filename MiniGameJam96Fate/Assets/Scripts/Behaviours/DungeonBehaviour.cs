@@ -80,8 +80,11 @@
             bool keySpawned;
             do
             {
-                int x = Random.Range(Dungeon.Width / 4, Dungeon.Width / 2);
-                int y = Random.Range(Dungeon.Height / 4, Dungeon.Height / 2);
+                int hw = Dungeon.Width / 2;
+                int hh = Dungeon.Height / 2;
+
+                int x = Random.Range(hw - 8, hw - 2);
+                int y = Random.Range(hh - 8, hh - 2);
 
                 int dx = Random.Range(0, 2);
                 if (dx == 1)
