@@ -30,7 +30,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
         protected Dictionary<HeroUpgradeType, float[]> LevelStats = new Dictionary<HeroUpgradeType, float[]>
         {
             [HeroUpgradeType.MovementSpeed] = new float[] { 0.2f, 0.18f, 0.16f, 0.14f, 0.12f, 0.10f },
-            [HeroUpgradeType.MovementDistance] = new float[] { 0.01f, 0.02f, 0.04f, 0.08f },
+            [HeroUpgradeType.MovementDistance] = new float[] { 0.02f, 0.03f, 0.04f, 0.05f, 0.06f, 0.08f },
             [HeroUpgradeType.WallSmashRecovery] = new float[] { 0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f },
             [HeroUpgradeType.WallSmashCount] = new float[] { 2, 4, 6, 8, 10, 15, 20, 25, 50, 75, 100 },
             [HeroUpgradeType.WallSmashPower] = new float[] { 0, 2, 4, 6, 8, 10, 12 },
@@ -40,7 +40,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
         protected Dictionary<HeroUpgradeType, int[]> LevelCosts = new Dictionary<HeroUpgradeType, int[]>
         {
             [HeroUpgradeType.MovementSpeed] = new int[] { 0, 20, 50, 90, 160, 220 },
-            [HeroUpgradeType.MovementDistance] = new int[] { 0, 50, 250, 500 },
+            [HeroUpgradeType.MovementDistance] = new int[] { 0, 50, 90, 160, 220, 290 },
             [HeroUpgradeType.WallSmashRecovery] = new int[] { 0, 20, 50, 120, 160, 210, 270, 340, 420, 500 },
             [HeroUpgradeType.WallSmashCount] = new int[] { 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200 },
             [HeroUpgradeType.WallSmashPower] = new int[] { 0, 50, 120, 160, 210, 270, 340 },
