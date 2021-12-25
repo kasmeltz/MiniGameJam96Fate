@@ -104,7 +104,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             }
             
             SpeedBoostPower = 0;
-            SpeedBoostTimer = 1;
+            SpeedBoostTimer = 0.5f;
         }
 
         protected bool TryBreakIndividualWall(Vector3Int cellPosition)

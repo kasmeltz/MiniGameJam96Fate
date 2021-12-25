@@ -9,7 +9,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 
         public Hero()
         {
-            Coins = 100000;
+            Coins = 0;
             Levels = new Dictionary<HeroUpgradeType, int>();
             Levels[HeroUpgradeType.MovementSpeed] = 0;
             Levels[HeroUpgradeType.MovementDistance] = 0;
@@ -34,7 +34,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             [HeroUpgradeType.WallSmashRecovery] = new float[] { 0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f },
             [HeroUpgradeType.WallSmashCount] = new float[] { 2, 4, 6, 8, 10, 15, 20, 25, 50, 75, 100 },
             [HeroUpgradeType.WallSmashPower] = new float[] { 0, 2, 4, 6, 8, 10, 12 },
-            [HeroUpgradeType.SpeedBoostRecover] = new float[] { 0.25f, 0.33f, 0.5f, 0.66f, 0.75f, 1f },
+            [HeroUpgradeType.SpeedBoostRecover] = new float[] { 0.5f, 0.75f, 1f, 1.25f, 1.5f, 1.75f },
         };
 
         protected Dictionary<HeroUpgradeType, int[]> LevelCosts = new Dictionary<HeroUpgradeType, int[]>
