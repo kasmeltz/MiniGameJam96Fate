@@ -23,9 +23,13 @@
 
         public int[,] Walls { get; set; }
 
+        public List<Room> Rooms { get; set; }
+
         public void Build(int? seed = null)
         {
-            Random rnd = null;
+            Rooms = new List<Room>();
+
+            Random rnd;
             if (seed.HasValue)
             {
                 rnd = new Random(seed.Value);
@@ -40,11 +44,9 @@
             {
                 for (int x = 0; x < Walls.GetLength(1); x++)
                 {
-                    Walls[y, x] = 1;
+                    Walls[y, x] = 2;
                 }
             }
-
-            List<Room> rooms = new List<Room>();
 
             int failedAttempts = 0;
             int roomSquares;
@@ -59,7 +61,7 @@
                 var room = new Room(x, y, w, h);
 
                 bool overlap = false;
-                foreach (var existing in rooms)
+                foreach (var existing in Rooms)
                 {
                     if (existing
                         .DoesOverlap(room, RoomOverlapAmount))
@@ -82,7 +84,7 @@
                 {
                     failedAttempts = 0;
 
-                    rooms
+                    Rooms
                         .Add(room);
 
                     for (int ry = room.Y; ry < room.Y + room.Height; ry++)
@@ -99,7 +101,7 @@
                                 break;
                             }
 
-                            Walls[ry, rx] = 0;
+                            Walls[ry, rx] = 1;
                         }
                     }
                 }

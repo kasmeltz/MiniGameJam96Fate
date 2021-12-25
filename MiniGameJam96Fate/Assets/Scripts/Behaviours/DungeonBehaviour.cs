@@ -60,17 +60,21 @@
                 return false;
             }
 
+            var cellPosition = new Vector3Int(x, y, 0);
+
+            var tile = Walls
+                .GetTile(cellPosition);
+            
+            if (tile != null)
+            {
+                return false;
+            }
+
             UsedPositions
                 .Add(position);
 
             T item = Instantiate(prefab);
             item.transform.position = position;
-
-            var cellCoords = Walls
-                .WorldToCell(position);
-
-            Walls
-                .SetTile(cellCoords, null);
 
             return true;
         }
@@ -150,6 +154,41 @@
             } while (coinsSpawned < CoinCount);
         }
 
+        public void UpdateWalls()
+        {
+            for (int y = 0; y < Dungeon.Height; y++)
+            {
+                for (int x = 0; x < Dungeon.Width; x++)
+                {
+                    int wall = Dungeon.Walls[y, x];
+
+                    var cellPosition = new Vector3Int(x - Dungeon.Width / 2, y - Dungeon.Height / 2, 0);
+
+                    if (wall == 2)
+                    {
+                        Walls
+                            .SetTile(cellPosition, WallTiles[0]);
+                    }
+                    else
+                    {
+                        Walls
+                            .SetTile(cellPosition, null);
+                    }
+
+                    if (wall == 1)
+                    {
+                        Floor
+                            .SetTile(cellPosition, FloorTiles[1]);
+                    }
+                    else
+                    {
+                        Floor
+                            .SetTile(cellPosition, FloorTiles[0]);
+                    }
+                }
+            }
+        }
+
         protected void BuildDungeon()
         {
             Dungeon = new Dungeon
@@ -171,27 +210,14 @@
             {
                 for (int x = 0; x < Dungeon.Width; x++)
                 {
-                    int wall = Dungeon.Walls[y, x];
-
                     var cellPosition = new Vector3Int(x - Dungeon.Width / 2, y - Dungeon.Height / 2, 0);
 
                     Floor
                         .SetTile(cellPosition, FloorTiles[0]);
-
-                    if (wall == 1)
-                    {
-                        Walls
-                            .SetTile(cellPosition, WallTiles[0]);
-                    } 
                 }
             }
 
-            var pos = new Vector3(0, 0, 0);
-            var cellCoords = Walls
-                .WorldToCell(pos);
-
-            Walls
-                .SetTile(cellCoords, null);
+            UpdateWalls();
 
             MakeKey();
             MakeOrbs();

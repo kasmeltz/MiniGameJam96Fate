@@ -130,6 +130,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                     .Walls
                     .SetTile(cellPosition, null);
 
+                //var wallCellX = cellPosition.x + DungeonBehaviour.Dungeon.Width / 2;
+                //var wallCellY = cellPosition.y + DungeonBehaviour.Dungeon.Height / 2;
+
+                //DungeonBehaviour.Dungeon.Walls[wallCellY, wallCellX] = 0;
+
                 return true;
             }
 
@@ -280,6 +285,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 WallBreaksAvailable--;
                 UpdateWallBreakText();
+                
+                DungeonBehaviour
+                    .UpdateWalls();
+
                 WallSmashPower = 0;
             }
         }
@@ -512,13 +521,55 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .GetStatValue(HeroUpgradeType.SpeedBoostRecover);
 
             CameraVelocity = Vector3.zero;
-            transform.position = new Vector3(0, 0, 0);
             SetDirection(0, -1);
             ObtainKey(false);
             UpdateWallBreakText();
             IsDead = false;
             WallSmashPower = 1;
             SpeedBoostPower = 1;
+
+            int attempts = 0;
+            Vector3Int cellPosition = new Vector3Int(0, 0, 0);
+            bool incrementX = true;
+            do
+            {
+                var tile = DungeonBehaviour
+                    .Walls
+                    .GetTile(cellPosition);
+
+                if (tile == null)
+                {
+                    var pos = DungeonBehaviour
+                        .Walls
+                        .CellToWorld(cellPosition);
+
+                    transform.position = pos;
+
+                    pos.z = -10;
+                    Camera.main.transform.position = pos;
+
+                    break;
+                }
+
+                if (incrementX)
+                {
+                    cellPosition.x++;
+                    incrementX = false;
+                }
+                else
+                {
+                    cellPosition.y++;
+                    incrementX = true;
+                }
+ 
+                attempts++;
+                if (attempts > 100)
+                {
+                    break;
+                }
+            } while (true);
+            
+
         }
 
         #endregion

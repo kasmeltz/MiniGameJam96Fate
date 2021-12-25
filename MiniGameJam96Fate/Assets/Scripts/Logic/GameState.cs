@@ -12,7 +12,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             {
                 Width = 70,
                 Height = 35,
-                RoomThreshold = 0.75f,
+                RoomThreshold = 0.85f,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 3,
                 MaxRoomWidth = 7,
@@ -30,7 +30,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             {
                 Width = 80,
                 Height = 50,
-                RoomThreshold = 0.7f,
+                RoomThreshold = 0.8f,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 3,
                 MaxRoomWidth = 7,
@@ -48,7 +48,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             {
                 Width = 100,
                 Height = 60,
-                RoomThreshold = 0.65f,
+                RoomThreshold = 0.75f,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 3,
                 MaxRoomWidth = 7,
@@ -66,7 +66,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             {
                 Width = 120,
                 Height = 70,
-                RoomThreshold = 0.6f,
+                RoomThreshold = 0.7f,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 3,
                 MaxRoomWidth = 7,
@@ -84,7 +84,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             {
                 Width = 140,
                 Height = 80,
-                RoomThreshold = 0.55f,
+                RoomThreshold = 0.65f,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 3,
                 MaxRoomWidth = 7,
@@ -102,7 +102,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             {
                 Width = 160,
                 Height = 90,
-                RoomThreshold = 0.55f,
+                RoomThreshold = 0.6f,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 3,
                 MaxRoomWidth = 7,
@@ -120,7 +120,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             {
                 Width = 180,
                 Height = 100,
-                RoomThreshold = 0.5f,
+                RoomThreshold = 0.6f,
                 RoomOverlapAmount = -1,
                 MinRoomWidth = 3,
                 MaxRoomWidth = 7,
