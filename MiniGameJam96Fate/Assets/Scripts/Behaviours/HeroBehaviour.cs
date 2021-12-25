@@ -508,11 +508,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             WallSmashRecovery = Hero
                .GetStatValue(HeroUpgradeType.WallSmashRecovery);
 
-            WallSmashSize = Hero
-                .GetStatLevel(HeroUpgradeType.WallSmashPower);
+            WallSmashSize = (int)Hero
+                .GetStatValue(HeroUpgradeType.WallSmashPower);
 
             SpeedBoostRecover = Hero
-                .GetStatLevel(HeroUpgradeType.SpeedBoostRecover);
+                .GetStatValue(HeroUpgradeType.SpeedBoostRecover);
 
             CameraVelocity = Vector3.zero;
             transform.position = new Vector3(0, 0, 0);
