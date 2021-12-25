@@ -18,20 +18,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public RectTransform DiePanel;
 
-        public RectTransform WinPanel;
-
-
-        public float WallSmashRecovery = 0.75f;
-
-        public float WallSmashCountRecovery = 0.33f;
-
-        public float MovementStep = 0.32f;
-
-        public int StartingWalkBreaks = 5;
-
-        public int MaximumWallBreaks = 10;
+        public RectTransform WinPanel;       
 
         public ProgressBarBehaviour WallSmashBar;
+
         public ReaperProgressBarBehaviour ReaperMode;
 
         public Text WallBreaksAvailableText;
@@ -40,13 +30,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected float WallSmashPower { get; set; }
 
-        protected float WallSmashCountTimer { get; set; }
-
         protected DungeonBehaviour DungeonBehaviour { get; set; }
 
-        protected ReaperBehaviour Reaper { get; set; }
-
-        protected int WallBreaksAvailable { get; set; }
+        protected ReaperBehaviour Reaper { get; set; }        
 
         protected bool IsDead { get; set; }
 
@@ -59,6 +45,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected AudioSource AudioSource { get; set; }
 
         protected Hero Hero { get; set; }
+
+        protected float MovementStep { get; set; }
+
+        protected float WallSmashRecovery { get; set; }
+
+        protected int WallBreaksAvailable { get; set; }
 
         #endregion
 
@@ -348,15 +340,19 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             MovementStep = Hero
                 .GetStatValue(HeroUpgradeType.MovementSpeed);
 
+            WallBreaksAvailable = (int)Hero
+               .GetStatValue(HeroUpgradeType.WallSmashCount);
+
+            WallSmashRecovery = Hero
+               .GetStatValue(HeroUpgradeType.WallSmashRecovery);
+
             CameraVelocity = Vector3.zero;
             transform.position = new Vector3(0, 0, 0);
             SetDirection(0, -1);
             ObtainKey(false);
-            IsDead = false;
-            WallBreaksAvailable = StartingWalkBreaks;
             UpdateWallBreakText();
-            WallSmashPower = 0;
-            WallSmashCountTimer = 0;
+            IsDead = false;
+            WallSmashPower = 1;
         }
 
         #endregion
@@ -470,22 +466,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 if (WallSmashPower >= 1)
                 {
                     WallSmashPower = 1;
-                }
-            }
-
-            if (WallBreaksAvailable < MaximumWallBreaks)
-            {
-                if (WallSmashCountTimer < 1)
-                {
-                    WallSmashCountTimer += Time.deltaTime * WallSmashCountRecovery;
-
-                    if (WallSmashCountTimer >= 1)
-                    {
-                        WallSmashCountTimer = 0;
-                        WallBreaksAvailable++;
-
-                        UpdateWallBreakText();
-                    }
                 }
             }
 
