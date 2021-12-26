@@ -1693,10 +1693,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1323221507}
   - component: {fileID: 1323221506}
-  - component: {fileID: 1323221505}
   - component: {fileID: 1323221504}
   - component: {fileID: 1323221508}
-  - component: {fileID: 1323221509}
+  - component: {fileID: 1323221505}
   m_Layer: 0
   m_Name: Reaper
   m_TagString: Reaper
@@ -1721,7 +1720,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.31, y: 0.31}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1789,7 +1788,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 6045702999582412097, guid: 49d453c684e80aa4aac6d4c1aa495f10, type: 3}
+  m_Sprite: {fileID: 5147803415491035426, guid: 4909b171531d9684c891b75cefa58194, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1828,102 +1827,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProximityOverlay: {fileID: 2102730804}
   HeroProximityRedDistance: 1
---- !u!82 &1323221509
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323221503}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1395633008
 GameObject:
   m_ObjectHideFlags: 0
@@ -3315,15 +3218,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7392334789180380715, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_Color.b
-      value: 0.40784317
+      value: 0.36862746
       objectReference: {fileID: 0}
     - target: {fileID: 7392334789180380715, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_Color.g
-      value: 0.30588236
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 7392334789180380715, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_Color.r
-      value: 0.32941177
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7392334789180380715, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_FillAmount
@@ -3331,15 +3234,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7392334790897709453, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_Color.b
-      value: 0.4784314
+      value: 0.6392157
       objectReference: {fileID: 0}
     - target: {fileID: 7392334790897709453, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_Color.g
-      value: 0.41176474
+      value: 0.8313726
       objectReference: {fileID: 0}
     - target: {fileID: 7392334790897709453, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_Color.r
-      value: 0.5529412
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7392334790897709554, guid: 4e3cc9c7cc1c36e48a78e803f8d666cd, type: 3}
       propertyPath: m_Pivot.x

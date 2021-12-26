@@ -260,11 +260,16 @@
             var room = Instantiate(prefab);
             room.transform.position = position;
 
-            /*
             var cellPosition = Floor.WorldToCell(position);
-            for(int y = cellPosition.y - 5; y <= cellPosition.y + 5;y++)
+
+            int sy = cellPosition.y - (room.TileHeight / 2);
+            int ey = cellPosition.y + (room.TileHeight / 2);
+            int sx = cellPosition.x - (room.TileWidth / 2) + 1;
+            int ex = cellPosition.x + (room.TileWidth / 2);
+
+            for (int y = sy; y < ey;y++)
             {
-                for (int x = cellPosition.x - 5; x <= cellPosition.x + 5; x++)
+                for (int x = sx; x < ex; x++)
                 {
                     cellPosition.x = x;
                     cellPosition.y = y;
@@ -272,7 +277,6 @@
                     Floor.SetTile(cellPosition, FloorTiles[0]);
                 }
             }
-            */
 
             // TODO - MAKE WALL BOUNDARIES
             // TODO - MAKE DESTRUCTIBLE TILES

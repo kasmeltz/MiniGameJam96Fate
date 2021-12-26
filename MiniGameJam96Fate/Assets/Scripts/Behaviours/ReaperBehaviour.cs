@@ -23,8 +23,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected float FrozenTimer { get; set; }
 
-        protected AudioSource AudioSource { get; set; }
-
         protected HeroBehaviour Hero { get; set; }
 
         protected DungeonBehaviour DungeonBehaviour { get; set; }
