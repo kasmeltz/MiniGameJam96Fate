@@ -130,10 +130,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                     .Walls
                     .SetTile(cellPosition, null);
 
-                //var wallCellX = cellPosition.x + DungeonBehaviour.Dungeon.Width / 2;
-                //var wallCellY = cellPosition.y + DungeonBehaviour.Dungeon.Height / 2;
-
-                //DungeonBehaviour.Dungeon.Walls[wallCellY, wallCellX] = 0;
+                var wallCellX = cellPosition.x + DungeonBehaviour.Dungeon.Width / 2;
+                var wallCellY = cellPosition.y + DungeonBehaviour.Dungeon.Height / 2;
+                                
+                DungeonBehaviour.Dungeon.Walls[wallCellY, wallCellX] = 0;
 
                 return true;
             }
