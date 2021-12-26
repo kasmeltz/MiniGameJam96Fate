@@ -11,9 +11,11 @@
     public class DungeonBehaviour : BehaviourBase
     {
         #region Members
-       
+
+        public Tilemap Floor;
         public Tilemap Walls;
-        
+
+        public TileBase[] FloorTiles;
         public TileBase[] WallTiles;
 
         public OrbBehaviour FlareOrbPrefab;
@@ -34,6 +36,8 @@
 
         protected List<RoomBehaviour> RoomTypes { get; set; }
 
+        protected List<RoomBehaviour> Rooms { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -41,7 +45,7 @@
         public void Reset()
         {
             UsedPositions = new HashSet<Vector3>();
-
+            RoomCount = GameState.CurrentStage.RoomCount;
             FlareOrbCount = GameState.CurrentStage.FlareOrbCount;
             FreezeOrbCount = GameState.CurrentStage.FreezeOrbCount;
             CoinCount = GameState.CurrentStage.CoinCount;
@@ -251,8 +255,168 @@
             */
         }
 
+        protected RoomBehaviour MakeRoom(RoomBehaviour prefab, Vector3 position)
+        {
+            var room = Instantiate(prefab);
+            room.transform.position = position;
+
+            /*
+            var cellPosition = Floor.WorldToCell(position);
+            for(int y = cellPosition.y - 5; y <= cellPosition.y + 5;y++)
+            {
+                for (int x = cellPosition.x - 5; x <= cellPosition.x + 5; x++)
+                {
+                    cellPosition.x = x;
+                    cellPosition.y = y;
+
+                    Floor.SetTile(cellPosition, FloorTiles[0]);
+                }
+            }
+            */
+
+            // TODO - MAKE WALL BOUNDARIES
+            // TODO - MAKE DESTRUCTIBLE TILES
+
+            return room;
+        }
+
         protected void MakeRooms()
         {
+            var cellSize = Walls.layoutGrid.cellSize;
+            Rooms = new List<RoomBehaviour>();
+
+            RoomBehaviour prefab;
+            Vector3 roomPosition = new Vector3(0, 0, 0);
+            var possibleDirections = new List<int>();            
+            List<RoomBehaviour> roomsInProgress = new List<RoomBehaviour>();
+            
+            int chosenRoomIndex = UnityEngine
+                .Random
+                .Range(0, RoomTypes.Count);
+
+            var room = MakeRoom(RoomTypes[chosenRoomIndex], roomPosition);
+            
+            Rooms
+                .Add(room);
+
+            roomsInProgress
+                .Add(room);
+
+            do
+            {
+                possibleDirections
+                    .Clear();
+
+                var roomIndex = UnityEngine.Random.Range(0, roomsInProgress.Count);
+                var chosenRoom = roomsInProgress[roomIndex];
+
+                if (!chosenRoom.IsTopFilled)
+                {
+                    possibleDirections
+                        .Add(0);
+                }
+
+                if (!chosenRoom.IsBottomFilled)
+                {
+                    possibleDirections
+                        .Add(1);
+                }
+
+                if (!chosenRoom.IsLeftFilled)
+                {
+                    possibleDirections
+                        .Add(2);
+                }
+
+                if (!chosenRoom.IsRightFilled)
+                {
+                    possibleDirections
+                        .Add(3);
+                }
+
+                if (possibleDirections.Count == 0)
+                {
+                    roomsInProgress
+                        .Remove(chosenRoom);
+
+                    continue;
+                }
+
+                int directionIndex = UnityEngine.Random.Range(0, possibleDirections.Count);
+                int direction = possibleDirections[directionIndex];
+
+                switch (direction)
+                {
+                    case 0:
+                        chosenRoomIndex = UnityEngine
+                            .Random
+                            .Range(0, RoomTypes.Count);
+
+                        roomPosition = chosenRoom.transform.position;
+                        prefab = RoomTypes[chosenRoomIndex];
+                        roomPosition.y += prefab.TileHeight * cellSize.y;
+                        room = MakeRoom(prefab, roomPosition);
+
+                        room.BottomNeighbours.Add(chosenRoom);
+                        chosenRoom.TopNeighbours.Add(room);
+                    break;
+
+                    case 1:
+                        chosenRoomIndex = UnityEngine
+                            .Random
+                            .Range(0, RoomTypes.Count);
+
+                        roomPosition = chosenRoom.transform.position;
+                        prefab = RoomTypes[chosenRoomIndex];
+                        roomPosition.y -= prefab.TileHeight * cellSize.y;
+                        room = MakeRoom(prefab, roomPosition);
+
+                        room.TopNeighbours.Add(chosenRoom);
+                        chosenRoom.BottomNeighbours.Add(room);
+
+                        break;
+
+                    case 2:
+                        chosenRoomIndex = UnityEngine
+                            .Random
+                            .Range(0, RoomTypes.Count);
+
+                        roomPosition = chosenRoom.transform.position;
+                        prefab = RoomTypes[chosenRoomIndex];
+                        roomPosition.x -= prefab.TileWidth * cellSize.x;
+                        room = MakeRoom(prefab, roomPosition);
+
+                        room.RightNeighbours.Add(chosenRoom);
+                        chosenRoom.LeftNeighbours.Add(room);
+
+                        break;
+
+                    case 3:
+                        chosenRoomIndex = UnityEngine
+                            .Random
+                            .Range(0, RoomTypes.Count);
+
+                        roomPosition = chosenRoom.transform.position;
+                        prefab = RoomTypes[chosenRoomIndex];
+                        roomPosition.x += prefab.TileWidth * cellSize.x;
+                        room = MakeRoom(prefab, roomPosition);
+
+                        room.LeftNeighbours.Add(chosenRoom);
+                        chosenRoom.RightNeighbours.Add(room);
+
+                        break;
+                }
+
+                Rooms
+                    .Add(room);
+
+                roomsInProgress
+                    .Add(room);
+            } while (Rooms.Count < RoomCount);
+
+
+
+
             /*
             var cellSize = Walls.layoutGrid.cellSize;
             int hw = Dungeon.Width / 2;

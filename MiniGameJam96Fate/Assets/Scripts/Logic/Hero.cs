@@ -9,7 +9,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 
         public Hero()
         {
-            Coins = 0;
+            Coins = 1000000;
             Levels = new Dictionary<HeroUpgradeType, int>();
             Levels[HeroUpgradeType.MovementSpeed] = 0;
             Levels[HeroUpgradeType.MovementDistance] = 0;

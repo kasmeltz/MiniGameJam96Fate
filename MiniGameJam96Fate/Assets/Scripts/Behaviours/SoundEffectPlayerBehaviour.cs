@@ -14,16 +14,18 @@
         ReaperDisappear,
         ReaperBreathing,
         LoseStinger,
-        BreakWall
+        BreakWall,
+        UpgradeButton,
+        StartButton,
+        CoinCollect,
+        WinStinger
     }
 
     #endregion
 
     [AddComponentMenu("HairyNerd/MGJ96/SoundEffectPlayer")]
     public class SoundEffectPlayerBehaviour : BehaviourBase
-    {
-        
-
+    {        
         #region Members
 
         public AudioSource AudioSource;
@@ -49,5 +51,13 @@
         }
 
         #endregion
+
+        protected override void Awake()
+        {
+            base
+                .Awake();
+
+            DontDestroyOnLoad(this);
+        }
     }
 }

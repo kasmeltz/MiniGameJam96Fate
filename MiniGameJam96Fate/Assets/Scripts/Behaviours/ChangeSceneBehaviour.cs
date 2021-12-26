@@ -10,8 +10,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public void ChangeScene(string sceneName)
         {
-            SceneManager
-                .LoadSceneAsync(sceneName);
+            ExecuteAfterTime(0.5f, () =>
+            {
+                SceneManager
+                    .LoadSceneAsync(sceneName);
+            });
         }
 
        #endregion

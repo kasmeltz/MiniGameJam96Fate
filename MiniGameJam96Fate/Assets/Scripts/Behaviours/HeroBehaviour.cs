@@ -699,6 +699,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 if (HasKey && OrbCount == 4)
                 {
+                    SoundEffectPlayer
+                        .Play(SoundEffectEnum.WinStinger, 1);
+
                     HasWon = true;                    
 
                     GameState.Level++;
@@ -707,16 +710,22 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     if (currentStage == null)
                     {
-                        SceneManager
-                            .LoadSceneAsync("WinningScene");
+                        ExecuteAfterTime(6, () =>
+                        {
+                            SceneManager
+                                .LoadSceneAsync("WinningScene");
+                        });
                     }
                     else
                     {
                         Hero
                             .ChangeCoins(100 * GameState.Level);
 
-                        SceneManager
-                            .LoadSceneAsync("UpgradeScene");
+                        ExecuteAfterTime(6, () =>
+                        {
+                            SceneManager
+                                .LoadSceneAsync("UpgradeScene");
+                        });
                     }
                 } 
                 else
@@ -731,6 +740,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (coin != null)
             {
+                SoundEffectPlayer
+                    .Play(SoundEffectEnum.CoinCollect, 1);
+
                 ObtainCoin(coin);
 
                 MegaDestroy(coin.gameObject);
