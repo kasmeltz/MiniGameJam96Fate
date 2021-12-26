@@ -1,6 +1,7 @@
 ﻿namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 {
     using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Tilemaps;
@@ -51,7 +52,7 @@
 
         #region Protected Methods
 
-        protected bool TrySpawnItem<T>(int x, int y, T prefab) 
+        protected bool TrySpawnItem<T>(int x, int y, T prefab, Action<T> doAfterSpawn = null) 
             where T: Component
         {
             var position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
@@ -77,6 +78,9 @@
             T item = Instantiate(prefab);
             item.transform.position = position;
 
+            doAfterSpawn?
+                .Invoke(item);
+            
             return true;
         }
 
@@ -88,22 +92,22 @@
                 int hw = Dungeon.Width / 2;
                 int hh = Dungeon.Height / 2;
 
-                int x = Random.Range(hw - 8, hw - 2);
-                int y = Random.Range(hh - 8, hh - 2);
+                int x = UnityEngine.Random.Range(-(hw - 8), hw - 8);
+                int y = UnityEngine.Random.Range(-(hh - 8), hh - 8);
 
-                int dx = Random.Range(0, 2);
+                int dx = UnityEngine.Random.Range(0, 2);
                 if (dx == 1)
                 {
                     x *= -1;
                 }
 
-                int dy = Random.Range(0, 2);
+                int dy = UnityEngine.Random.Range(0, 2);
                 if (dy == 1)
                 {
                     y *= -1;
                 }
 
-                keySpawned = TrySpawnItem(x, y, KeyPrefab);
+                keySpawned = TrySpawnItem(x, y, KeyPrefab, (o) => o.gameObject.SetActive(false));                
             } while (!keySpawned);
         }
 
@@ -115,8 +119,56 @@
             int orbsSpawned = 0;
             do
             {
-                int x = Random.Range(-hw + 3, hw - 2);
-                int y = Random.Range(-hh + 3, hh - 2);
+                int x = UnityEngine.Random.Range(-16, 16);
+                int y = UnityEngine.Random.Range(-(hh - 8), -(hh - 2));
+                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 0);
+                if (spawned)
+                {
+                    orbsSpawned++;
+                }
+            } while (orbsSpawned < 1);
+
+            orbsSpawned = 0;
+            do
+            {
+                int x = UnityEngine.Random.Range(-(hw - 8), -(hw - 2));
+                int y = UnityEngine.Random.Range(-16, 16);
+                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 1);
+                if (spawned)
+                {
+                    orbsSpawned++;
+                }
+            } while (orbsSpawned < 1);
+
+            orbsSpawned = 0;
+            do
+            {
+                int x = UnityEngine.Random.Range(hw - 8, hw - 2);
+                int y = UnityEngine.Random.Range(-16, 16);
+                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 2);
+                if (spawned)
+                {
+                    orbsSpawned++;
+                }
+            } while (orbsSpawned < 1);
+
+            orbsSpawned = 0;
+            do
+            {
+                int x = UnityEngine.Random.Range(-16, 16);
+                int y = UnityEngine.Random.Range(hh - 8, hh - 2);
+                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 3);
+                if (spawned)
+                {
+                    orbsSpawned++;
+                }
+            } while (orbsSpawned < 1);
+
+            orbsSpawned = 0;
+            do
+            {
+                int x = UnityEngine.Random.Range(-hw + 3, hw - 2);
+                int y = UnityEngine.Random.Range(-hh + 3, hh - 2);
                 bool spawned = TrySpawnItem(x, y, FlareOrbPrefab);
                 if (spawned)
                 {
@@ -127,8 +179,8 @@
             orbsSpawned = 0;
             do
             {
-                int x = Random.Range(-hw + 3, hw - 2);
-                int y = Random.Range(-hh + 3, hh - 2);
+                int x = UnityEngine.Random.Range(-hw + 3, hw - 2);
+                int y = UnityEngine.Random.Range(-hh + 3, hh - 2);
                 bool spawned = TrySpawnItem(x, y, FreezeOrbPrefab);
                 if (spawned)
                 {
@@ -145,8 +197,8 @@
             int coinsSpawned = 0;
             do
             {
-                int x = Random.Range(-hw + 3, hw - 2);
-                int y = Random.Range(-hh + 3, hh - 2);
+                int x = UnityEngine.Random.Range(-hw + 3, hw - 2);
+                int y = UnityEngine.Random.Range(-hh + 3, hh - 2);
                 bool spawned = TrySpawnItem(x, y, CoinPrefab);
                 if (spawned)
                 {                    

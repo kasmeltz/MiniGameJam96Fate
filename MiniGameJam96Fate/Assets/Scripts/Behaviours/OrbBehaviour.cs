@@ -5,5 +5,6 @@
     [AddComponentMenu("HairyNerd/MGJ96/Orb")]
     public class OrbBehaviour : BehaviourBase
     {
+        public int OrbIndex { get; set; }
     }
 }

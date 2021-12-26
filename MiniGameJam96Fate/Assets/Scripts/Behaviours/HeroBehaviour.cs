@@ -32,8 +32,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected DungeonBehaviour DungeonBehaviour { get; set; }
 
-        protected ReaperBehaviour Reaper { get; set; }        
-        
+        protected ReaperBehaviour Reaper { get; set; }
+
+        protected DoorBehaviour Door { get; set; }
+
         protected SoundEffectPlayerBehaviour SoundEffectPlayer { get; set; }
 
         protected Hero Hero { get; set; }
@@ -90,9 +92,30 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .SetActive(obtainKey);
         }
 
-        public void ObtainOrb()
+        public void ObtainOrb(OrbBehaviour orb)
         {
-            OrbCount++;
+            Door
+                .Orbs[orb.OrbIndex]
+                .gameObject
+                .SetActive(true);
+
+            OrbCount = 0;
+
+            foreach(var doorOrb in Door.Orbs)
+            {
+                if (doorOrb.activeInHierarchy)
+                {
+                    OrbCount++;
+                }
+            }
+
+            if (OrbCount == 4)
+            {
+                var key = FindObjectOfType<KeyBehaviour>(true);
+                key
+                    .gameObject
+                    .SetActive(true);
+            }
         }
 
         #endregion
@@ -606,8 +629,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     ReaperMode
                         .Reset();
-
-                    MegaDestroy(orb.gameObject);
                 }
                 else if (Reaper.gameObject.activeInHierarchy && orb.gameObject.CompareTag("FreezeOrb"))
                 {
@@ -616,17 +637,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     Reaper
                         .Freeze();
-
-                    MegaDestroy(orb.gameObject);
                 }
                 else if (orb.gameObject.CompareTag("DoorOrb"))
                 {
                     SoundEffectPlayer
                         .Play(SoundEffectEnum.OrbCollect, 1);
 
-                    ObtainOrb();
+                    ObtainOrb(orb);
                 }
 
+                MegaDestroy(orb.gameObject);
             }
 
             var reaper = collision
@@ -813,6 +833,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             SoundEffectPlayer = FindObjectOfType<SoundEffectPlayerBehaviour>();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
             Reaper = FindObjectOfType<ReaperBehaviour>();
+            Door = FindObjectOfType<DoorBehaviour>();
             AudioSource = GetComponent<AudioSource>();
             
             Reset();

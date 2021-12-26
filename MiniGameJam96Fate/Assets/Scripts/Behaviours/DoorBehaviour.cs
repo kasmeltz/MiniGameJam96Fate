@@ -4,6 +4,7 @@
 
     [AddComponentMenu("HairyNerd/MGJ96/Door")]
     public class DoorBehaviour : BehaviourBase
-    {       
+    {
+        public GameObject[] Orbs;
     }
 }
