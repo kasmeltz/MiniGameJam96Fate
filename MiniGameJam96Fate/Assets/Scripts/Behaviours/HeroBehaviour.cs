@@ -635,6 +635,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     ReaperMode
                         .Reset();
+
+                    MegaDestroy(orb.gameObject);
                 }
                 else if (Reaper.gameObject.activeInHierarchy && orb.gameObject.CompareTag("FreezeOrb"))
                 {
@@ -643,6 +645,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
                     Reaper
                         .Freeze();
+
+                    MegaDestroy(orb.gameObject);
                 }
                 else if (orb.gameObject.CompareTag("DoorOrb"))
                 {
@@ -650,9 +654,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         .Play(SoundEffectEnum.OrbCollect, 1);
 
                     ObtainOrb(orb);
-                }
 
-                MegaDestroy(orb.gameObject);
+                    MegaDestroy(orb.gameObject);
+                }                
             }
 
             var reaper = collision
