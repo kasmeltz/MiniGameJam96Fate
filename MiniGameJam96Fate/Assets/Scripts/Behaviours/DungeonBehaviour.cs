@@ -3,6 +3,7 @@
     using HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using UnityEngine.Tilemaps;
 
@@ -11,10 +12,8 @@
     {
         #region Members
        
-        public Tilemap Floor;
         public Tilemap Walls;
         
-        public TileBase[] FloorTiles;
         public TileBase[] WallTiles;
 
         public OrbBehaviour FlareOrbPrefab;
@@ -29,9 +28,11 @@
 
         public int CoinCount { get; set; }
 
-        public Dungeon Dungeon { get; set; }
+        public int RoomCount { get; set; }
 
         protected HashSet<Vector3> UsedPositions { get; set; }
+
+        protected List<RoomBehaviour> RoomTypes { get; set; }
 
         #endregion
 
@@ -86,12 +87,10 @@
 
         protected void MakeKey()
         {            
+            /*
             bool keySpawned;
             do
             {
-                int hw = Dungeon.Width / 2;
-                int hh = Dungeon.Height / 2;
-
                 int x = UnityEngine.Random.Range(-(hw - 8), hw - 8);
                 int y = UnityEngine.Random.Range(-(hh - 8), hh - 8);
 
@@ -109,10 +108,12 @@
 
                 keySpawned = TrySpawnItem(x, y, KeyPrefab, (o) => o.gameObject.SetActive(false));                
             } while (!keySpawned);
+            */
         }
 
         protected void MakeOrbs()
         {            
+            /*
             int hw = Dungeon.Width / 2;
             int hh = Dungeon.Height / 2;
 
@@ -187,10 +188,12 @@
                     orbsSpawned++;
                 }
             } while (orbsSpawned < FreezeOrbCount);
+            */
         }
 
         protected void MakeCoins()
         {
+            /*
             int hw = Dungeon.Width / 2;
             int hh = Dungeon.Height / 2;
 
@@ -205,10 +208,12 @@
                     coinsSpawned++;
                 }
             } while (coinsSpawned < CoinCount);
+            */
         }
 
         public void UpdateWalls()
         {
+            /*
             for (int y = 0; y < Dungeon.Height; y++)
             {
                 for (int x = 0; x < Dungeon.Width; x++)
@@ -216,6 +221,9 @@
                     int wall = Dungeon.Walls[y, x];
 
                     var cellPosition = new Vector3Int(x - Dungeon.Width / 2, y - Dungeon.Height / 2, 0);
+
+                    Floor
+                        .SetTile(cellPosition, FloorTiles[0]);
 
                     if (wall == 2)
                     {
@@ -240,14 +248,46 @@
                     }
                 }
             }
+            */
+        }
+
+        protected void MakeRooms()
+        {
+            /*
+            var cellSize = Walls.layoutGrid.cellSize;
+            int hw = Dungeon.Width / 2;
+            int hh = Dungeon.Height / 2;
+            float sx = -hw * cellSize.x;
+            float sy = -hh * cellSize.y;
+            Vector3 roomPosition = new Vector3(sx, sy, 0);
+
+            roomPosition.y = 0;
+            RoomBehaviour chosenRoom;
+            RoomBehaviour instantiatedRoom;
+            //for (int y = 0; y < Dungeon.Height; y++)
+            //{
+                roomPosition.x = sx;
+                do
+                {
+                    var possibleRooms = RoomTypes
+                        .ToList();
+                    int roomIndex = UnityEngine.Random.Range(0, possibleRooms.Count);
+                    chosenRoom = possibleRooms[roomIndex];
+                    instantiatedRoom = Instantiate(chosenRoom);
+                    instantiatedRoom.transform.position = roomPosition;
+                    roomPosition.x += chosenRoom.TileWidth * cellSize.x;
+                } while (roomPosition.x < Dungeon.Width * cellSize.x);
+
+                //roomPosition.y += instantiatedRoom.TileHeight * cellSize.y;
+            //}
+            */
         }
 
         protected void BuildDungeon()
         {
+            /*
             Dungeon = new Dungeon
             {
-                Width = GameState.CurrentStage.Width,
-                Height = GameState.CurrentStage.Height,
                 RoomThreshold = GameState.CurrentStage.RoomThreshold,
                 RoomOverlapAmount = GameState.CurrentStage.RoomOverlapAmount,
                 MinRoomWidth = GameState.CurrentStage.MinRoomWidth,
@@ -269,9 +309,10 @@
                         .SetTile(cellPosition, FloorTiles[0]);
                 }
             }
+            */
 
+            MakeRooms();
             UpdateWalls();
-
             MakeKey();
             MakeOrbs();
             MakeCoins();                        
@@ -283,7 +324,11 @@
 
         protected override void Awake()
         {
-            Reset();
+            RoomTypes = Resources
+                .LoadAll<RoomBehaviour>("Prefabs/Rooms")
+                .ToList();            
+
+            Reset();            
         }
 
         #endregion

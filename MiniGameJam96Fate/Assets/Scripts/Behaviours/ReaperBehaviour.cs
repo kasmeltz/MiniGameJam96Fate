@@ -53,12 +53,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             MovementTimer = 0;
             FrozenTimer = 0;
 
-            var dungeon = DungeonBehaviour.Dungeon;
+            // TO DO - FIX REAPER PLACEMENT
 
-            var cellSize = DungeonBehaviour.Walls.layoutGrid.cellSize;
-
-            int hw = dungeon.Width / 2;
-            int hh = dungeon.Height / 2;
+            /*
 
             int x = Random.Range(hw - 8, hw - 2);
             int y = Random.Range(hh - 8, hh - 2);
@@ -74,8 +71,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 y *= -1;
             }
+            */
 
-            transform.position = new Vector3(x * cellSize.x, y * cellSize.y, 0);
+            transform.position = new Vector3(0, 0, 0);
         }
 
         #endregion

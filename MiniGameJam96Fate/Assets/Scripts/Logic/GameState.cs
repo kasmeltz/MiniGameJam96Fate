@@ -10,14 +10,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
         {
             new GameStage
             {
-                Width = 70,
-                Height = 35,
-                RoomThreshold = 0.85f,
-                RoomOverlapAmount = -1,
-                MinRoomWidth = 3,
-                MaxRoomWidth = 7,
-                MinRoomHeight = 3,
-                MaxRoomHeight= 7,
+                RoomCount = 20,
                 FlareOrbCount = 5,
                 FreezeOrbCount = 5,
                 CoinCount = 10,
@@ -28,14 +21,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             },
             new GameStage
             {
-                Width = 80,
-                Height = 50,
-                RoomThreshold = 0.8f,
-                RoomOverlapAmount = -1,
-                MinRoomWidth = 3,
-                MaxRoomWidth = 7,
-                MinRoomHeight = 3,
-                MaxRoomHeight= 7,
+                RoomCount = 30,
                 FlareOrbCount = 5,
                 FreezeOrbCount = 5,
                 CoinCount = 15,
@@ -46,14 +32,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             },
             new GameStage
             {
-                Width = 100,
-                Height = 60,
-                RoomThreshold = 0.75f,
-                RoomOverlapAmount = -1,
-                MinRoomWidth = 3,
-                MaxRoomWidth = 7,
-                MinRoomHeight = 3,
-                MaxRoomHeight= 7,
+                RoomCount = 40,
                 FlareOrbCount = 5,
                 FreezeOrbCount = 5,
                 CoinCount = 20,
@@ -64,14 +43,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             },
             new GameStage
             {
-                Width = 120,
-                Height = 70,
-                RoomThreshold = 0.7f,
-                RoomOverlapAmount = -1,
-                MinRoomWidth = 3,
-                MaxRoomWidth = 7,
-                MinRoomHeight = 3,
-                MaxRoomHeight= 7,
+                RoomCount = 50,
                 FlareOrbCount = 5,
                 FreezeOrbCount = 5,
                 CoinCount = 25,
@@ -82,14 +54,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             },
             new GameStage
             {
-                Width = 140,
-                Height = 80,
-                RoomThreshold = 0.65f,
-                RoomOverlapAmount = -1,
-                MinRoomWidth = 3,
-                MaxRoomWidth = 7,
-                MinRoomHeight = 3,
-                MaxRoomHeight= 7,
+                RoomCount = 60,
                 FlareOrbCount = 5,
                 FreezeOrbCount = 5,
                 CoinCount = 30,
@@ -100,14 +65,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             },
             new GameStage
             {
-                Width = 160,
-                Height = 90,
-                RoomThreshold = 0.6f,
-                RoomOverlapAmount = -1,
-                MinRoomWidth = 3,
-                MaxRoomWidth = 7,
-                MinRoomHeight = 3,
-                MaxRoomHeight= 7,
+                RoomCount = 70,
                 FlareOrbCount = 5,
                 FreezeOrbCount = 5,
                 CoinCount = 35,
@@ -118,14 +76,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
             },
             new GameStage
             {
-                Width = 180,
-                Height = 100,
-                RoomThreshold = 0.6f,
-                RoomOverlapAmount = -1,
-                MinRoomWidth = 3,
-                MaxRoomWidth = 7,
-                MinRoomHeight = 3,
-                MaxRoomHeight= 7,
+                RoomCount = 80,
                 FlareOrbCount = 5,
                 FreezeOrbCount = 5,
                 CoinCount = 40,

@@ -2,21 +2,7 @@
 {
     public class GameStage
     {
-        public int Width { get; set; }
-
-        public int Height { get; set; }
-
-        public double RoomThreshold { get; set; }
-
-        public int RoomOverlapAmount { get; set; }
-
-        public int MinRoomWidth { get; set; }
-
-        public int MaxRoomWidth { get; set; }
-
-        public int MinRoomHeight { get; set; }
-
-        public int MaxRoomHeight { get; set; }
+        public int RoomCount { get; set; }
 
         public int FlareOrbCount { get; set; }
         

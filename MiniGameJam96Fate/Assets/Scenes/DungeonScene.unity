@@ -2193,6 +2193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a94c88ea8388443b745d5fe5d66eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicPlayer: {fileID: 288754515}
   FootStepAudioClips:
   - {fileID: 8300000, guid: 6483ec103d22f214f97ea48776a5a154, type: 3}
   - {fileID: 8300000, guid: 6f6e75faed7622e42aee5e7fa94ee8e1, type: 3}
@@ -2930,7 +2931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620218423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.32, z: 0}
+  m_LocalPosition: {x: 0, y: 0.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1441269597}
@@ -3194,7 +3195,6 @@ MonoBehaviour:
   Floor: {fileID: 1776997378}
   Walls: {fileID: 1513445318}
   FloorTiles:
-  - {fileID: 11400000, guid: 7f4fbf69859dd29458dae61bf19d68aa, type: 2}
   - {fileID: 11400000, guid: 25924bf32f7c2ac49909c035ae1ecb46, type: 2}
   WallTiles:
   - {fileID: 11400000, guid: 4c8e769bd534e4a4a9654192a11dbcb5, type: 2}

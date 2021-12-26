@@ -1,4 +1,4 @@
-﻿namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
+﻿/*namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@
 
         public int RoomOverlapAmount { get; set; }
 
-        public int MinRoomWidth { get; set; }
+        4public int MinRoomWidth { get; set; }
 
         public int MaxRoomWidth { get; set; }
 
@@ -119,3 +119,5 @@
         }
     }
 }
+
+*/
