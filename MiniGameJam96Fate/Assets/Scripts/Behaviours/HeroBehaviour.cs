@@ -34,13 +34,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected ReaperBehaviour Reaper { get; set; }        
 
-        protected bool IsDead { get; set; }
-
-        protected bool HasKey { get; set; }
-
-        protected Vector3 CameraVelocity { get; set; }
-
-        protected AudioSource AudioSource { get; set; }
 
         protected Hero Hero { get; set; }
 
@@ -56,6 +49,15 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected float MoveTimer { get; set; }
 
+        protected bool IsDead { get; set; }
+
+        protected bool HasKey { get; set; }
+
+        protected int OrbCount { get; set; }
+
+        protected Vector3 CameraVelocity { get; set; }
+
+        protected AudioSource AudioSource { get; set; }
         protected float SpeedBoostRecover { get; set; }
 
         protected float SpeedBoostTimer { get; set; }
@@ -85,6 +87,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             KeyImage
                 .gameObject
                 .SetActive(obtainKey);
+        }
+
+        public void ObtainOrb()
+        {
+            OrbCount++;
         }
 
         #endregion
@@ -588,19 +595,22 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (orb != null)
             {
-                if (orb.IsFlareOrb)
+                if (orb.gameObject.CompareTag("FlareOrb"))
                 {
                     ReaperMode
                         .Reset();
 
                     MegaDestroy(orb.gameObject);
                 }
-                else if (Reaper.gameObject.activeInHierarchy)
+                else if (Reaper.gameObject.activeInHierarchy && orb.gameObject.CompareTag("FreezeOrb"))
                 {
                     Reaper
                         .Freeze();
 
                     MegaDestroy(orb.gameObject);
+                }else if (orb.gameObject.CompareTag("DoorOrb"))
+                {
+                    ObtainOrb();
                 }
 
             }
@@ -631,7 +641,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (door != null)
             {
-                if (HasKey)
+                if (HasKey && OrbCount == 4)
                 {
                     HasWon = true;
 
