@@ -33,7 +33,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected DungeonBehaviour DungeonBehaviour { get; set; }
 
         protected ReaperBehaviour Reaper { get; set; }        
-
+        
+        protected SoundEffectPlayerBehaviour SoundEffectPlayer { get; set; }
 
         protected Hero Hero { get; set; }
 
@@ -137,10 +138,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                     .Walls
                     .SetTile(cellPosition, null);
 
-                var wallCellX = cellPosition.x + DungeonBehaviour.Dungeon.Width / 2;
-                var wallCellY = cellPosition.y + DungeonBehaviour.Dungeon.Height / 2;
+                //var wallCellX = cellPosition.x + DungeonBehaviour.Dungeon.Width / 2;
+                //var wallCellY = cellPosition.y + DungeonBehaviour.Dungeon.Height / 2;
                                 
-                DungeonBehaviour.Dungeon.Walls[wallCellY, wallCellX] = 0;
+                //DungeonBehaviour.Dungeon.Walls[wallCellY, wallCellX] = 0;
 
                 return true;
             }
@@ -290,11 +291,14 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (wasAWallBroken)
             {
+                SoundEffectPlayer
+                    .Play(SoundEffectEnum.BreakWall, 1);
+
                 WallBreaksAvailable--;
                 UpdateWallBreakText();
                 
-                DungeonBehaviour
-                    .UpdateWalls();
+                //DungeonBehaviour
+                    //.UpdateWalls();
 
                 WallSmashPower = 0;
             }
@@ -597,6 +601,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 if (orb.gameObject.CompareTag("FlareOrb"))
                 {
+                    SoundEffectPlayer
+                        .Play(SoundEffectEnum.ReaperDisappear, 1);
+
                     ReaperMode
                         .Reset();
 
@@ -604,12 +611,19 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 }
                 else if (Reaper.gameObject.activeInHierarchy && orb.gameObject.CompareTag("FreezeOrb"))
                 {
+                    SoundEffectPlayer
+                        .Play(SoundEffectEnum.OrbFreeze, 1);
+
                     Reaper
                         .Freeze();
 
                     MegaDestroy(orb.gameObject);
-                }else if (orb.gameObject.CompareTag("DoorOrb"))
+                }
+                else if (orb.gameObject.CompareTag("DoorOrb"))
                 {
+                    SoundEffectPlayer
+                        .Play(SoundEffectEnum.OrbCollect, 1);
+
                     ObtainOrb();
                 }
 
@@ -620,10 +634,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (reaper != null)
             {
+                SoundEffectPlayer
+                    .Play(SoundEffectEnum.LoseStinger, 1);
+
                 IsDead = true;
 
-                SceneManager
-                    .LoadSceneAsync("UpgradeScene");
+                ExecuteAfterTime(5, () =>
+                {
+                    SceneManager
+                        .LoadSceneAsync("UpgradeScene");
+                });
             }
 
             var key = collision
@@ -631,6 +651,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (key != null)
             {
+                SoundEffectPlayer
+                    .Play(SoundEffectEnum.KeyCollect, 1);
+
                 ObtainKey(true);
 
                 MegaDestroy(key.gameObject);
@@ -643,7 +666,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             {
                 if (HasKey && OrbCount == 4)
                 {
-                    HasWon = true;
+                    HasWon = true;                    
 
                     GameState.Level++;
 
@@ -662,6 +685,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         SceneManager
                             .LoadSceneAsync("UpgradeScene");
                     }
+                } 
+                else
+                {
+                    SoundEffectPlayer
+                        .Play(SoundEffectEnum.DoorWontOpen, 1);
                 }
             }
 
@@ -781,10 +809,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 .Awake();
 
             Hero = GameState.Hero;
+
+            SoundEffectPlayer = FindObjectOfType<SoundEffectPlayerBehaviour>();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
             Reaper = FindObjectOfType<ReaperBehaviour>();
             AudioSource = GetComponent<AudioSource>();
-
+            
             Reset();
         }
 

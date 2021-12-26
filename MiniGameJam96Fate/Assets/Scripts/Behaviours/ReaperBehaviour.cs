@@ -11,10 +11,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public Image ProximityOverlay;
 
-        /*public AudioClip AppearingReaperAudioClips;
-        public AudioClip DissapearReaperAudioClips;*/
-
-
         public float HeroProximityRedDistance = 2;
 
         public float MovementStep { get; set; }
@@ -32,6 +28,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected HeroBehaviour Hero { get; set; }
 
         protected DungeonBehaviour DungeonBehaviour { get; set; }
+
+        protected SoundEffectPlayerBehaviour SoundEffectPlayer { get; set; }
 
         #endregion
 
@@ -153,6 +151,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             var distanceToHero = (transform.position - Hero.transform.position).magnitude;
             if (distanceToHero <= HeroProximityRedDistance)
             {
+                if (!SoundEffectPlayer.IsPlaying)
+                {
+                    SoundEffectPlayer
+                        .Play(SoundEffectEnum.ReaperBreathing, 1);
+                }
+
                 ProximityOverlay
                     .gameObject
                     .SetActive(true);
@@ -198,6 +202,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             Hero = FindObjectOfType<HeroBehaviour>();
             DungeonBehaviour = FindObjectOfType<DungeonBehaviour>();
+            SoundEffectPlayer = FindObjectOfType<SoundEffectPlayerBehaviour>();
 
             Reset();
         }

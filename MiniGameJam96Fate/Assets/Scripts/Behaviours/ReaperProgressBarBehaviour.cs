@@ -13,6 +13,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         
         protected ReaperBehaviour Reaper { get; set; }
 
+        protected SoundEffectPlayerBehaviour SoundEffectPlayer { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -39,6 +41,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             base
                 .Awake();
 
+            SoundEffectPlayer = FindObjectOfType<SoundEffectPlayerBehaviour>();
             Reaper = FindObjectOfType<ReaperBehaviour>();
             
             Reset();
@@ -51,6 +54,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                 CurrentReaperTime += Time.deltaTime;
                 if (CurrentReaperTime >= ReaperTimer)
                 {
+                    SoundEffectPlayer
+                        .Play(SoundEffectEnum.ReaperAppear, 1);
+
                     CurrentReaperTime = ReaperTimer;
                     Reaper
                         .gameObject
