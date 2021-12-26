@@ -6,5 +6,6 @@
     public class OrbBehaviour : BehaviourBase
     {
         public bool IsFlareOrb = default;
+
     }
 }

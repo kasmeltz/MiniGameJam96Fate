@@ -11,6 +11,10 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public Image ProximityOverlay;
 
+        /*public AudioClip AppearingReaperAudioClips;
+        public AudioClip DissapearReaperAudioClips;*/
+
+
         public float HeroProximityRedDistance = 2;
 
         public float MovementStep { get; set; }

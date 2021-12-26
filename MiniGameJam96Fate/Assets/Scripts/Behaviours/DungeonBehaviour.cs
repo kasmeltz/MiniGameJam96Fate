@@ -18,6 +18,7 @@
 
         public OrbBehaviour FlareOrbPrefab;
         public OrbBehaviour FreezeOrbPrefab;
+        public OrbBehaviour DoorOrbPrefab;
         public CoinBehaviour CoinPrefab;
         public KeyBehaviour KeyPrefab;
 

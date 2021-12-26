@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8324768713958644718}
   - component: {fileID: 3583092029918909954}
   m_Layer: 0
-  m_Name: FreezeOrb
+  m_Name: DoorOrb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 34490888886741656, guid: a8add10ab6ae1564c9860a192b5b68e5, type: 3}
+  m_Sprite: {fileID: 2214683806062304926, guid: 6fdb884e47fe7db49ba590cb1ee3722d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 6572410306395477932}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 481c3993c57310a42a5b44b4815f497c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1c092af1e8521664fbd2ae28e1a687dc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsFlareOrb: 0
+  OrbCollectAudioClips: {fileID: 8300000, guid: e76954c1b40b54d4dbba6dd0324f6ae8, type: 3}
 --- !u!58 &8324768713958644718
 CircleCollider2D:
   m_ObjectHideFlags: 0
