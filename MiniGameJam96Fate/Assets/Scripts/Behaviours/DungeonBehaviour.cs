@@ -394,6 +394,14 @@
                         break;
                 }
 
+                foreach (var existingRoom in Rooms)
+                {
+                    if (room.transform.position == existingRoom.transform.position)
+                    {
+                        Debug.Log($"WTF? => {room.transform.position}");
+                    }
+                }
+                
                 Rooms
                     .Add(room);
 
