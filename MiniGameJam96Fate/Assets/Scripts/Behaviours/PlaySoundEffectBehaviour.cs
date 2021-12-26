@@ -24,7 +24,7 @@
             base
                 .Awake();
 
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
