@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileWidth: 10
-  TileHeight: 7
+  TileHeight: 8
   TopEntrances: 0
   LeftEntrances: 1
   RightEntrances: 0
