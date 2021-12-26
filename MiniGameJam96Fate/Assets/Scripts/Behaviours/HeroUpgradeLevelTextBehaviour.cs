@@ -20,7 +20,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
         protected void SetLevelText()
         {
             int level = GameState.Hero.GetStatLevel(UpgradeType) + 1;
-            Text.text = $"{level}";
+            Text.text = $"Lv. {level}";
         }
 
         #endregion
