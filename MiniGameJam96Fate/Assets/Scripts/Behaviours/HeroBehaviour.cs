@@ -53,6 +53,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected bool HasKey { get; set; }
 
+        protected int OrbCount { get; set; }
+
         protected Vector3 CameraVelocity { get; set; }
 
         protected AudioSource AudioSource { get; set; }
@@ -85,6 +87,11 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             KeyImage
                 .gameObject
                 .SetActive(obtainKey);
+        }
+
+        public void ObtainOrb()
+        {
+            OrbCount++;
         }
 
         #endregion
@@ -603,7 +610,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                     MegaDestroy(orb.gameObject);
                 }else if (orb.gameObject.CompareTag("DoorOrb"))
                 {
-
+                    ObtainOrb();
                 }
 
             }
@@ -634,7 +641,7 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (door != null)
             {
-                if (HasKey)
+                if (HasKey && OrbCount == 4)
                 {
                     HasWon = true;
 
