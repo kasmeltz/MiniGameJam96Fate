@@ -4,13 +4,14 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
     using HairyNerdStudios.GameJams.MiniGameJam96.Unity.MathExtensions;
     using UnityEngine;
     using UnityEngine.SceneManagement;
-    using UnityEngine.Tilemaps;
     using UnityEngine.UI;
 
     [AddComponentMenu("HairyNerd/MGJ96/Hero")]
     public class HeroBehaviour : ActorBehaviour
     {
         #region Members
+
+        public AudioSource MusicPlayer;
 
         public AudioClip[] FootStepAudioClips;
 
@@ -659,6 +660,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
             if (reaper != null)
             {
+                MusicPlayer
+                    .Stop();
+
                 SoundEffectPlayer
                     .Play(SoundEffectEnum.LoseStinger, 1);
 
