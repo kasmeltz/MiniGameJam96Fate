@@ -262,14 +262,14 @@
 
             var cellPosition = Floor.WorldToCell(position);
 
-            int sy = cellPosition.y - (room.TileHeight / 2);
-            int ey = cellPosition.y + (room.TileHeight / 2);
+            int sy = cellPosition.y - (room.TileHeight / 2) + 1;
+            int ey = cellPosition.y + (room.TileHeight / 2) - 1;
             int sx = cellPosition.x - (room.TileWidth / 2) + 1;
-            int ex = cellPosition.x + (room.TileWidth / 2);
+            int ex = cellPosition.x + (room.TileWidth / 2) - 1;
 
-            for (int y = sy; y < ey;y++)
+            for (int y = sy; y <= ey;y++)
             {
-                for (int x = sx; x < ex; x++)
+                for (int x = sx; x <= ex; x++)
                 {
                     cellPosition.x = x;
                     cellPosition.y = y;
@@ -293,13 +293,18 @@
             Vector3 roomPosition = new Vector3(0, 0, 0);
             var possibleDirections = new List<int>();            
             List<RoomBehaviour> roomsInProgress = new List<RoomBehaviour>();
-            
-            int chosenRoomIndex = UnityEngine
-                .Random
-                .Range(0, RoomTypes.Count);
 
-            var room = MakeRoom(RoomTypes[chosenRoomIndex], roomPosition);
+            var initialRoom = RoomTypes
+                .Where(o => 
+                    o.LeftEntrances > 0 && 
+                    o.RightEntrances > 0 && 
+                    o.TopEntrances > 0 && 
+                    o.BottomEntrances > 0 && 
+                    o.TileWidth == 10)
+                .FirstOrDefault();
             
+            var room = MakeRoom(initialRoom, roomPosition);
+
             Rooms
                 .Add(room);
 
@@ -308,11 +313,14 @@
 
             do
             {
+                var roomIndex = UnityEngine
+                    .Random
+                    .Range(0, roomsInProgress.Count);
+
+                var chosenRoom = roomsInProgress[roomIndex];
+
                 possibleDirections
                     .Clear();
-
-                var roomIndex = UnityEngine.Random.Range(0, roomsInProgress.Count);
-                var chosenRoom = roomsInProgress[roomIndex];
 
                 if (!chosenRoom.IsTopFilled)
                 {
@@ -352,62 +360,37 @@
                 switch (direction)
                 {
                     case 0:
-                        chosenRoomIndex = UnityEngine
-                            .Random
-                            .Range(0, RoomTypes.Count);
-
                         roomPosition = chosenRoom.transform.position;
-                        prefab = RoomTypes[chosenRoomIndex];
-                        roomPosition.y += prefab.TileHeight * cellSize.y;
-                        room = MakeRoom(prefab, roomPosition);
-
+                        roomPosition.y += initialRoom.TileHeight * cellSize.y;
+                        room = MakeRoom(initialRoom, roomPosition);
                         room.BottomNeighbours.Add(chosenRoom);
                         chosenRoom.TopNeighbours.Add(room);
                     break;
 
                     case 1:
-                        chosenRoomIndex = UnityEngine
-                            .Random
-                            .Range(0, RoomTypes.Count);
-
                         roomPosition = chosenRoom.transform.position;
-                        prefab = RoomTypes[chosenRoomIndex];
-                        roomPosition.y -= prefab.TileHeight * cellSize.y;
-                        room = MakeRoom(prefab, roomPosition);
-
+                        roomPosition.y -= initialRoom.TileHeight * cellSize.y;
+                        room = MakeRoom(initialRoom, roomPosition);
                         room.TopNeighbours.Add(chosenRoom);
                         chosenRoom.BottomNeighbours.Add(room);
 
                         break;
 
                     case 2:
-                        chosenRoomIndex = UnityEngine
-                            .Random
-                            .Range(0, RoomTypes.Count);
-
                         roomPosition = chosenRoom.transform.position;
-                        prefab = RoomTypes[chosenRoomIndex];
-                        roomPosition.x -= prefab.TileWidth * cellSize.x;
-                        room = MakeRoom(prefab, roomPosition);
-
+                        roomPosition.x -= initialRoom.TileWidth * cellSize.x;
+                        room = MakeRoom(initialRoom, roomPosition);
                         room.RightNeighbours.Add(chosenRoom);
                         chosenRoom.LeftNeighbours.Add(room);
 
                         break;
 
                     case 3:
-                        chosenRoomIndex = UnityEngine
-                            .Random
-                            .Range(0, RoomTypes.Count);
-
                         roomPosition = chosenRoom.transform.position;
-                        prefab = RoomTypes[chosenRoomIndex];
-                        roomPosition.x += prefab.TileWidth * cellSize.x;
-                        room = MakeRoom(prefab, roomPosition);
-
+                        roomPosition.x += initialRoom.TileWidth * cellSize.x;
+                        room = MakeRoom(initialRoom, roomPosition);
                         room.LeftNeighbours.Add(chosenRoom);
                         chosenRoom.RightNeighbours.Add(room);
-
                         break;
                 }
 
@@ -416,9 +399,11 @@
 
                 roomsInProgress
                     .Add(room);
+
             } while (Rooms.Count < RoomCount);
 
 
+            List<RoomBehaviour> possibleNeighbours = null;
 
 
             /*

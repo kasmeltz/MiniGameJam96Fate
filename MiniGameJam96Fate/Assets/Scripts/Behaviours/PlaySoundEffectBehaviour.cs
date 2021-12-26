@@ -18,13 +18,5 @@
         }
 
         #endregion
-
-        protected override void Awake()
-        {
-            base
-                .Awake();
-
-            DontDestroyOnLoad(gameObject);
-        }
     }
 }
