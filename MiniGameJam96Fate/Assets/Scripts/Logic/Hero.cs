@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
+﻿namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
 {
+    using System;
+    using System.Collections.Generic;
+
     public class Hero
     {
         #region Constructors
 
         public Hero()
         {
-            Coins = 1000000;
+            Coins = 0;
             Levels = new Dictionary<HeroUpgradeType, int>();
             Levels[HeroUpgradeType.MovementSpeed] = 0;
             Levels[HeroUpgradeType.MovementDistance] = 0;
