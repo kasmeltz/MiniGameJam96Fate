@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Reaper
+  - FlareOrb
+  - FreezeOrb
+  - DoorOrb
   layers:
   - Default
   - TransparentFX
