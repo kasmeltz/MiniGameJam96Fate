@@ -16,6 +16,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         public Image KeyImage;
 
+        public WallBreakDustBehaviour WallBreakDustPrefab;
+
         public ProgressBarBehaviour WallSmashBar;
 
         public ProgressBarBehaviour SpeedBoostBar;
@@ -161,9 +163,12 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                     .Walls
                     .SetTile(cellPosition, null);
 
+                var dust = Instantiate(WallBreakDustPrefab);
+                dust.transform.position = new Vector3(cellPosition.x * 0.16f, cellPosition.y * 0.16f, 0);
+
                 //var wallCellX = cellPosition.x + DungeonBehaviour.Dungeon.Width / 2;
                 //var wallCellY = cellPosition.y + DungeonBehaviour.Dungeon.Height / 2;
-                                
+
                 //DungeonBehaviour.Dungeon.Walls[wallCellY, wallCellX] = 0;
 
                 return true;

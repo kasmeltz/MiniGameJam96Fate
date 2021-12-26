@@ -2200,6 +2200,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c80c434a85f65c44f85aa101a15e73cb, type: 3}
   - {fileID: 8300000, guid: 4ca575c9a0f7f1c4eb35494361742a0a, type: 3}
   KeyImage: {fileID: 431770019}
+  WallBreakDustPrefab: {fileID: 4961102697238218297, guid: 05de63636db507948a182a255ce52f4d, type: 3}
   WallSmashBar: {fileID: 1309826754}
   SpeedBoostBar: {fileID: 534720064}
   ReaperMode: {fileID: 2084363149415104570}
