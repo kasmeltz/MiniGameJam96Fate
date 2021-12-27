@@ -409,6 +409,7 @@
             int sx = cellPosition.x - 1;
             int ex = cellPosition.x + 1;
 
+            /*
             if (connection.Direction == RoomConnectionDirection.Down || connection.Direction == RoomConnectionDirection.Up)
             {
                 sx = cellPosition.x;
@@ -420,6 +421,7 @@
                 sy = cellPosition.y;
                 ey = cellPosition.y;
             }
+            */
 
             for (int y = sy; y <= ey; y++)
             {
