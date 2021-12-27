@@ -409,6 +409,18 @@
             int sx = cellPosition.x - 1;
             int ex = cellPosition.x + 1;
 
+            if (connection.Direction == RoomConnectionDirection.Down || connection.Direction == RoomConnectionDirection.Up)
+            {
+                sx = cellPosition.x;
+                ex = cellPosition.x;
+            }
+
+            if (connection.Direction == RoomConnectionDirection.Left || connection.Direction == RoomConnectionDirection.Right)
+            {
+                sy = cellPosition.y;
+                ey = cellPosition.y;
+            }
+
             for (int y = sy; y <= ey; y++)
             {
                 for (int x = sx; x <= ex; x++)
@@ -437,7 +449,7 @@
                     {
                         var distance = (connection.transform.position - otherConnection.transform.position).magnitude;
 
-                        if (distance <= 0.16f)
+                        if (distance <= 0.08f)
                         {
                             AddNeighbour(room, otherRoom, connection);
                             break;
