@@ -415,13 +415,12 @@
                 sx = cellPosition.x;
                 ex = cellPosition.x;
             }
+            */
 
             if (connection.Direction == RoomConnectionDirection.Left || connection.Direction == RoomConnectionDirection.Right)
             {
                 sy = cellPosition.y;
-                ey = cellPosition.y;
             }
-            */
 
             for (int y = sy; y <= ey; y++)
             {
