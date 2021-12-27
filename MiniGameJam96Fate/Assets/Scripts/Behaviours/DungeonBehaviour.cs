@@ -60,17 +60,31 @@
 
         #region Protected Methods
 
-        protected bool TrySpawnItem<T>(int x, int y, T prefab, Action<T> doAfterSpawn = null)
+        protected bool TrySpawnItem<T>(T prefab, Action<T> doAfterSpawn = null)
             where T : Component
         {
-            var position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
+            int roomIndex = UnityEngine
+                    .Random
+                    .Range(0, Rooms.Count);
 
-            if (UsedPositions.Contains(position))
+            var room = Rooms[roomIndex];
+            var position = room.transform.position;
+
+            int x = UnityEngine.Random.Range(-3, 3);
+            int y = UnityEngine.Random.Range(-2, 2);
+
+            var cellSize = Walls.layoutGrid.cellSize;
+            position.x += cellSize.x * x;
+            position.y += cellSize.y * y;
+
+            if (UsedPositions
+                .Contains(position))
             {
                 return false;
             }
 
-            var cellPosition = new Vector3Int(x, y, 0);
+            var cellPosition = Walls
+                .WorldToCell(position);
 
             var tile = Walls
                 .GetTile(cellPosition);
@@ -94,43 +108,19 @@
 
         protected void MakeKey()
         {
-            /*
             bool keySpawned;
             do
-            {
-                int x = UnityEngine.Random.Range(-(hw - 8), hw - 8);
-                int y = UnityEngine.Random.Range(-(hh - 8), hh - 8);
-
-                int dx = UnityEngine.Random.Range(0, 2);
-                if (dx == 1)
-                {
-                    x *= -1;
-                }
-
-                int dy = UnityEngine.Random.Range(0, 2);
-                if (dy == 1)
-                {
-                    y *= -1;
-                }
-
-                keySpawned = TrySpawnItem(x, y, KeyPrefab, (o) => o.gameObject.SetActive(false));                
+            {                
+                keySpawned = TrySpawnItem(KeyPrefab, (o) => o.gameObject.SetActive(false));                
             } while (!keySpawned);
-            */
         }
 
         protected void MakeOrbs()
         {
-            /*
-            int hw = Dungeon.Width / 2;
-            int hh = Dungeon.Height / 2;
-
             int orbsSpawned = 0;
             do
             {
-                int x = UnityEngine.Random.Range(-16, 16);
-                int y = UnityEngine.Random.Range(-(hh - 8), -(hh - 2));
-                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 0);
-                if (spawned)
+                if(TrySpawnItem(DoorOrbPrefab, (o) => o.OrbIndex = 0))
                 {
                     orbsSpawned++;
                 }
@@ -139,10 +129,7 @@
             orbsSpawned = 0;
             do
             {
-                int x = UnityEngine.Random.Range(-(hw - 8), -(hw - 2));
-                int y = UnityEngine.Random.Range(-16, 16);
-                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 1);
-                if (spawned)
+                if(TrySpawnItem(DoorOrbPrefab, (o) => o.OrbIndex = 1))
                 {
                     orbsSpawned++;
                 }
@@ -151,10 +138,7 @@
             orbsSpawned = 0;
             do
             {
-                int x = UnityEngine.Random.Range(hw - 8, hw - 2);
-                int y = UnityEngine.Random.Range(-16, 16);
-                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 2);
-                if (spawned)
+                if(TrySpawnItem(DoorOrbPrefab, (o) => o.OrbIndex = 2))
                 {
                     orbsSpawned++;
                 }
@@ -163,10 +147,7 @@
             orbsSpawned = 0;
             do
             {
-                int x = UnityEngine.Random.Range(-16, 16);
-                int y = UnityEngine.Random.Range(hh - 8, hh - 2);
-                bool spawned = TrySpawnItem(x, y, DoorOrbPrefab, (o) => o.OrbIndex = 3);
-                if (spawned)
+                if(TrySpawnItem(DoorOrbPrefab, (o) => o.OrbIndex = 3))
                 {
                     orbsSpawned++;
                 }
@@ -175,10 +156,7 @@
             orbsSpawned = 0;
             do
             {
-                int x = UnityEngine.Random.Range(-hw + 3, hw - 2);
-                int y = UnityEngine.Random.Range(-hh + 3, hh - 2);
-                bool spawned = TrySpawnItem(x, y, FlareOrbPrefab);
-                if (spawned)
+                if(TrySpawnItem(FlareOrbPrefab))
                 {
                     orbsSpawned++;
                 }
@@ -187,35 +165,23 @@
             orbsSpawned = 0;
             do
             {
-                int x = UnityEngine.Random.Range(-hw + 3, hw - 2);
-                int y = UnityEngine.Random.Range(-hh + 3, hh - 2);
-                bool spawned = TrySpawnItem(x, y, FreezeOrbPrefab);
-                if (spawned)
+                if(TrySpawnItem(FreezeOrbPrefab))
                 {
                     orbsSpawned++;
                 }
             } while (orbsSpawned < FreezeOrbCount);
-            */
         }
 
         protected void MakeCoins()
         {
-            /*
-            int hw = Dungeon.Width / 2;
-            int hh = Dungeon.Height / 2;
-
             int coinsSpawned = 0;
             do
             {
-                int x = UnityEngine.Random.Range(-hw + 3, hw - 2);
-                int y = UnityEngine.Random.Range(-hh + 3, hh - 2);
-                bool spawned = TrySpawnItem(x, y, CoinPrefab);
-                if (spawned)
-                {                    
+                if (TrySpawnItem(CoinPrefab))
+                {
                     coinsSpawned++;
                 }
             } while (coinsSpawned < CoinCount);
-            */
         }
 
         protected RoomBehaviour MakeRoom(RoomBehaviour prefab, Vector3 position)
@@ -245,8 +211,8 @@
 
             sy = cellPosition.y - (room.TileHeight / 2) + 1;
             ey = cellPosition.y + (room.TileHeight / 2) - 1;
-            sx = cellPosition.x - (room.TileWidth / 2) + 3;
-            ex = cellPosition.x + (room.TileWidth / 2) - 3;
+            sx = cellPosition.x - (room.TileWidth / 2) + 2;
+            ex = cellPosition.x + (room.TileWidth / 2) - 2;
 
             for (int y = sy; y <= ey; y++)
             {
