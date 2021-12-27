@@ -41,6 +41,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
 
         protected SoundEffectPlayerBehaviour SoundEffectPlayer { get; set; }
 
+        protected Rigidbody2D RigidBody { get; set; }
+
         protected Hero Hero { get; set; }
 
         protected float MovementStep { get; set; }
@@ -536,7 +538,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                         .Play();
                 }
 
-                transform.position = moveToPosition;
+                RigidBody
+                    .MovePosition(moveToPosition);
             }
         }
 
@@ -860,7 +863,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             Reaper = FindObjectOfType<ReaperBehaviour>();
             Door = FindObjectOfType<DoorBehaviour>();
             AudioSource = GetComponent<AudioSource>();
-            
+            RigidBody = GetComponent<Rigidbody2D>();
+
+
             Reset();
         }
 

@@ -1,55 +1,43 @@
 fileFormatVersion: 2
-guid: cdead74b53977ac42a96e83f46fa17e0
+guid: 080652356ada2aa43ad5938af7144f31
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2182202857903905923
-    second: rooms_10x6_0
+      213: -2454497875440500507
+    second: rooms_20x6_0
   - first:
-      213: 26644596615004584
-    second: rooms_10x6_1
+      213: -6734894205537837058
+    second: rooms_20x6_1
   - first:
-      213: 1825271392892722907
-    second: rooms_10x6_2
+      213: 4010724743828372791
+    second: rooms_20x6_2
   - first:
-      213: 3809890881100203385
-    second: rooms_10x6_3
+      213: -6842246706819396010
+    second: rooms_20x6_3
   - first:
-      213: 1504745250229869250
-    second: rooms_10x6_4
+      213: 1501370292371301300
+    second: rooms_20x6_4
   - first:
-      213: 5820665780868571508
-    second: rooms_10x6_5
+      213: -2159144184957730317
+    second: rooms_20x6_5
   - first:
-      213: -6484260192839109779
-    second: rooms_10x6_6
+      213: 3689919818188385684
+    second: rooms_20x6_6
   - first:
-      213: 5947322588551657799
-    second: rooms_10x6_7
+      213: -7901129471319163972
+    second: rooms_20x6_7
   - first:
-      213: 2227632423842647557
-    second: rooms_10x6_8
+      213: 8391948744737880306
+    second: rooms_20x6_8
   - first:
-      213: 2129380692258448029
-    second: rooms_10x6_9
+      213: -2891904610744534806
+    second: rooms_20x6_9
   - first:
-      213: 8875876909074098001
-    second: rooms_10x6_10
+      213: 1422156546869290483
+    second: rooms_20x6_10
   - first:
-      213: 433245360419999513
-    second: rooms_10x6_11
-  - first:
-      213: 1270697500567917971
-    second: rooms_10x6_12
-  - first:
-      213: -5267575029887598858
-    second: rooms_10x6_13
-  - first:
-      213: -6229955021805272960
-    second: rooms_10x6_14
-  - first:
-      213: -7575454612972986445
-    second: rooms_10x6_15
+      213: -8641220482117795837
+    second: rooms_20x6_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -96,7 +84,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -151,12 +139,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rooms_10x6_0
+      name: rooms_20x6_0
       rect:
         serializedVersion: 2
         x: 0
         y: 384
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -165,40 +153,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38c543dffedb84e10800000000000000
-      internalID: 2182202857903905923
+      spriteID: 5e00b60df2fdfedd0800000000000000
+      internalID: -2454497875440500507
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_1
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 384
-        width: 160
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8a1cb649e19ae5000800000000000000
-      internalID: 26644596615004584
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rooms_10x6_2
+      name: rooms_20x6_1
       rect:
         serializedVersion: 2
         x: 320
         y: 384
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -207,19 +174,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bde9d0049aaa45910800000000000000
-      internalID: 1825271392892722907
+      spriteID: eff941f2769d882a0800000000000000
+      internalID: -6734894205537837058
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_3
+      name: rooms_20x6_2
       rect:
         serializedVersion: 2
-        x: 480
+        x: 640
         y: 384
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -228,19 +195,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9754af812937fd430800000000000000
-      internalID: 3809890881100203385
+      spriteID: 73d72cf97e4f8a730800000000000000
+      internalID: 4010724743828372791
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_4
+      name: rooms_20x6_3
       rect:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -249,40 +216,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ca586525dde1e410800000000000000
-      internalID: 1504745250229869250
+      spriteID: 65e81763fd47b01a0800000000000000
+      internalID: -6842246706819396010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 256
-        width: 160
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47161f040b827c050800000000000000
-      internalID: 5820665780868571508
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rooms_10x6_6
+      name: rooms_20x6_4
       rect:
         serializedVersion: 2
         x: 320
         y: 256
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -291,19 +237,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d637e9ea5b74306a0800000000000000
-      internalID: -6484260192839109779
+      spriteID: 4b3ad198350f5d410800000000000000
+      internalID: 1501370292371301300
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_7
+      name: rooms_20x6_5
       rect:
         serializedVersion: 2
-        x: 480
+        x: 640
         y: 256
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -312,19 +258,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 749374f4262298250800000000000000
-      internalID: 5947322588551657799
+      spriteID: 3f18ebcadcd2902e0800000000000000
+      internalID: -2159144184957730317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_8
+      name: rooms_20x6_6
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -333,40 +279,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50e884113e32aee10800000000000000
-      internalID: 2227632423842647557
+      spriteID: 49deacc468a353330800000000000000
+      internalID: 3689919818188385684
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_9
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 128
-        width: 160
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d92e3a925741d8d10800000000000000
-      internalID: 2129380692258448029
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rooms_10x6_10
+      name: rooms_20x6_7
       rect:
         serializedVersion: 2
         x: 320
         y: 128
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -375,19 +300,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 157247bb5037d2b70800000000000000
-      internalID: 8875876909074098001
+      spriteID: cbbb6a99b9c895290800000000000000
+      internalID: -7901129471319163972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_11
+      name: rooms_20x6_8
       rect:
         serializedVersion: 2
-        x: 480
+        x: 640
         y: 128
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -396,19 +321,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91f8b602c52330600800000000000000
-      internalID: 433245360419999513
+      spriteID: 2f8f26fbbe0367470800000000000000
+      internalID: 8391948744737880306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_12
+      name: rooms_20x6_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -417,40 +342,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 395d352f4ac62a110800000000000000
-      internalID: 1270697500567917971
+      spriteID: ae8f1481414edd7d0800000000000000
+      internalID: -2891904610744534806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_13
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 160
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6fef4db4b60d5e6b0800000000000000
-      internalID: -5267575029887598858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rooms_10x6_14
+      name: rooms_20x6_10
       rect:
         serializedVersion: 2
         x: 320
         y: 0
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -459,19 +363,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 080c2a65ae0ca89a0800000000000000
-      internalID: -6229955021805272960
+      spriteID: 3f5e32f28d38cb310800000000000000
+      internalID: 1422156546869290483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_10x6_15
+      name: rooms_20x6_11
       rect:
         serializedVersion: 2
-        x: 480
+        x: 640
         y: 0
-        width: 160
+        width: 320
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -480,8 +384,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3bf96ad7a249ed690800000000000000
-      internalID: -7575454612972986445
+      spriteID: 3000a8131c7341880800000000000000
+      internalID: -8641220482117795837
       vertices: []
       indices: 
       edges: []

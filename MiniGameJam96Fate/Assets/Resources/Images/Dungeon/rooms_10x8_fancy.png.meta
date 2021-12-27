@@ -1,34 +1,55 @@
 fileFormatVersion: 2
-guid: 77fc46f59851cf74ea9abbe0d42ab9ca
+guid: 6929398ce91fbdb468d9cba5280d15f9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2771081483022287751
-    second: rooms_20x17_fancy_0
+      213: 3624022056106230729
+    second: rooms_10x6_fancy_0
   - first:
-      213: 2594542654910540487
-    second: rooms_20x17_fancy_1
+      213: -1444902067974116715
+    second: rooms_10x6_fancy_1
   - first:
-      213: 3628293682369704257
-    second: rooms_20x17_fancy_2
+      213: 327138081123454778
+    second: rooms_10x6_fancy_2
   - first:
-      213: 1806279694898879984
-    second: rooms_20x17_fancy_3
+      213: 3422697238506880720
+    second: rooms_10x6_fancy_3
   - first:
-      213: -2803934075406244822
-    second: rooms_20x17_fancy_4
+      213: 7507378861280185563
+    second: rooms_10x6_fancy_4
   - first:
-      213: -3899075683791814209
-    second: rooms_20x17_fancy_5
+      213: -6835140189311465685
+    second: rooms_10x6_fancy_5
   - first:
-      213: 1011470674981116937
-    second: rooms_20x17_fancy_6
+      213: 6540602134356333952
+    second: rooms_10x6_fancy_6
   - first:
-      213: 7923294393709524534
-    second: rooms_20x17_fancy_7
+      213: -2108633107350365982
+    second: rooms_10x6_fancy_7
   - first:
-      213: -2567755382896405050
-    second: rooms_20x17_fancy_8
+      213: -6636905427009798214
+    second: rooms_10x6_fancy_8
+  - first:
+      213: 5967391768706020422
+    second: rooms_10x6_fancy_9
+  - first:
+      213: -1948387313381553958
+    second: rooms_10x6_fancy_10
+  - first:
+      213: -7510142942938220777
+    second: rooms_10x6_fancy_11
+  - first:
+      213: 8203013177738753537
+    second: rooms_10x6_fancy_12
+  - first:
+      213: 302540015311176502
+    second: rooms_10x6_fancy_13
+  - first:
+      213: 3914107770774289186
+    second: rooms_10x6_fancy_14
+  - first:
+      213: -2772873137185950441
+    second: rooms_10x6_fancy_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -75,7 +96,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -130,12 +151,96 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rooms_20x17_fancy_0
+      name: rooms_10x6_fancy_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 160
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c38460fbdc1b4230800000000000000
+      internalID: 3624022056106230729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rooms_10x6_fancy_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 384
+        width: 160
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59aec2f793da2fbe0800000000000000
+      internalID: -1444902067974116715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rooms_10x6_fancy_2
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 160
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3fcdddf95a3a8400800000000000000
+      internalID: 327138081123454778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rooms_10x6_fancy_3
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 384
+        width: 160
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0deb9e2110ddf7f20800000000000000
+      internalID: 3422697238506880720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rooms_10x6_fancy_4
       rect:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -144,19 +249,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 783c43f4debd47620800000000000000
-      internalID: 2771081483022287751
+      spriteID: bdcc1ec6c419f2860800000000000000
+      internalID: 7507378861280185563
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_1
+      name: rooms_10x6_fancy_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 256
+        width: 160
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2708124634b421a0800000000000000
+      internalID: -6835140189311465685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rooms_10x6_fancy_6
       rect:
         serializedVersion: 2
         x: 320
         y: 256
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -165,19 +291,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7caaa845ccaa10420800000000000000
-      internalID: 2594542654910540487
+      spriteID: 0859873dcf2e4ca50800000000000000
+      internalID: 6540602134356333952
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_2
+      name: rooms_10x6_fancy_7
       rect:
         serializedVersion: 2
-        x: 640
+        x: 480
         y: 256
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -186,19 +312,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 141b07e61e94a5230800000000000000
-      internalID: 3628293682369704257
+      spriteID: 2e8d0c26c51acb2e0800000000000000
+      internalID: -2108633107350365982
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_3
+      name: rooms_10x6_fancy_8
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -207,19 +333,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fdd27bffc1311910800000000000000
-      internalID: 1806279694898879984
+      spriteID: abff73f8da9f4e3a0800000000000000
+      internalID: -6636905427009798214
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_4
+      name: rooms_10x6_fancy_9
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 160
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 644ff41723f60d250800000000000000
+      internalID: 5967391768706020422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rooms_10x6_fancy_10
       rect:
         serializedVersion: 2
         x: 320
         y: 128
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -228,19 +375,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a242cc570dc6619d0800000000000000
-      internalID: -2803934075406244822
+      spriteID: ad8c30dbf00f5f4e0800000000000000
+      internalID: -1948387313381553958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_5
+      name: rooms_10x6_fancy_11
       rect:
         serializedVersion: 2
-        x: 640
+        x: 480
         y: 128
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -249,19 +396,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb1c933e253b3e9c0800000000000000
-      internalID: -3899075683791814209
+      spriteID: 717b2c9a8cc96c790800000000000000
+      internalID: -7510142942938220777
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_6
+      name: rooms_10x6_fancy_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -270,19 +417,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90c59fa4837790e00800000000000000
-      internalID: 1011470674981116937
+      spriteID: 10677f21605f6d170800000000000000
+      internalID: 8203013177738753537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_7
+      name: rooms_10x6_fancy_13
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 160
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633c6fe7a86d23400800000000000000
+      internalID: 302540015311176502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rooms_10x6_fancy_14
       rect:
         serializedVersion: 2
         x: 320
         y: 0
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -291,19 +459,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63676eb854235fd60800000000000000
-      internalID: 7923294393709524534
+      spriteID: 22bf8999744b15630800000000000000
+      internalID: 3914107770774289186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rooms_20x17_fancy_8
+      name: rooms_10x6_fancy_15
       rect:
         serializedVersion: 2
-        x: 640
+        x: 480
         y: 0
-        width: 320
+        width: 160
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -312,8 +480,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c5dc5475108d5cd0800000000000000
-      internalID: -2567755382896405050
+      spriteID: 715fec2b296c489d0800000000000000
+      internalID: -2772873137185950441
       vertices: []
       indices: 
       edges: []

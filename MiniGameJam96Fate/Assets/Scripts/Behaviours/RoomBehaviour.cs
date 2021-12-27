@@ -6,68 +6,36 @@
     [AddComponentMenu("HairyNerd/MGJ96/Room")]
     public class RoomBehaviour : BehaviourBase
     {
-        #region Contructors
+        #region Constructors
 
         public RoomBehaviour()
         {
-            TopNeighbours = new List<RoomBehaviour>();
-            BottomNeighbours = new List<RoomBehaviour>();
-            LeftNeighbours = new List<RoomBehaviour>();
-            RightNeighbours = new List<RoomBehaviour>();
+            Neighbours = new List<RoomBehaviour>();
         }
 
         #endregion
 
-        public int TileWidth;
-        
+        #region Members
+
         public int TileHeight;
+        public int TileWidth;
 
-        public int TopEntrances;
+        public List<RoomConnectionBehaviour> Connections;
 
-        public int LeftEntrances;
+        public List<RoomBehaviour> Neighbours { get; set; }
 
-        public int RightEntrances;
+        #endregion
 
-        public int BottomEntrances;
+        #region
 
-        public List<RoomBehaviour> TopNeighbours { get; set; }
-
-        public List<RoomBehaviour> BottomNeighbours { get; set; }
-
-        public List<RoomBehaviour> LeftNeighbours { get; set; }
-
-        public List<RoomBehaviour> RightNeighbours { get; set; }
-
-        public bool IsTopFilled
+        public bool IsFilled
         {
             get
             {
-                return TopNeighbours.Count >= TopEntrances;
+                return Neighbours.Count >= Connections.Count;
             }
         }
 
-        public bool IsBottomFilled
-        {
-            get
-            {
-                return BottomNeighbours.Count >= BottomEntrances;
-            }
-        }
-
-        public bool IsLeftFilled
-        {
-            get
-            {
-                return LeftNeighbours.Count >= LeftEntrances;
-            }
-        }
-
-        public bool IsRightFilled
-        {
-            get
-            {
-                return RightNeighbours.Count >= RightEntrances;
-            }
-        }
+        #endregion
     }
 }

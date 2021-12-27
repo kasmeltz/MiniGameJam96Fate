@@ -36,7 +36,7 @@
 
         protected List<RoomBehaviour> RoomTypes { get; set; }
 
-        protected List<RoomBehaviour> Rooms { get; set; }
+        public List<RoomBehaviour> Rooms { get; set; }
 
         #endregion
 
@@ -57,8 +57,8 @@
 
         #region Protected Methods
 
-        protected bool TrySpawnItem<T>(int x, int y, T prefab, Action<T> doAfterSpawn = null) 
-            where T: Component
+        protected bool TrySpawnItem<T>(int x, int y, T prefab, Action<T> doAfterSpawn = null)
+            where T : Component
         {
             var position = new Vector3(x * Walls.layoutGrid.cellSize.x, y * Walls.layoutGrid.cellSize.y, 0);
 
@@ -71,7 +71,7 @@
 
             var tile = Walls
                 .GetTile(cellPosition);
-            
+
             if (tile != null)
             {
                 return false;
@@ -85,12 +85,12 @@
 
             doAfterSpawn?
                 .Invoke(item);
-            
+
             return true;
         }
 
         protected void MakeKey()
-        {            
+        {
             /*
             bool keySpawned;
             do
@@ -116,7 +116,7 @@
         }
 
         protected void MakeOrbs()
-        {            
+        {
             /*
             int hw = Dungeon.Width / 2;
             int hh = Dungeon.Height / 2;
@@ -267,7 +267,7 @@
             int sx = cellPosition.x - (room.TileWidth / 2) + 1;
             int ex = cellPosition.x + (room.TileWidth / 2) - 1;
 
-            for (int y = sy; y <= ey;y++)
+            for (int y = sy; y <= ey; y++)
             {
                 for (int x = sx; x <= ex; x++)
                 {
@@ -277,8 +277,6 @@
                     Floor.SetTile(cellPosition, FloorTiles[0]);
                 }
             }
-
-            // TODO - MAKE WALL BOUNDARIES
             // TODO - MAKE DESTRUCTIBLE TILES
 
             return room;
@@ -289,27 +287,22 @@
             var cellSize = Walls.layoutGrid.cellSize;
             Rooms = new List<RoomBehaviour>();
 
-            RoomBehaviour prefab;
             Vector3 roomPosition = new Vector3(0, 0, 0);
-            var possibleDirections = new List<int>();            
             List<RoomBehaviour> roomsInProgress = new List<RoomBehaviour>();
+            List<RoomConnectionBehaviour> possibleConnections = new List<RoomConnectionBehaviour>();
 
             var initialRoom = RoomTypes
-                .Where(o => 
-                    o.LeftEntrances > 0 && 
-                    o.RightEntrances > 0 && 
-                    o.TopEntrances > 0 && 
-                    o.BottomEntrances > 0 && 
-                    o.TileWidth == 10)
+                .Where(o =>
+                    o.Connections.Count >= 4)
                 .FirstOrDefault();
-            
-            var room = MakeRoom(initialRoom, roomPosition);
+
+            var createdRoom = MakeRoom(initialRoom, roomPosition);
 
             Rooms
-                .Add(room);
+                .Add(createdRoom);
 
             roomsInProgress
-                .Add(room);
+                .Add(createdRoom);
 
             do
             {
@@ -319,34 +312,7 @@
 
                 var chosenRoom = roomsInProgress[roomIndex];
 
-                possibleDirections
-                    .Clear();
-
-                if (!chosenRoom.IsTopFilled)
-                {
-                    possibleDirections
-                        .Add(0);
-                }
-
-                if (!chosenRoom.IsBottomFilled)
-                {
-                    possibleDirections
-                        .Add(1);
-                }
-
-                if (!chosenRoom.IsLeftFilled)
-                {
-                    possibleDirections
-                        .Add(2);
-                }
-
-                if (!chosenRoom.IsRightFilled)
-                {
-                    possibleDirections
-                        .Add(3);
-                }
-
-                if (possibleDirections.Count == 0)
+                if (chosenRoom.IsFilled)
                 {
                     roomsInProgress
                         .Remove(chosenRoom);
@@ -354,94 +320,114 @@
                     continue;
                 }
 
-                int directionIndex = UnityEngine.Random.Range(0, possibleDirections.Count);
-                int direction = possibleDirections[directionIndex];
+                possibleConnections = chosenRoom
+                    .Connections
+                    .Where(o => !o.IsFilled)
+                    .ToList();
 
-                switch (direction)
+                int connectionIndex = UnityEngine.Random.Range(0, possibleConnections.Count);
+                var connection = possibleConnections[connectionIndex];
+                roomPosition = chosenRoom.transform.position;
+
+                switch (connection.Direction)
                 {
-                    case 0:
-                        roomPosition = chosenRoom.transform.position;
+                    case RoomConnectionDirection.Up:                        
                         roomPosition.y += initialRoom.TileHeight * cellSize.y;
-                        room = MakeRoom(initialRoom, roomPosition);
-                        room.BottomNeighbours.Add(chosenRoom);
-                        chosenRoom.TopNeighbours.Add(room);
-                    break;
-
-                    case 1:
-                        roomPosition = chosenRoom.transform.position;
+                        break;
+                    case RoomConnectionDirection.Down:
                         roomPosition.y -= initialRoom.TileHeight * cellSize.y;
-                        room = MakeRoom(initialRoom, roomPosition);
-                        room.TopNeighbours.Add(chosenRoom);
-                        chosenRoom.BottomNeighbours.Add(room);
-
                         break;
-
-                    case 2:
-                        roomPosition = chosenRoom.transform.position;
-                        roomPosition.x -= initialRoom.TileWidth * cellSize.x;
-                        room = MakeRoom(initialRoom, roomPosition);
-                        room.RightNeighbours.Add(chosenRoom);
-                        chosenRoom.LeftNeighbours.Add(room);
-
-                        break;
-
-                    case 3:
-                        roomPosition = chosenRoom.transform.position;
+                    case RoomConnectionDirection.Right:
                         roomPosition.x += initialRoom.TileWidth * cellSize.x;
-                        room = MakeRoom(initialRoom, roomPosition);
-                        room.LeftNeighbours.Add(chosenRoom);
-                        chosenRoom.RightNeighbours.Add(room);
+                        break;
+                    case RoomConnectionDirection.Left:
+                        roomPosition.x -= initialRoom.TileWidth * cellSize.x;
                         break;
                 }
 
-                foreach (var existingRoom in Rooms)
-                {
-                    if (room.transform.position == existingRoom.transform.position)
-                    {
-                        Debug.Log($"WTF? => {room.transform.position}");
-                    }
-                }
-                
+                createdRoom = MakeRoom(initialRoom, roomPosition);
+
+                AddNeighbour(chosenRoom, createdRoom, connection);
+
+                AddNeighbours(createdRoom);
+
                 Rooms
-                    .Add(room);
+                    .Add(createdRoom);
 
                 roomsInProgress
-                    .Add(room);
+                    .Add(createdRoom);
 
             } while (Rooms.Count < RoomCount);
 
-
-            List<RoomBehaviour> possibleNeighbours = null;
-
-
             /*
-            var cellSize = Walls.layoutGrid.cellSize;
-            int hw = Dungeon.Width / 2;
-            int hh = Dungeon.Height / 2;
-            float sx = -hw * cellSize.x;
-            float sy = -hh * cellSize.y;
-            Vector3 roomPosition = new Vector3(sx, sy, 0);
-
-            roomPosition.y = 0;
-            RoomBehaviour chosenRoom;
-            RoomBehaviour instantiatedRoom;
-            //for (int y = 0; y < Dungeon.Height; y++)
-            //{
-                roomPosition.x = sx;
-                do
+            foreach(var room in Rooms)
+            {
+                foreach(var connection in room.Connections)
                 {
-                    var possibleRooms = RoomTypes
-                        .ToList();
-                    int roomIndex = UnityEngine.Random.Range(0, possibleRooms.Count);
-                    chosenRoom = possibleRooms[roomIndex];
-                    instantiatedRoom = Instantiate(chosenRoom);
-                    instantiatedRoom.transform.position = roomPosition;
-                    roomPosition.x += chosenRoom.TileWidth * cellSize.x;
-                } while (roomPosition.x < Dungeon.Width * cellSize.x);
-
-                //roomPosition.y += instantiatedRoom.TileHeight * cellSize.y;
-            //}
+                    connection
+                        .gameObject
+                        .SetActive(false);
+                }
+            }
             */
+        }
+
+        protected void AddNeighbour(RoomBehaviour room1, RoomBehaviour room2, RoomConnectionBehaviour connection)
+        {
+            connection.IsFilled = true;
+
+            room1
+                .Neighbours
+                .Add(room2);
+
+            var cellPosition = Floor
+                .WorldToCell(connection.transform.position);
+
+            int sy = cellPosition.y - 1;
+            int ey = cellPosition.y + 1;
+            int sx = cellPosition.x - 1;
+            int ex = cellPosition.x + 1;
+
+            for (int y = sy; y <= ey; y++)
+            {
+                for (int x = sx; x <= ex; x++)
+                {
+                    cellPosition.x = x;
+                    cellPosition.y = y;
+
+                    Floor.SetTile(cellPosition, FloorTiles[0]);
+                }
+            }
+        }
+
+        protected void AddNeighbours(RoomBehaviour room)
+        {
+            foreach (var connection in room.Connections)
+            {
+                if (connection.IsFilled)
+                {
+                    continue;
+                }
+
+                foreach (var otherRoom in Rooms)
+                {                    
+                    foreach (var otherConnection in otherRoom.Connections)
+                    {
+                        var distance = (connection.transform.position - otherConnection.transform.position).magnitude;
+
+                        if (distance <= 0.16f)
+                        {
+                            AddNeighbour(room, otherRoom, connection);
+                            break;
+                        }                        
+                    }
+
+                    if (connection.IsFilled)
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         protected void BuildDungeon()

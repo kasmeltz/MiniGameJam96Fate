@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8007352104003142008}
   - component: {fileID: 8007352104003142009}
   - component: {fileID: -4893410421683799789}
+  - component: {fileID: 6683821351741505170}
   m_Layer: 0
   m_Name: room_0
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2182202857903905923, guid: cdead74b53977ac42a96e83f46fa17e0, type: 3}
+  m_Sprite: {fileID: 2006948495972143665, guid: cdead74b53977ac42a96e83f46fa17e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,3 +102,43 @@ MonoBehaviour:
   LeftEntrances: 0
   RightEntrances: 1
   BottomEntrances: 0
+--- !u!60 &6683821351741505170
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8007352104003142010}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 60504bbf24f066d4aa49d3b875f5c66e, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.6, y: 1.28}
+    newSize: {x: 1.6, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.57, y: -0.17999999}
+      - {x: 0.57, y: -0.45999998}
+      - {x: -0.57, y: -0.45999998}
+      - {x: -0.5747882, y: 0.3015813}
+      - {x: 0.5642094, y: 0.29868597}
+      - {x: 0.57, y: 0.02}
+      - {x: 0.59999996, y: -0.03}
+      - {x: 0.78, y: -0.02}
+      - {x: 0.79999995, y: 0}
+      - {x: 0.79999995, y: 0.64}
+      - {x: -0.79999995, y: 0.64}
+      - {x: -0.79999995, y: -0.64}
+      - {x: 0.79999995, y: -0.64}
+      - {x: 0.79999995, y: -0.14}
+      - {x: 0.61, y: -0.14}
