@@ -51,7 +51,9 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             MovementTimer = 0;
             FrozenTimer = 0;
 
-            int roomIndex = Random.Range(0, DungeonBehaviour.Rooms.Count);
+            int roomIndex = Random
+                .Range(0, DungeonBehaviour.Rooms.Count);
+
             var room = DungeonBehaviour.Rooms[roomIndex];
 
             var pos = room.transform.position;

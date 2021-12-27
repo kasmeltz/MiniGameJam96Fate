@@ -26,7 +26,7 @@
 
         #endregion
 
-        #region
+        #region Public Methods
 
         public bool IsFilled
         {
@@ -34,6 +34,17 @@
             {
                 return Neighbours.Count >= Connections.Count;
             }
+        }
+
+        #endregion
+
+
+        #region Unity
+
+        protected override void Awake()
+        {
+            base
+                .Awake();
         }
 
         #endregion

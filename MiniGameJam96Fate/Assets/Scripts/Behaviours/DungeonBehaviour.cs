@@ -32,6 +32,8 @@
 
         public int RoomCount { get; set; }
 
+        public float WallPercentage { get; set; }
+
         protected HashSet<Vector3> UsedPositions { get; set; }
 
         protected List<RoomBehaviour> RoomTypes { get; set; }
@@ -49,6 +51,7 @@
             FlareOrbCount = GameState.CurrentStage.FlareOrbCount;
             FreezeOrbCount = GameState.CurrentStage.FreezeOrbCount;
             CoinCount = GameState.CurrentStage.CoinCount;
+            WallPercentage = GameState.CurrentStage.WallPercentage;
 
             BuildDungeon();
         }
@@ -215,46 +218,6 @@
             */
         }
 
-        public void UpdateWalls()
-        {
-            /*
-            for (int y = 0; y < Dungeon.Height; y++)
-            {
-                for (int x = 0; x < Dungeon.Width; x++)
-                {
-                    int wall = Dungeon.Walls[y, x];
-
-                    var cellPosition = new Vector3Int(x - Dungeon.Width / 2, y - Dungeon.Height / 2, 0);
-
-                    Floor
-                        .SetTile(cellPosition, FloorTiles[0]);
-
-                    if (wall == 2)
-                    {
-                        Walls
-                            .SetTile(cellPosition, WallTiles[0]);
-                    }
-                    else
-                    {
-                        Walls
-                            .SetTile(cellPosition, null);
-                    }
-
-                    if (wall == 1)
-                    {
-                        Floor
-                            .SetTile(cellPosition, FloorTiles[1]);
-                    }
-                    else
-                    {
-                        Floor
-                            .SetTile(cellPosition, FloorTiles[0]);
-                    }
-                }
-            }
-            */
-        }
-
         protected RoomBehaviour MakeRoom(RoomBehaviour prefab, Vector3 position)
         {
             var room = Instantiate(prefab);
@@ -262,10 +225,10 @@
 
             var cellPosition = Floor.WorldToCell(position);
 
-            int sy = cellPosition.y - (room.TileHeight / 2) + 1;
-            int ey = cellPosition.y + (room.TileHeight / 2) - 1;
-            int sx = cellPosition.x - (room.TileWidth / 2) + 1;
-            int ex = cellPosition.x + (room.TileWidth / 2) - 1;
+            int sy = cellPosition.y - (room.TileHeight / 2) + 2;
+            int ey = cellPosition.y + (room.TileHeight / 2) - 2;
+            int sx = cellPosition.x - (room.TileWidth / 2) + 2;
+            int ex = cellPosition.x + (room.TileWidth / 2) - 2;
 
             for (int y = sy; y <= ey; y++)
             {
@@ -277,7 +240,28 @@
                     Floor.SetTile(cellPosition, FloorTiles[0]);
                 }
             }
-            // TODO - MAKE DESTRUCTIBLE TILES
+
+            cellPosition = Walls.WorldToCell(position);
+
+            sy = cellPosition.y - (room.TileHeight / 2) + 1;
+            ey = cellPosition.y + (room.TileHeight / 2) - 1;
+            sx = cellPosition.x - (room.TileWidth / 2) + 3;
+            ex = cellPosition.x + (room.TileWidth / 2) - 3;
+
+            for (int y = sy; y <= ey; y++)
+            {
+                for (int x = sx; x <= ex; x++)
+                {
+                    cellPosition.x = x;
+                    cellPosition.y = y;
+
+                    if (UnityEngine.Random.value < WallPercentage)
+                    {
+                        Walls
+                            .SetTile(cellPosition, WallTiles[0]);
+                    }
+                }
+            }
 
             return room;
         }
@@ -287,7 +271,7 @@
             var cellSize = Walls.layoutGrid.cellSize;
             Rooms = new List<RoomBehaviour>();
 
-            Vector3 roomPosition = new Vector3(0, 0, 0);
+            Vector3 roomPosition = new Vector3(0, -0.08f, 0);
             List<RoomBehaviour> roomsInProgress = new List<RoomBehaviour>();
             List<RoomConnectionBehaviour> possibleConnections = new List<RoomConnectionBehaviour>();
 
@@ -359,7 +343,79 @@
 
             } while (Rooms.Count < RoomCount);
 
-            /*
+            List<RoomBehaviour> possibleRoomTypes = new List<RoomBehaviour>();
+            List<RoomBehaviour> oldRooms = new List<RoomBehaviour>();
+            List<RoomBehaviour> newRooms = new List<RoomBehaviour>();
+
+            foreach (var room in Rooms)
+            {
+                oldRooms
+                    .Add(room);
+
+                possibleRoomTypes
+                    .Clear();
+
+                foreach (var roomType in RoomTypes)
+                {
+                    var isValidRoomType = true;
+
+                    foreach (RoomConnectionDirection direction in Enum.GetValues(typeof(RoomConnectionDirection)))
+                    {
+                        var connection = room
+                            .Connections
+                            .FirstOrDefault(o => o.Direction == direction);
+
+                        var possibleConnection = roomType
+                            .Connections
+                            .FirstOrDefault(o => o.Direction == direction);
+
+                        if (connection == null && possibleConnection != null)
+                        {
+                            isValidRoomType = false;
+                            break;
+                        }
+                        else if (connection != null && connection.IsFilled && possibleConnection == null)
+                        {
+                            isValidRoomType = false;
+                            break;
+                        } 
+                        else if (connection != null && !connection.IsFilled && possibleConnection != null)
+                        {
+                            isValidRoomType = false;
+                            break;
+                        }
+                    }
+
+                    if (isValidRoomType)
+                    {
+                        possibleRoomTypes
+                            .Add(roomType);
+                    }
+                }
+
+                var index = UnityEngine
+                    .Random
+                    .Range(0, possibleRoomTypes.Count);
+
+                var chosenRoomType = possibleRoomTypes[index];
+
+                var replacementRoom = Instantiate(chosenRoomType);
+                replacementRoom.transform.position = room.transform.position;
+
+                newRooms
+                    .Add(replacementRoom);
+            }
+
+            Rooms = newRooms;
+
+            foreach(var room in oldRooms)
+            {
+                MegaDestroy(room.gameObject);
+
+                Rooms
+                    .Remove(room);
+            }
+
             foreach(var room in Rooms)
             {
                 foreach(var connection in room.Connections)
@@ -369,7 +425,6 @@
                         .SetActive(false);
                 }
             }
-            */
         }
 
         protected void AddNeighbour(RoomBehaviour room1, RoomBehaviour room2, RoomConnectionBehaviour connection)
@@ -395,7 +450,8 @@
                     cellPosition.x = x;
                     cellPosition.y = y;
 
-                    Floor.SetTile(cellPosition, FloorTiles[0]);
+                    Floor
+                        .SetTile(cellPosition, FloorTiles[0]);
                 }
             }
         }
@@ -431,38 +487,16 @@
         }
 
         protected void BuildDungeon()
-        {
-            /*
-            Dungeon = new Dungeon
-            {
-                RoomThreshold = GameState.CurrentStage.RoomThreshold,
-                RoomOverlapAmount = GameState.CurrentStage.RoomOverlapAmount,
-                MinRoomWidth = GameState.CurrentStage.MinRoomWidth,
-                MaxRoomWidth = GameState.CurrentStage.MaxRoomWidth,
-                MinRoomHeight = GameState.CurrentStage.MinRoomHeight,
-                MaxRoomHeight = GameState.CurrentStage.MaxRoomHeight
-            };
-
-            Dungeon
-                .Build();
-
-            for (int y = 0; y < Dungeon.Height; y++)
-            {
-                for (int x = 0; x < Dungeon.Width; x++)
-                {
-                    var cellPosition = new Vector3Int(x - Dungeon.Width / 2, y - Dungeon.Height / 2, 0);
-
-                    Floor
-                        .SetTile(cellPosition, FloorTiles[0]);
-                }
-            }
-            */
-
+        {          
             MakeRooms();
-            UpdateWalls();
             MakeKey();
             MakeOrbs();
-            MakeCoins();                        
+            MakeCoins();
+
+            var cellPosition = new Vector3Int(0, 0, 0);
+
+            Walls
+                .SetTile(cellPosition, null);
         }
 
         #endregion

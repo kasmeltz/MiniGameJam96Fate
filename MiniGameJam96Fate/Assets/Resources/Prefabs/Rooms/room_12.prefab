@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4182206869747891466}
   - component: {fileID: 1825419878493305159}
   m_Layer: 0
-  m_Name: entrance
+  m_Name: R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4926070961654288628}
   - component: {fileID: 6414564098688338921}
   m_Layer: 0
-  m_Name: entrance
+  m_Name: U
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 7812389073029811496}
   - component: {fileID: 6455234241615450126}
   m_Layer: 0
-  m_Name: entrance
+  m_Name: D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 7539183961016924737}
   - component: {fileID: 913468983064072945}
   m_Layer: 0
-  m_Name: entrance
+  m_Name: L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

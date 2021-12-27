@@ -17,7 +17,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 5,
                 ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 5f
+                ReaperMovementCooldown = 5f,
+                WallPercentage = 0.1f
             },
             new GameStage
             {
@@ -28,7 +29,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 4.5f,
                 ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 7.5f
+                ReaperMovementCooldown = 7.5f,
+                WallPercentage = 0.15f
             },
             new GameStage
             {
@@ -39,7 +41,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 4f,
                 ReaperMovementStep = 0.04f,
-                ReaperMovementCooldown = 10f
+                ReaperMovementCooldown = 10f,
+                WallPercentage = 0.2f
             },
             new GameStage
             {
@@ -50,7 +53,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 3.5f,
                 ReaperMovementStep = 0.06f,
-                ReaperMovementCooldown = 10f
+                ReaperMovementCooldown = 10f,
+                WallPercentage = 0.25f
             },
             new GameStage
             {
@@ -61,7 +65,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 3f,
                 ReaperMovementStep = 0.06f,
-                ReaperMovementCooldown = 12.5f
+                ReaperMovementCooldown = 12.5f,
+                WallPercentage = 0.3f
             },
             new GameStage
             {
@@ -72,7 +77,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 2.5f,
                 ReaperMovementStep = 0.06f,
-                ReaperMovementCooldown = 15f
+                ReaperMovementCooldown = 15f,
+                WallPercentage = 0.35f
             },
             new GameStage
             {
@@ -83,7 +89,8 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Logic
                 ReaperAppearTime = 10,
                 ReaperFreezeTime = 2f,
                 ReaperMovementStep = 0.08f,
-                ReaperMovementCooldown = 17.5f
+                ReaperMovementCooldown = 17.5f,
+                WallPercentage = 0.4f
             }
         };
 

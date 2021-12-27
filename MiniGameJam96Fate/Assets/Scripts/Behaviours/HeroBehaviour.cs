@@ -409,6 +409,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                             hitAWall = true;
                             break;
                         }
+
+                        tile = DungeonBehaviour
+                            .Floor
+                            .GetTile(cellPosition);
+
+                        if (tile == null)
+                        {
+                            hitAWall = true;
+                            break;
+                        }
                     }
 
                     if (hitAWall)
@@ -480,6 +490,16 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
                             .GetTile(cellPosition);
 
                         if (tile != null)
+                        {
+                            hitAWall = true;
+                            break;
+                        }
+
+                        tile = DungeonBehaviour
+                            .Floor
+                            .GetTile(cellPosition);
+
+                        if (tile == null)
                         {
                             hitAWall = true;
                             break;
@@ -570,49 +590,6 @@ namespace HairyNerdStudios.GameJams.MiniGameJam96.Unity.Behaviours
             IsDead = false;
             WallSmashPower = 1;
             SpeedBoostPower = 1;
-
-            int attempts = 0;
-            Vector3Int cellPosition = new Vector3Int(0, 0, 0);
-            bool incrementX = true;
-            do
-            {
-                var tile = DungeonBehaviour
-                    .Walls
-                    .GetTile(cellPosition);
-
-                if (tile == null)
-                {
-                    var pos = DungeonBehaviour
-                        .Walls
-                        .CellToWorld(cellPosition);
-
-                    transform.position = pos;
-
-                    pos.z = -10;
-                    Camera.main.transform.position = pos;
-
-                    break;
-                }
-
-                if (incrementX)
-                {
-                    cellPosition.x++;
-                    incrementX = false;
-                }
-                else
-                {
-                    cellPosition.y++;
-                    incrementX = true;
-                }
- 
-                attempts++;
-                if (attempts > 100)
-                {
-                    break;
-                }
-            } while (true);
-            
-
         }
 
         #endregion

@@ -2,6 +2,8 @@
 {
     public class GameStage
     {
+        public float WallPercentage { get; set; }
+
         public int RoomCount { get; set; }
 
         public int FlareOrbCount { get; set; }
